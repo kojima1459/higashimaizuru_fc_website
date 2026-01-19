@@ -263,8 +263,8 @@ function NewsManagement() {
 // 試合結果管理コンポーネント
 function ResultsManagement() {
   const [opponent, setOpponent] = useState("");
-  const [ourScore, setOurScore] = useState("");
-  const [opponentScore, setOpponentScore] = useState("");
+  const [ourScore, setOurScore] = useState("0");
+  const [opponentScore, setOpponentScore] = useState("0");
   const [matchDate, setMatchDate] = useState<Date | undefined>(undefined);
   const [venue, setVenue] = useState("");
   const [notes, setNotes] = useState("");
@@ -295,8 +295,8 @@ function ResultsManagement() {
 
   const resetForm = () => {
     setOpponent("");
-    setOurScore("");
-    setOpponentScore("");
+    setOurScore("0");
+    setOpponentScore("0");
     setMatchDate(undefined);
     setVenue("");
     setNotes("");
@@ -310,9 +310,27 @@ function ResultsManagement() {
     console.log("Form submit - ourScore:", ourScore);
     console.log("Form submit - opponentScore:", opponentScore);
 
-    if (!opponent || !ourScore || !opponentScore || !matchDate) {
-      console.error("バリデーションエラー:", { opponent, ourScore, opponentScore, matchDate });
-      toast.error("必須項目を入力してください");
+    // バリデーション：対戦相手と試合日は必須、スコアは0以上の数値
+    const ourScoreNum = parseInt(ourScore, 10);
+    const opponentScoreNum = parseInt(opponentScore, 10);
+    
+    if (!opponent.trim()) {
+      toast.error("対戦相手を入力してください");
+      return;
+    }
+    
+    if (!matchDate) {
+      toast.error("試合日を選択してください");
+      return;
+    }
+    
+    if (isNaN(ourScoreNum) || ourScoreNum < 0) {
+      toast.error("自チームスコアは0以上の数値を入力してください");
+      return;
+    }
+    
+    if (isNaN(opponentScoreNum) || opponentScoreNum < 0) {
+      toast.error("相手チームスコアは0以上の数値を入力してください");
       return;
     }
 
@@ -326,9 +344,9 @@ function ResultsManagement() {
     });
 
     createMutation.mutate({
-      opponent,
-      ourScore: parseInt(ourScore),
-      opponentScore: parseInt(opponentScore),
+      opponent: opponent.trim(),
+      ourScore: ourScoreNum,
+      opponentScore: opponentScoreNum,
       matchDate: format(matchDate, "yyyy-MM-dd"),
       venue: venue || undefined,
       notes: notes || undefined,
