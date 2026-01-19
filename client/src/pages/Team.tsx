@@ -2,7 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Team() {
   return (
-    <div className="container py-12">
+    <div className="min-h-screen bg-background">
+      <div className="container py-12">
       <h1 className="text-4xl font-bold text-foreground mb-8">チーム情報</h1>
 
       {/* 基本方針 */}
@@ -70,6 +71,7 @@ export default function Team() {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }

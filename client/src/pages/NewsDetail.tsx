@@ -12,15 +12,18 @@ export default function NewsDetail() {
 
   if (isLoading) {
     return (
-      <div className="container py-12 flex justify-center">
+      <div className="min-h-screen bg-background">
+        <div className="container py-12 flex justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
       </div>
     );
   }
 
   if (!news) {
     return (
-      <div className="container py-12">
+      <div className="min-h-screen bg-background">
+        <div className="container py-12">
         <Card>
           <CardContent className="py-12 text-center">
             <p className="text-muted-foreground mb-4">お知らせが見つかりません</p>
@@ -32,12 +35,14 @@ export default function NewsDetail() {
             </Link>
           </CardContent>
         </Card>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="container py-12">
+    <div className="min-h-screen bg-background">
+      <div className="container py-12">
       <Link href="/news">
         <Button variant="ghost" className="mb-6">
           <ArrowLeft className="mr-2 h-4 w-4" />
@@ -63,6 +68,7 @@ export default function NewsDetail() {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }

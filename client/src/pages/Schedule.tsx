@@ -2,7 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Schedule() {
   return (
-    <div className="container py-12">
+    <div className="min-h-screen bg-background">
+      <div className="container py-12">
       <h1 className="text-4xl font-bold text-foreground mb-8">スケジュール</h1>
 
       <Card className="mb-8">
@@ -52,6 +53,7 @@ export default function Schedule() {
           </ol>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }

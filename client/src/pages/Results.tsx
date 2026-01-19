@@ -14,7 +14,8 @@ export default function Results() {
   const { data: results, isLoading } = trpc.matchResults.list.useQuery();
 
   return (
-    <div className="container py-12">
+    <div className="min-h-screen bg-background">
+      <div className="container py-12">
       <h1 className="text-4xl font-bold text-foreground mb-8">試合結果</h1>
 
       {isLoading ? (
@@ -72,6 +73,7 @@ export default function Results() {
           </CardContent>
         </Card>
       )}
+      </div>
     </div>
   );
 }

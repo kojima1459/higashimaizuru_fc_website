@@ -54,7 +54,8 @@ export default function Bbs() {
   };
 
   return (
-    <div className="container py-12">
+    <div className="min-h-screen bg-background">
+      <div className="container py-12">
       <h1 className="text-4xl font-bold text-foreground mb-8">掲示板</h1>
 
       {/* 投稿フォーム */}
@@ -142,6 +143,7 @@ export default function Bbs() {
           </Card>
         )}
       </div>
+    </div>
     </div>
   );
 }

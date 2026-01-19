@@ -37,7 +37,8 @@ export default function Contact() {
   };
 
   return (
-    <div className="container py-12">
+    <div className="min-h-screen bg-background">
+      <div className="container py-12">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl font-bold text-foreground mb-8">お問い合わせ</h1>
 
@@ -123,6 +124,7 @@ export default function Contact() {
           </CardContent>
         </Card>
       </div>
+    </div>
     </div>
   );
 }

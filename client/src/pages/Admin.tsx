@@ -19,19 +19,22 @@ export default function Admin() {
   // 管理者権限チェック
   if (!user || user.role !== "admin") {
     return (
-      <div className="container py-12">
+      <div className="min-h-screen bg-background">
+        <div className="container py-12">
         <Card>
           <CardContent className="py-12 text-center">
             <p className="text-muted-foreground mb-4">管理者権限が必要です</p>
             <Button onClick={() => setLocation("/")}>ホームに戻る</Button>
           </CardContent>
         </Card>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="container py-12">
+    <div className="min-h-screen bg-background">
+      <div className="container py-12">
       <h1 className="text-4xl font-bold text-foreground mb-8">管理画面</h1>
 
       <Tabs defaultValue="news" className="w-full">
@@ -53,6 +56,7 @@ export default function Admin() {
           <ContactsList />
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 }
