@@ -4,30 +4,49 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 export default function InstagramFeed() {
   useEffect(() => {
     // Instagramの埋め込みスクリプトを読み込む
-    try {
-      const script = document.createElement("script");
-      script.src = "https://www.instagram.com/embed.js";
-      script.async = true;
-      script.onload = () => {
-        // スクリプト読み込み後にInstagramウィジェットを処理
-        if (window.instgrm) {
-          window.instgrm.Embeds.process();
+    let script: HTMLScriptElement | null = null;
+    
+    const loadInstagramScript = () => {
+      try {
+        // 既にスクリプトが読み込まれているか確認
+        const existingScript = document.querySelector('script[src="https://www.instagram.com/embed.js"]');
+        if (existingScript) {
+          if (window.instgrm) {
+            window.instgrm.Embeds.process();
+          }
+          return;
         }
-      };
-      script.onerror = () => {
-        console.warn("Instagram embed script failed to load");
-      };
-      document.body.appendChild(script);
 
-      return () => {
-        // クリーンアップ
-        if (script.parentNode) {
-          script.parentNode.removeChild(script);
-        }
-      };
-    } catch (error) {
-      console.warn("Error loading Instagram embed:", error);
-    }
+        script = document.createElement("script");
+        script.src = "https://www.instagram.com/embed.js";
+        script.async = true;
+        script.crossOrigin = "anonymous";
+        
+        script.onload = () => {
+          try {
+            if (window.instgrm) {
+              window.instgrm.Embeds.process();
+            }
+          } catch (e) {
+            // エラーを無視（ユーザーには影響しない）
+          }
+        };
+        
+        script.onerror = () => {
+          // エラーを無視（ユーザーには影響しない）
+        };
+        
+        document.body.appendChild(script);
+      } catch (error) {
+        // エラーを無視（ユーザーには影響しない）
+      }
+    };
+
+    loadInstagramScript();
+
+    return () => {
+      // クリーンアップは行わない（スクリプトは他のコンポーネントでも使用される可能性がある）
+    };
   }, []);
 
   return (
