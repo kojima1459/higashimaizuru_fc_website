@@ -15,6 +15,29 @@ export default function Home() {
         description="京都府舞鶴市を拠点とするサッカースポーツ少年団です。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。"
         image="/logo.jpeg"
         type="website"
+        keywords="東舞鶴F.C,東舞鶴FC,舞鶴,サッカー,スポーツ少年団,京都,少年サッカー,ジュニアサッカー,サッカークラブ,サッカーチーム"
+      />
+      {/* 構造化データ (JSON-LD) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SportsTeam",
+            "name": "東舞鶴F.C",
+            "sport": "サッカー",
+            "description": "京都府舞鶴市を拠点とするサッカースポーツ少年団です。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "舞鶴市",
+              "addressRegion": "京都府",
+              "addressCountry": "JP"
+            },
+            "logo": `${window.location.origin}/logo.jpeg`,
+            "image": `${window.location.origin}/logo.jpeg`,
+            "url": window.location.href,
+          }),
+        }}
       />
       {/* ヒーローセクション */}
       <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
@@ -194,6 +217,24 @@ export default function Home() {
       <section className="py-16 bg-background">
         <div className="container">
           <InstagramFeed />
+        </div>
+      </section>
+
+      {/* SEO用テキストコンテンツ */}
+      <section className="container py-16">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-foreground mb-6">東舞鶴F.Cについて</h2>
+          <div className="space-y-4 text-foreground">
+            <p>
+              東舞鶴F.C（東舞鶴フットボールクラブ）は、京都府舞鶴市を拠点とするサッカースポーツ少年団です。私たちは、子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。
+            </p>
+            <p>
+              少年サッカー、ジュニアサッカーを通じて、子どもたちの体力向上、技術向上、そしてチームワークの大切さを学ぶ機会を提供しています。練習や試合を通じて、サッカーの楽しさを体験し、仲間との絆を深めていくことを目指しています。
+            </p>
+            <p>
+              舞鶴地域のサッカークラブとして、地域社会とのつながりを大切にし、地域の子どもたちの成長をサポートしています。初心者から経験者まで、どなたでも歓迎します。一緒にサッカーを楽しみましょう！
+            </p>
+          </div>
         </div>
       </section>
     </div>

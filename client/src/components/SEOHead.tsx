@@ -6,6 +6,7 @@ interface SEOHeadProps {
   image?: string;
   url?: string;
   type?: "website" | "article";
+  keywords?: string;
 }
 
 export default function SEOHead({
@@ -14,6 +15,7 @@ export default function SEOHead({
   image = "/logo.png",
   url,
   type = "website",
+  keywords = "東舞鶴F.C,東舞鶴FC,舞鶴,サッカー,スポーツ少年団,京都,少年サッカー,ジュニアサッカー,サッカークラブ,サッカーチーム",
 }: SEOHeadProps) {
   useEffect(() => {
     // ページタイトルを設定
@@ -64,7 +66,8 @@ export default function SEOHead({
 
     // 通常のメタタグも設定
     updateMetaTagName("description", description);
-  }, [title, description, image, url, type]);
+    updateMetaTagName("keywords", keywords);
+  }, [title, description, image, url, type, keywords]);
 
   return null;
 }
