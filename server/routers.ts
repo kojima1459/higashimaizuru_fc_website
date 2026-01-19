@@ -150,15 +150,16 @@ export const appRouter = router({
       return await db.getAllBbsPosts();
     }),
 
-    create: protectedProcedure
+    create: publicProcedure
       .input(z.object({
         content: z.string().min(1),
+        authorName: z.string().min(1).optional(),
       }))
       .mutation(async ({ input, ctx }) => {
         await db.createBbsPost({
-          ...input,
-          authorId: ctx.user.id,
-          authorName: ctx.user.name || "名無し",
+          content: input.content,
+          authorId: ctx.user?.id || null,
+          authorName: input.authorName || ctx.user?.name || "名無し",
         });
         return { success: true };
       }),

@@ -12,6 +12,7 @@ import SEOHead from "@/components/SEOHead";
 export default function Bbs() {
   const { user, isAuthenticated } = useAuth();
   const [content, setContent] = useState("");
+  const [authorName, setAuthorName] = useState("");
 
   const { data: posts, isLoading } = trpc.bbs.list.useQuery();
   const utils = trpc.useUtils();
@@ -45,7 +46,7 @@ export default function Bbs() {
       return;
     }
 
-    createMutation.mutate({ content });
+    createMutation.mutate({ content, authorName: authorName.trim() || undefined });
   };
 
   const handleDelete = (postId: number) => {
@@ -66,47 +67,49 @@ export default function Bbs() {
       <h1 className="text-4xl font-bold text-foreground mb-8">掲示板</h1>
 
       {/* 投稿フォーム */}
-      {isAuthenticated ? (
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle>新規投稿</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <Textarea
-                placeholder="投稿内容を入力してください"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                rows={4}
-              />
-              <Button
-                type="submit"
-                disabled={createMutation.isPending}
-              >
-                {createMutation.isPending ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    投稿中...
-                  </>
-                ) : (
-                  "投稿する"
-                )}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      ) : (
-        <Card className="mb-8">
-          <CardContent className="py-8 text-center">
-            <p className="text-muted-foreground mb-4">
-              投稿するにはログインが必要です
-            </p>
-            <Button asChild>
-              <a href={getLoginUrl()}>ログイン</a>
+      <Card className="mb-8">
+        <CardHeader>
+          <CardTitle>新規投稿</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {!isAuthenticated && (
+              <div>
+                <label htmlFor="authorName" className="block text-sm font-medium mb-2">
+                  名前（任意）
+                </label>
+                <input
+                  id="authorName"
+                  type="text"
+                  placeholder="名前を入力（空欄の場合は「名無し」）"
+                  value={authorName}
+                  onChange={(e) => setAuthorName(e.target.value)}
+                  className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
+                />
+              </div>
+            )}
+            <Textarea
+              placeholder="投稿内容を入力してください"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              rows={4}
+            />
+            <Button
+              type="submit"
+              disabled={createMutation.isPending}
+            >
+              {createMutation.isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  投稿中...
+                </>
+              ) : (
+                "投稿する"
+              )}
             </Button>
-          </CardContent>
-        </Card>
-      )}
+          </form>
+        </CardContent>
+      </Card>
 
       {/* 投稿一覧 */}
       <div className="space-y-4">

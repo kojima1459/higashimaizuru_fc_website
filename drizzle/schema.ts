@@ -71,7 +71,7 @@ export type InsertContact = typeof contacts.$inferInsert;
  */
 export const bbsPosts = mysqlTable("bbs_posts", {
   id: int("id").autoincrement().primaryKey(),
-  authorId: int("authorId").notNull(),
+  authorId: int("authorId"),
   authorName: varchar("authorName", { length: 255 }).notNull(),
   content: text("content").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),

@@ -22,6 +22,13 @@
       "when": 1768834474467,
       "tag": "0002_solid_timeslip",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1768863786342,
+      "tag": "0003_wild_firedrake",
+      "breakpoints": true
     }
   ]
 }

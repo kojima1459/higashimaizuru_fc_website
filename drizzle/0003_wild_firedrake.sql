@@ -1,0 +1,1 @@
+ALTER TABLE `bbs_posts` MODIFY COLUMN `authorId` int;

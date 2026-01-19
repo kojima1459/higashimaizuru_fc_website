@@ -16,14 +16,14 @@ export default function AccessMap() {
           <div>
             <h3 className="font-semibold text-lg mb-2">舞鶴市立朝来小学校</h3>
             <p className="text-muted-foreground text-sm">
-              〒625-0036 京都府舞鶴市字浜1番地
+              〒625-0005 京都府舞鶴市朝来中545-1
             </p>
           </div>
 
           {/* Google Maps埋め込み */}
           <div className="rounded-lg overflow-hidden border border-border">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.8!2d135.3!3d35.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDI0JzAwLjAiTiAxMzXCsDE4JzAwLjAiRQ!5e0!3m2!1sja!2sjp!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.7!2d135.431132!3d35.501205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5fff87cab1b34931%3A0xca4c3688d7f357a3!2z6Iie6ba05biC56uL5pyd5p2l5bCP5a2m5qCh!5e0!3m2!1sja!2sjp!4v1737370800000!5m2!1sja!2sjp"
               width="100%"
               height="300"
               style={{ border: 0 }}
