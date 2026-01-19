@@ -11,6 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Loader2, Trash2, Edit } from "lucide-react";
+import { DatePicker } from "@/components/ui/date-picker";
+import { format } from "date-fns";
 
 export default function Admin() {
   const { user } = useAuth();
@@ -263,7 +265,7 @@ function ResultsManagement() {
   const [opponent, setOpponent] = useState("");
   const [ourScore, setOurScore] = useState("");
   const [opponentScore, setOpponentScore] = useState("");
-  const [matchDate, setMatchDate] = useState("");
+  const [matchDate, setMatchDate] = useState<Date | undefined>(undefined);
   const [venue, setVenue] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -295,7 +297,7 @@ function ResultsManagement() {
     setOpponent("");
     setOurScore("");
     setOpponentScore("");
-    setMatchDate("");
+    setMatchDate(undefined);
     setVenue("");
     setNotes("");
   };
@@ -303,16 +305,31 @@ function ResultsManagement() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    console.log("Form submit - matchDate:", matchDate);
+    console.log("Form submit - opponent:", opponent);
+    console.log("Form submit - ourScore:", ourScore);
+    console.log("Form submit - opponentScore:", opponentScore);
+
     if (!opponent || !ourScore || !opponentScore || !matchDate) {
+      console.error("バリデーションエラー:", { opponent, ourScore, opponentScore, matchDate });
       toast.error("必須項目を入力してください");
       return;
     }
+
+    console.log("ミューテーション実行:", {
+      opponent,
+      ourScore: parseInt(ourScore),
+      opponentScore: parseInt(opponentScore),
+      matchDate,
+      venue: venue || undefined,
+      notes: notes || undefined,
+    });
 
     createMutation.mutate({
       opponent,
       ourScore: parseInt(ourScore),
       opponentScore: parseInt(opponentScore),
-      matchDate,
+      matchDate: format(matchDate, "yyyy-MM-dd"),
       venue: venue || undefined,
       notes: notes || undefined,
     });
@@ -345,11 +362,10 @@ function ResultsManagement() {
 
               <div className="space-y-2">
                 <Label htmlFor="matchDate">試合日</Label>
-                <Input
-                  id="matchDate"
-                  type="date"
-                  value={matchDate}
-                  onChange={(e) => setMatchDate(e.target.value)}
+                <DatePicker
+                  date={matchDate}
+                  onDateChange={setMatchDate}
+                  placeholder="試合日を選択"
                 />
               </div>
 
