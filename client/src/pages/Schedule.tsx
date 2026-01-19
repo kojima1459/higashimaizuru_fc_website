@@ -22,12 +22,20 @@ export default function Schedule() {
           </div>
 
           {/* Googleカレンダー埋め込み */}
-          <div className="w-full aspect-video bg-secondary rounded-lg flex items-center justify-center">
-            <p className="text-muted-foreground text-center px-4">
-              Googleカレンダーを埋め込む場合は、<br />
-              GoogleカレンダーのURLを管理者にお知らせください
-            </p>
+          <div className="w-full rounded-lg overflow-hidden border border-border">
+            <iframe
+              src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&mode=AGENDA&src=ja.japanese%23holiday%40group.v.calendar.google.com"
+              style={{ border: 0 }}
+              width="100%"
+              height="600"
+              frameBorder="0"
+              scrolling="no"
+              title="スケジュールカレンダー"
+            ></iframe>
           </div>
+          <p className="text-sm text-muted-foreground mt-4">
+            ※ 現在はデモ用のカレンダーを表示しています。実際のチームカレンダーを表示するには、Googleカレンダーの埋め込みコードを置き換えてください。
+          </p>
         </CardContent>
       </Card>
 
