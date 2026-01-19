@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
 import { Calendar, Trophy, Users, MessageSquare } from "lucide-react";
+import InstagramFeed from "@/components/InstagramFeed";
 
 export default function Home() {
   return (
@@ -166,6 +167,13 @@ export default function Home() {
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Instagramフィード */}
+      <section className="py-16 bg-card">
+        <div className="container">
+          <InstagramFeed />
         </div>
       </section>
     </div>
