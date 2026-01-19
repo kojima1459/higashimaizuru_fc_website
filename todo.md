@@ -86,3 +86,4 @@
 
 ## バグ修正
 - [x] ShareButtonsコンポーネントのwindowオブジェクトアクセスエラーを修正
+- [x] InstagramFeedコンポーネントのInstagram埋め込みスクリプトエラーを修正

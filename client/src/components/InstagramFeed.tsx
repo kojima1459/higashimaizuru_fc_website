@@ -4,17 +4,30 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 export default function InstagramFeed() {
   useEffect(() => {
     // Instagramの埋め込みスクリプトを読み込む
-    const script = document.createElement("script");
-    script.src = "https://www.instagram.com/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
+    try {
+      const script = document.createElement("script");
+      script.src = "https://www.instagram.com/embed.js";
+      script.async = true;
+      script.onload = () => {
+        // スクリプト読み込み後にInstagramウィジェットを処理
+        if (window.instgrm) {
+          window.instgrm.Embeds.process();
+        }
+      };
+      script.onerror = () => {
+        console.warn("Instagram embed script failed to load");
+      };
+      document.body.appendChild(script);
 
-    return () => {
-      // クリーンアップ
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-    };
+      return () => {
+        // クリーンアップ
+        if (script.parentNode) {
+          script.parentNode.removeChild(script);
+        }
+      };
+    } catch (error) {
+      console.warn("Error loading Instagram embed:", error);
+    }
   }, []);
 
   return (
@@ -37,6 +50,7 @@ export default function InstagramFeed() {
               frameBorder="0"
               scrolling="no"
               className="rounded-lg border border-border"
+              title="Instagram Profile"
             />
           </div>
 
@@ -62,4 +76,15 @@ export default function InstagramFeed() {
       </CardContent>
     </Card>
   );
+}
+
+// TypeScript型定義
+declare global {
+  interface Window {
+    instgrm?: {
+      Embeds: {
+        process: () => void;
+      };
+    };
+  }
 }
