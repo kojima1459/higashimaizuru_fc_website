@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
 import { Calendar, Trophy, Users, MessageSquare } from "lucide-react";
-import InstagramFeed from "@/components/InstagramFeed";
+import { InstagramFeed } from "@/components/InstagramFeed";
 import ShareButtons from "@/components/ShareButtons";
 import AccessMap from "@/components/AccessMap";
 import SEOHead from "@/components/SEOHead";
