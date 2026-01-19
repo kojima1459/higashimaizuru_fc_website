@@ -118,3 +118,8 @@
 
 ## Instagram表示復元
 - [x] InstagramFeedコンポーネントを投稿グリッド表示に復元
+- [x] Instagram公式埋め込みスクリプトでプロフィール表示を実装
+
+## Instagram投稿の手動埋め込み機能
+- [ ] 管理画面からInstagram投稿を登録・編集・削除できる機能を実装
+- [ ] 登録されたInstagram投稿をホームページに表示
