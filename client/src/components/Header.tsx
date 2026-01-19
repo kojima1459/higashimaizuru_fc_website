@@ -19,14 +19,14 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+    <header className="sticky top-0 z-50 w-full border-b border-primary/20 bg-primary backdrop-blur supports-[backdrop-filter]:bg-primary/95">
       <div className="container">
         <div className="flex h-16 items-center justify-between">
           {/* ロゴ */}
           <Link href="/">
             <div className="flex items-center gap-3 cursor-pointer">
               <img src="/logo.jpeg" alt="東舞鶴F.C" className="h-12 w-12 rounded-full object-cover" />
-              <span className="text-xl font-bold text-foreground hidden sm:inline">東舞鶴F.C</span>
+              <span className="text-xl font-bold text-primary-foreground hidden sm:inline">東舞鶴F.C</span>
             </div>
           </Link>
 
@@ -34,14 +34,14 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
-                <span className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                <span className="text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground transition-colors cursor-pointer">
                   {item.label}
                 </span>
               </Link>
             ))}
             {isAuthenticated && user?.role === "admin" && (
               <Link href="/admin">
-                <span className="text-sm font-medium text-primary hover:text-primary/80 transition-colors cursor-pointer">
+                <span className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors cursor-pointer font-semibold">
                   管理画面
                 </span>
               </Link>
@@ -54,9 +54,9 @@ export default function Header() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? (
-              <X className="h-6 w-6 text-foreground" />
+              <X className="h-6 w-6 text-primary-foreground" />
             ) : (
-              <Menu className="h-6 w-6 text-foreground" />
+              <Menu className="h-6 w-6 text-primary-foreground" />
             )}
           </button>
         </div>
@@ -68,7 +68,7 @@ export default function Header() {
               {navItems.map((item) => (
                 <Link key={item.href} href={item.href}>
                   <span
-                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                    className="text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground transition-colors cursor-pointer"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.label}
@@ -78,7 +78,7 @@ export default function Header() {
               {isAuthenticated && user?.role === "admin" && (
                 <Link href="/admin">
                   <span
-                    className="text-sm font-medium text-primary hover:text-primary/80 transition-colors cursor-pointer"
+                    className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors cursor-pointer font-semibold"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     管理画面
