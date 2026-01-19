@@ -34,16 +34,16 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
-                <a className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                <span className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
                   {item.label}
-                </a>
+                </span>
               </Link>
             ))}
             {isAuthenticated && user?.role === "admin" && (
               <Link href="/admin">
-                <a className="text-sm font-medium text-primary hover:text-primary/80 transition-colors">
+                <span className="text-sm font-medium text-primary hover:text-primary/80 transition-colors cursor-pointer">
                   管理画面
-                </a>
+                </span>
               </Link>
             )}
           </nav>
@@ -67,22 +67,22 @@ export default function Header() {
             <nav className="flex flex-col gap-4">
               {navItems.map((item) => (
                 <Link key={item.href} href={item.href}>
-                  <a
-                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  <span
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.label}
-                  </a>
+                  </span>
                 </Link>
               ))}
               {isAuthenticated && user?.role === "admin" && (
                 <Link href="/admin">
-                  <a
-                    className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                  <span
+                    className="text-sm font-medium text-primary hover:text-primary/80 transition-colors cursor-pointer"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     管理画面
-                  </a>
+                  </span>
                 </Link>
               )}
             </nav>
