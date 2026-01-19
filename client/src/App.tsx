@@ -16,6 +16,7 @@ import Team from "./pages/Team";
 import Contact from "./pages/Contact";
 import Bbs from "./pages/Bbs";
 import Admin from "./pages/Admin";
+import AdminManagement from "./pages/AdminManagement";
 
 function Router() {
   return (
@@ -32,6 +33,7 @@ function Router() {
           <Route path="/contact" component={Contact} />
           <Route path="/bbs" component={Bbs} />
           <Route path="/admin" component={Admin} />
+          <Route path="/admin/management" component={AdminManagement} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>

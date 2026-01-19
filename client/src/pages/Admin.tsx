@@ -35,7 +35,10 @@ export default function Admin() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container py-12">
-      <h1 className="text-4xl font-bold text-foreground mb-8">管理画面</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-4xl font-bold text-foreground">管理画面</h1>
+        <Button onClick={() => setLocation("/admin/management")}>コンテンツ管理</Button>
+      </div>
 
       <Tabs defaultValue="news" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
