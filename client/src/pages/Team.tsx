@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import SEOHead from "@/components/SEOHead";
 
 export default function Team() {
   const clubFees = [
@@ -31,6 +32,12 @@ export default function Team() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="チーム情報 - 東舞鶴F.C"
+        description="東舞鶴F.Cのチーム紹介、活動内容、入団案内などの情報をご覧いただけます。"
+        image="/logo.jpeg"
+        type="website"
+      />
       <div className="container py-12">
         <h1 className="text-4xl font-bold text-foreground mb-8">チーム情報</h1>
 

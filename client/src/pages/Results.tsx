@@ -1,6 +1,7 @@
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 import {
   Table,
   TableBody,
@@ -15,6 +16,12 @@ export default function Results() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="試合結果 - 東舞鶴F.C"
+        description="東舞鶴F.Cの過去の試合結果一覧です。"
+        image="/logo.jpeg"
+        type="website"
+      />
       <div className="container py-12">
       <h1 className="text-4xl font-bold text-foreground mb-8">試合結果</h1>
 

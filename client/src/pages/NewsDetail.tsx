@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
+import SEOHead from "@/components/SEOHead";
 
 export default function NewsDetail() {
   const [, params] = useRoute("/news/:id");
@@ -43,6 +44,12 @@ export default function NewsDetail() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title={`${news.title} - 東舞鶴F.C`}
+        description={news.content.substring(0, 150)}
+        image="/logo.jpeg"
+        type="article"
+      />
       <div className="container py-12">
       <Link href="/news">
         <Button variant="ghost" className="mb-6">

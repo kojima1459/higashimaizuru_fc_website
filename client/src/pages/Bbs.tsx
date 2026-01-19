@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Loader2, Trash2 } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 export default function Bbs() {
   const { user, isAuthenticated } = useAuth();
@@ -55,6 +56,12 @@ export default function Bbs() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="掲示板 - 東舞鶴F.C"
+        description="東舞鶴F.Cの保護者・選手の交流掲示板です。"
+        image="/logo.jpeg"
+        type="website"
+      />
       <div className="container py-12">
       <h1 className="text-4xl font-bold text-foreground mb-8">掲示板</h1>
 

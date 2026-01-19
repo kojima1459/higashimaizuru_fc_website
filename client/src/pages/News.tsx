@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { Loader2 } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 const categories = ["全ての記事", "練習", "試合", "連絡事項", "その他"];
 
@@ -16,6 +17,12 @@ export default function News() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="お知らせ - 東舞鶴F.C"
+        description="東舞鶴F.Cの練習や試合の最新情報、連絡事項をお知らせします。"
+        image="/logo.jpeg"
+        type="website"
+      />
       <div className="container py-12">
         <h1 className="text-4xl font-bold text-foreground mb-8">お知らせ</h1>
 

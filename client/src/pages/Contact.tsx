@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -38,6 +39,12 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="お問い合わせ - 東舞鶴F.C"
+        description="東舞鶴F.Cへのお問い合わせはこちらから。入団に関するご質問もお気軽にどうぞ。"
+        image="/logo.jpeg"
+        type="website"
+      />
       <div className="container py-12">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl font-bold text-foreground mb-8">お問い合わせ</h1>

@@ -1,8 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import SEOHead from "@/components/SEOHead";
 
 export default function Schedule() {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="スケジュール - 東舞鶴F.C"
+        description="東舞鶴F.Cの練習・試合予定をご確認いただけます。"
+        image="/logo.jpeg"
+        type="website"
+      />
       <div className="container py-12">
       <h1 className="text-4xl font-bold text-foreground mb-8">スケジュール</h1>
 

@@ -5,10 +5,17 @@ import { Calendar, Trophy, Users, MessageSquare } from "lucide-react";
 import InstagramFeed from "@/components/InstagramFeed";
 import ShareButtons from "@/components/ShareButtons";
 import AccessMap from "@/components/AccessMap";
+import SEOHead from "@/components/SEOHead";
 
 export default function Home() {
   return (
     <div className="w-full">
+      <SEOHead
+        title="東舞鶴F.C ウェブサイト - 京都府舞鶴市のサッカースポーツ少年団"
+        description="京都府舞鶴市を拠点とするサッカースポーツ少年団です。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。"
+        image="/logo.jpeg"
+        type="website"
+      />
       {/* ヒーローセクション */}
       <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background z-10" />
