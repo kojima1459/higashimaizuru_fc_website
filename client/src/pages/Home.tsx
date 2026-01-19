@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
-import { Calendar, Trophy, Users, MessageSquare } from "lucide-react";
+import { Calendar, Trophy, Users, MessageSquare, Target, Sparkles, Award } from "lucide-react";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import ShareButtons from "@/components/ShareButtons";
 import AccessMap from "@/components/AccessMap";
@@ -70,6 +70,62 @@ export default function Home() {
           {/* SNSシェアボタン */}
           <div className="mt-8 flex justify-center">
             <ShareButtons />
+          </div>
+        </div>
+      </section>
+
+      {/* 基本方針 */}
+      <section className="py-0">
+        <div className="w-full">
+          {/* セクション1: クラブ運営の目標 */}
+          <div className="bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-500 py-16 px-4">
+            <div className="container max-w-4xl mx-auto text-center">
+              <div className="flex justify-center mb-6">
+                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
+                  <Target className="h-16 w-16 text-white" />
+                </div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+                Jrから大人までの一体型クラブ運営を目指しています
+              </h2>
+              <div className="space-y-4 text-lg text-white/95">
+                <p className="font-medium">・サッカーを大好きになってほしい</p>
+                <p className="font-medium">・サッカーを通して仲間の大切さに気づき、人を思いやる心を育んでほしい</p>
+                <p className="font-medium">・いつも感謝の心を大切にしてほしい</p>
+              </div>
+            </div>
+          </div>
+
+          {/* セクション2: サッカーの教育的価値 */}
+          <div className="bg-gradient-to-br from-rose-400 via-red-400 to-rose-500 py-16 px-4">
+            <div className="container max-w-4xl mx-auto text-center">
+              <div className="flex justify-center mb-6">
+                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
+                  <Sparkles className="h-16 w-16 text-white" />
+                </div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+                サッカーは、子供の創造性をのばすことのできるスポーツです。
+              </h2>
+              <div className="space-y-4 text-lg text-white/95">
+                <p className="font-medium">・無限の選択肢が秘めているボールにどんな命を吹き込むか、すべてがその子供の創造性にゆだねられています</p>
+                <p className="font-medium">・子供たちは自分自身を表現することの楽しさを味わうことができるでしょう。</p>
+              </div>
+            </div>
+          </div>
+
+          {/* セクション3: サッカーの人間形成 */}
+          <div className="bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 py-16 px-4">
+            <div className="container max-w-4xl mx-auto text-center">
+              <div className="flex justify-center mb-6">
+                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
+                  <Award className="h-16 w-16 text-white" />
+                </div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                サッカーは子どもを大人にし、<br />大人を紳士にする。
+              </h2>
+            </div>
           </div>
         </div>
       </section>
