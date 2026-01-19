@@ -28,45 +28,16 @@ export default function InstagramFeed() {
             最新の活動状況をInstagramでチェック！
           </p>
           
-          {/* Instagram埋め込みコンテナ */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* 
-              ここにInstagramの埋め込みコードを配置します
-              例: 
-              <blockquote 
-                className="instagram-media" 
-                data-instgrm-permalink="https://www.instagram.com/p/POST_ID/"
-                data-instgrm-version="14"
-              ></blockquote>
-            */}
-            
-            {/* プレースホルダー: 実際の埋め込みコードに置き換えてください */}
-            <div className="text-center py-8 border border-border rounded-lg">
-              <p className="text-muted-foreground text-sm">
-                Instagram投稿1
-              </p>
-              <p className="text-xs text-muted-foreground mt-2">
-                埋め込みコードを追加してください
-              </p>
-            </div>
-            
-            <div className="text-center py-8 border border-border rounded-lg">
-              <p className="text-muted-foreground text-sm">
-                Instagram投稿2
-              </p>
-              <p className="text-xs text-muted-foreground mt-2">
-                埋め込みコードを追加してください
-              </p>
-            </div>
-            
-            <div className="text-center py-8 border border-border rounded-lg">
-              <p className="text-muted-foreground text-sm">
-                Instagram投稿3
-              </p>
-              <p className="text-xs text-muted-foreground mt-2">
-                埋め込みコードを追加してください
-              </p>
-            </div>
+          {/* Instagramプロフィール埋め込み */}
+          <div className="flex justify-center">
+            <iframe
+              src="https://www.instagram.com/higashimaizurufc/embed"
+              width="100%"
+              height="600"
+              frameBorder="0"
+              scrolling="no"
+              className="rounded-lg border border-border"
+            />
           </div>
 
           <div className="text-center mt-6">

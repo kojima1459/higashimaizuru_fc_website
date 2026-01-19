@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Link } from "wouter";
 import { Calendar, Trophy, Users, MessageSquare } from "lucide-react";
 import InstagramFeed from "@/components/InstagramFeed";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function Home() {
   return (
@@ -34,6 +35,10 @@ export default function Home() {
                 チーム情報
               </Button>
             </Link>
+          </div>
+          {/* SNSシェアボタン */}
+          <div className="mt-8 flex justify-center">
+            <ShareButtons />
           </div>
         </div>
       </section>

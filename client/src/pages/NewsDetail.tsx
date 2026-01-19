@@ -3,6 +3,7 @@ import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2 } from "lucide-react";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function NewsDetail() {
   const [, params] = useRoute("/news/:id");
@@ -65,6 +66,10 @@ export default function NewsDetail() {
         <CardContent>
           <div className="prose prose-invert max-w-none">
             <p className="whitespace-pre-wrap text-foreground">{news.content}</p>
+          </div>
+          {/* SNSシェアボタン */}
+          <div className="mt-8 pt-8 border-t border-border">
+            <ShareButtons title={news.title} description={news.content.substring(0, 100)} />
           </div>
         </CardContent>
       </Card>
