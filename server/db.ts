@@ -1,6 +1,6 @@
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and, like, gte, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, news, InsertNews, matchResults, InsertMatchResult, contacts, InsertContact, bbsPosts, InsertBbsPost } from "../drizzle/schema";
+import { InsertUser, users, news, InsertNews, matchResults, InsertMatchResult, contacts, InsertContact, bbsPosts, InsertBbsPost, schedules, InsertSchedule } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -130,9 +130,31 @@ export async function deleteNews(id: number) {
 }
 
 // 試合結果関連
-export async function getAllMatchResults() {
+export async function getAllMatchResults(filters?: {
+  opponent?: string;
+  startDate?: string;
+  endDate?: string;
+}) {
   const db = await getDb();
   if (!db) return [];
+
+  const conditions = [];
+
+  if (filters?.opponent) {
+    conditions.push(like(matchResults.opponent, `%${filters.opponent}%`));
+  }
+
+  if (filters?.startDate) {
+    conditions.push(gte(matchResults.matchDate, new Date(filters.startDate)));
+  }
+
+  if (filters?.endDate) {
+    conditions.push(lte(matchResults.matchDate, new Date(filters.endDate)));
+  }
+
+  if (conditions.length > 0) {
+    return await db.select().from(matchResults).where(and(...conditions)).orderBy(desc(matchResults.matchDate));
+  }
 
   return await db.select().from(matchResults).orderBy(desc(matchResults.matchDate));
 }
@@ -196,4 +218,61 @@ export async function deleteBbsPost(id: number) {
   if (!db) throw new Error("Database not available");
 
   await db.delete(bbsPosts).where(eq(bbsPosts.id, id));
+}
+
+// スケジュール関連
+export async function getAllSchedules(filters?: {
+  opponent?: string;
+  eventType?: string;
+  startDate?: string;
+  endDate?: string;
+}) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const conditions = [];
+
+  if (filters?.opponent) {
+    conditions.push(like(schedules.opponent, `%${filters.opponent}%`));
+  }
+
+  if (filters?.eventType && filters.eventType !== "全て") {
+    conditions.push(eq(schedules.eventType, filters.eventType as any));
+  }
+
+  if (filters?.startDate) {
+    conditions.push(gte(schedules.eventDate, new Date(filters.startDate)));
+  }
+
+  if (filters?.endDate) {
+    conditions.push(lte(schedules.eventDate, new Date(filters.endDate)));
+  }
+
+  if (conditions.length > 0) {
+    return await db.select().from(schedules).where(and(...conditions)).orderBy(desc(schedules.eventDate));
+  }
+
+  return await db.select().from(schedules).orderBy(desc(schedules.eventDate));
+}
+
+export async function createSchedule(data: InsertSchedule) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(schedules).values(data);
+  return result;
+}
+
+export async function updateSchedule(id: number, data: Partial<InsertSchedule>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.update(schedules).set(data).where(eq(schedules.id, id));
+}
+
+export async function deleteSchedule(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.delete(schedules).where(eq(schedules.id, id));
 }

@@ -78,9 +78,15 @@ export const appRouter = router({
 
   // 試合結果
   matchResults: router({
-    list: publicProcedure.query(async () => {
-      return await db.getAllMatchResults();
-    }),
+    list: publicProcedure
+      .input(z.object({
+        opponent: z.string().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
+      }).optional())
+      .query(async ({ input }) => {
+        return await db.getAllMatchResults(input);
+      }),
 
     create: adminProcedure
       .input(z.object({
@@ -169,6 +175,57 @@ export const appRouter = router({
           throw new TRPCError({ code: 'FORBIDDEN' });
         }
         await db.deleteBbsPost(input.id);
+        return { success: true };
+      }),
+  }),
+
+  // スケジュール
+  schedules: router({
+    list: publicProcedure
+      .input(z.object({
+        opponent: z.string().optional(),
+        eventType: z.string().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
+      }).optional())
+      .query(async ({ input }) => {
+        return await db.getAllSchedules(input);
+      }),
+
+    create: adminProcedure
+      .input(z.object({
+        title: z.string().min(1),
+        eventType: z.enum(["練習", "試合", "大会", "その他"]),
+        opponent: z.string().optional(),
+        eventDate: z.string().transform(str => new Date(str)),
+        venue: z.string().optional(),
+        notes: z.string().optional(),
+      }))
+      .mutation(async ({ input }) => {
+        await db.createSchedule(input as any);
+        return { success: true };
+      }),
+
+    update: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        title: z.string().min(1).optional(),
+        eventType: z.enum(["練習", "試合", "大会", "その他"]).optional(),
+        opponent: z.string().optional(),
+        eventDate: z.string().transform(str => new Date(str)).optional(),
+        venue: z.string().optional(),
+        notes: z.string().optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const { id, ...data } = input;
+        await db.updateSchedule(id, data as any);
+        return { success: true };
+      }),
+
+    delete: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        await db.deleteSchedule(input.id);
         return { success: true };
       }),
   }),

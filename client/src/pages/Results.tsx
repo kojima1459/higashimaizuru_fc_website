@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Loader2, Search, X } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import {
   Table,
@@ -12,7 +15,33 @@ import {
 } from "@/components/ui/table";
 
 export default function Results() {
-  const { data: results, isLoading } = trpc.matchResults.list.useQuery();
+  const [opponent, setOpponent] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [appliedFilters, setAppliedFilters] = useState<{
+    opponent?: string;
+    startDate?: string;
+    endDate?: string;
+  }>({});
+
+  const { data: results, isLoading } = trpc.matchResults.list.useQuery(appliedFilters);
+
+  const handleSearch = () => {
+    setAppliedFilters({
+      opponent: opponent || undefined,
+      startDate: startDate || undefined,
+      endDate: endDate || undefined,
+    });
+  };
+
+  const handleReset = () => {
+    setOpponent("");
+    setStartDate("");
+    setEndDate("");
+    setAppliedFilters({});
+  };
+
+  const hasActiveFilters = appliedFilters.opponent || appliedFilters.startDate || appliedFilters.endDate;
 
   return (
     <div className="min-h-screen bg-background">
@@ -25,6 +54,67 @@ export default function Results() {
       <div className="container py-12">
       <h1 className="text-4xl font-bold text-foreground mb-8">試合結果</h1>
 
+      {/* 検索・フィルターUI */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="text-lg">検索・フィルター</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">
+                対戦相手
+              </label>
+              <Input
+                placeholder="例：〇〇中学校"
+                value={opponent}
+                onChange={(e) => setOpponent(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">
+                開始日
+              </label>
+              <Input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">
+                終了日
+              </label>
+              <Input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button onClick={handleSearch} className="flex items-center gap-2">
+              <Search className="h-4 w-4" />
+              検索
+            </Button>
+            {hasActiveFilters && (
+              <Button onClick={handleReset} variant="outline" className="flex items-center gap-2">
+                <X className="h-4 w-4" />
+                リセット
+              </Button>
+            )}
+          </div>
+          {hasActiveFilters && (
+            <div className="mt-4 text-sm text-muted-foreground">
+              {appliedFilters.opponent && <span className="mr-4">対戦相手: {appliedFilters.opponent}</span>}
+              {appliedFilters.startDate && <span className="mr-4">開始日: {new Date(appliedFilters.startDate).toLocaleDateString("ja-JP")}</span>}
+              {appliedFilters.endDate && <span>終了日: {new Date(appliedFilters.endDate).toLocaleDateString("ja-JP")}</span>}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       {isLoading ? (
         <div className="flex justify-center py-12">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -32,7 +122,7 @@ export default function Results() {
       ) : results && results.length > 0 ? (
         <Card>
           <CardHeader>
-            <CardTitle>試合結果一覧</CardTitle>
+            <CardTitle>試合結果一覧（{results.length}件）</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
@@ -76,7 +166,9 @@ export default function Results() {
       ) : (
         <Card>
           <CardContent className="py-12 text-center">
-            <p className="text-muted-foreground">試合結果はまだありません</p>
+            <p className="text-muted-foreground">
+              {hasActiveFilters ? "検索条件に一致する試合結果が見つかりませんでした" : "試合結果はまだありません"}
+            </p>
           </CardContent>
         </Card>
       )}

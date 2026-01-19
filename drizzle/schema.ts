@@ -80,3 +80,21 @@ export const bbsPosts = mysqlTable("bbs_posts", {
 
 export type BbsPost = typeof bbsPosts.$inferSelect;
 export type InsertBbsPost = typeof bbsPosts.$inferInsert;
+
+/**
+ * スケジュールテーブル
+ */
+export const schedules = mysqlTable("schedules", {
+  id: int("id").autoincrement().primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  eventType: mysqlEnum("eventType", ["練習", "試合", "大会", "その他"]).notNull(),
+  opponent: varchar("opponent", { length: 255 }),
+  eventDate: timestamp("eventDate").notNull(),
+  venue: varchar("venue", { length: 255 }),
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Schedule = typeof schedules.$inferSelect;
+export type InsertSchedule = typeof schedules.$inferInsert;
