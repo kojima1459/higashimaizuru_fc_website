@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Share2, Facebook, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -11,9 +12,17 @@ interface ShareButtonsProps {
 export default function ShareButtons({
   title = '東舞鶴F.C ウェブサイト',
   description = 'スポーツ少年団の東舞鶴F.C公式ウェブサイト',
-  url = typeof window !== 'undefined' ? window.location.href : '',
+  url: initialUrl,
   className = '',
 }: ShareButtonsProps) {
+  const [url, setUrl] = useState<string>(initialUrl || '');
+
+  useEffect(() => {
+    if (!initialUrl && typeof window !== 'undefined') {
+      setUrl(window.location.href);
+    }
+  }, [initialUrl]);
+
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
   const encodedDescription = encodeURIComponent(description);

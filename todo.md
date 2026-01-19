@@ -83,3 +83,6 @@
 - [x] SNSシェアボタン（X・Facebook・LINE）をページに設置
 - [x] シェア時にロゴマークが表示されるようにOGP設定を追加
 - [x] Instagram埋め込みを実装（@higashimaizurufc）
+
+## バグ修正
+- [x] ShareButtonsコンポーネントのwindowオブジェクトアクセスエラーを修正
