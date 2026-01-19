@@ -39,7 +39,7 @@ export default function Home() {
       </section>
 
       {/* チーム紹介 */}
-      <section className="py-16 bg-card">
+      <section className="py-16 bg-background">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -85,7 +85,7 @@ export default function Home() {
       </section>
 
       {/* 機能紹介 */}
-      <section className="py-16">
+      <section className="py-16 bg-background">
         <div className="container">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
             サイト機能
@@ -151,7 +151,7 @@ export default function Home() {
       </section>
 
       {/* 団員募集 */}
-      <section className="py-16 bg-card">
+      <section className="py-16 bg-background">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -171,7 +171,7 @@ export default function Home() {
       </section>
 
       {/* Instagramフィード */}
-      <section className="py-16 bg-card">
+      <section className="py-16 bg-background">
         <div className="container">
           <InstagramFeed />
         </div>
