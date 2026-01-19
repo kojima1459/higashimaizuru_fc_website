@@ -6,6 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import FloatingActionButton from "./components/FloatingActionButton";
 import Home from "./pages/Home";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
@@ -36,6 +37,7 @@ function Router() {
         </Switch>
       </main>
       <Footer />
+      <FloatingActionButton />
     </div>
   );
 }

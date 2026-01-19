@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { Calendar, Trophy, Users, MessageSquare } from "lucide-react";
 import InstagramFeed from "@/components/InstagramFeed";
 import ShareButtons from "@/components/ShareButtons";
+import AccessMap from "@/components/AccessMap";
 
 export default function Home() {
   return (
@@ -14,10 +15,10 @@ export default function Home() {
         <img
           src="/field-photo.jpeg"
           alt="サッカーフィールド"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover parallax"
         />
         <div className="relative z-20 container text-center">
-          <img src="/logo.jpeg" alt="東舞鶴F.C" className="h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-primary" />
+          <img src="/logo.jpeg" alt="東舞鶴F.C" className="h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-primary glow-effect" />
           <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4">
             東舞鶴F.C
           </h1>
@@ -46,7 +47,7 @@ export default function Home() {
       {/* チーム紹介 */}
       <section className="py-16 bg-background">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center mb-12">
+          <div className="max-w-3xl mx-auto text-center mb-12 animate-fade-in-up">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               東舞鶴F.Cについて
             </h2>
@@ -56,7 +57,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto animate-fade-in-up">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -92,7 +93,7 @@ export default function Home() {
       {/* 機能紹介 */}
       <section className="py-16 bg-background">
         <div className="container">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12 animate-fade-in-up">
             サイト機能
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -172,6 +173,13 @@ export default function Home() {
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* アクセス・地図 */}
+      <section className="py-16 bg-muted/30">
+        <div className="container">
+          <AccessMap />
         </div>
       </section>
 

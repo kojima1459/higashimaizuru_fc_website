@@ -3,6 +3,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   const { user, isAuthenticated } = useAuth();
@@ -31,34 +32,43 @@ export default function Header() {
           </Link>
 
           {/* デスクトップナビゲーション */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <span className="text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground transition-colors cursor-pointer">
-                  {item.label}
-                </span>
-              </Link>
-            ))}
-            {isAuthenticated && user?.role === "admin" && (
-              <Link href="/admin">
-                <span className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors cursor-pointer font-semibold">
-                  管理画面
-                </span>
-              </Link>
-            )}
-          </nav>
+          <div className="hidden md:flex items-center gap-6">
+            <nav className="flex items-center gap-6">
+              {navItems.map((item) => (
+                <Link key={item.href} href={item.href}>
+                  <span className="text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground transition-colors cursor-pointer">
+                    {item.label}
+                  </span>
+                </Link>
+              ))}
+              {isAuthenticated && user?.role === "admin" && (
+                <Link href="/admin">
+                  <span className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors cursor-pointer font-semibold">
+                    管理画面
+                  </span>
+                </Link>
+              )}
+            </nav>
+            <div className="text-primary-foreground">
+              <ThemeToggle />
+            </div>
+          </div>
 
-          {/* モバイルメニューボタン */}
-          <button
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6 text-primary-foreground" />
-            ) : (
-              <Menu className="h-6 w-6 text-primary-foreground" />
-            )}
-          </button>
+          {/* モバイルメニューボタンとテーマトグル */}
+          <div className="md:hidden flex items-center gap-2">
+            <div className="text-primary-foreground">
+              <ThemeToggle />
+            </div>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6 text-primary-foreground" />
+              ) : (
+                <Menu className="h-6 w-6 text-primary-foreground" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* モバイルメニュー */}
