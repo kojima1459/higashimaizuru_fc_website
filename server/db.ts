@@ -1,11 +1,10 @@
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, news, InsertNews, matchResults, InsertMatchResult, contacts, InsertContact, bbsPosts, InsertBbsPost } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
-// Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
@@ -89,4 +88,112 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// お知らせ記事関連
+export async function getAllNews(category?: string) {
+  const db = await getDb();
+  if (!db) return [];
+
+  if (category && category !== "全ての記事") {
+    return await db.select().from(news).where(eq(news.category, category as any)).orderBy(desc(news.createdAt));
+  }
+  return await db.select().from(news).orderBy(desc(news.createdAt));
+}
+
+export async function getNewsById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const result = await db.select().from(news).where(eq(news.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function createNews(data: InsertNews) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(news).values(data);
+  return result;
+}
+
+export async function updateNews(id: number, data: Partial<InsertNews>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.update(news).set(data).where(eq(news.id, id));
+}
+
+export async function deleteNews(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.delete(news).where(eq(news.id, id));
+}
+
+// 試合結果関連
+export async function getAllMatchResults() {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db.select().from(matchResults).orderBy(desc(matchResults.matchDate));
+}
+
+export async function createMatchResult(data: InsertMatchResult) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(matchResults).values(data);
+  return result;
+}
+
+export async function updateMatchResult(id: number, data: Partial<InsertMatchResult>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.update(matchResults).set(data).where(eq(matchResults.id, id));
+}
+
+export async function deleteMatchResult(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.delete(matchResults).where(eq(matchResults.id, id));
+}
+
+// お問い合わせ関連
+export async function createContact(data: InsertContact) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(contacts).values(data);
+  return result;
+}
+
+export async function getAllContacts() {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db.select().from(contacts).orderBy(desc(contacts.createdAt));
+}
+
+// BBS投稿関連
+export async function getAllBbsPosts() {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db.select().from(bbsPosts).orderBy(desc(bbsPosts.createdAt));
+}
+
+export async function createBbsPost(data: InsertBbsPost) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(bbsPosts).values(data);
+  return result;
+}
+
+export async function deleteBbsPost(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.delete(bbsPosts).where(eq(bbsPosts.id, id));
+}

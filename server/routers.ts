@@ -1,10 +1,20 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, router } from "./_core/trpc";
+import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
+import { z } from "zod";
+import * as db from "./db";
+import { TRPCError } from "@trpc/server";
+
+// 管理者専用プロシージャ
+const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
+  if (ctx.user.role !== 'admin') {
+    throw new TRPCError({ code: 'FORBIDDEN', message: '管理者権限が必要です' });
+  }
+  return next({ ctx });
+});
 
 export const appRouter = router({
-    // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
@@ -17,12 +27,151 @@ export const appRouter = router({
     }),
   }),
 
-  // TODO: add feature routers here, e.g.
-  // todo: router({
-  //   list: protectedProcedure.query(({ ctx }) =>
-  //     db.getUserTodos(ctx.user.id)
-  //   ),
-  // }),
+  // お知らせ記事
+  news: router({
+    list: publicProcedure
+      .input(z.object({ category: z.string().optional() }).optional())
+      .query(async ({ input }) => {
+        return await db.getAllNews(input?.category);
+      }),
+    
+    getById: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input }) => {
+        return await db.getNewsById(input.id);
+      }),
+
+    create: adminProcedure
+      .input(z.object({
+        title: z.string().min(1),
+        content: z.string().min(1),
+        category: z.enum(["練習", "試合", "連絡事項", "その他"]),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        await db.createNews({
+          ...input,
+          authorId: ctx.user.id,
+        });
+        return { success: true };
+      }),
+
+    update: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        title: z.string().min(1).optional(),
+        content: z.string().min(1).optional(),
+        category: z.enum(["練習", "試合", "連絡事項", "その他"]).optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const { id, ...data } = input;
+        await db.updateNews(id, data);
+        return { success: true };
+      }),
+
+    delete: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        await db.deleteNews(input.id);
+        return { success: true };
+      }),
+  }),
+
+  // 試合結果
+  matchResults: router({
+    list: publicProcedure.query(async () => {
+      return await db.getAllMatchResults();
+    }),
+
+    create: adminProcedure
+      .input(z.object({
+        opponent: z.string().min(1),
+        ourScore: z.number(),
+        opponentScore: z.number(),
+        matchDate: z.string().transform(str => new Date(str)),
+        venue: z.string().optional(),
+        notes: z.string().optional(),
+      }))
+      .mutation(async ({ input }) => {
+        await db.createMatchResult(input as any);
+        return { success: true };
+      }),
+
+    update: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        opponent: z.string().min(1).optional(),
+        ourScore: z.number().optional(),
+        opponentScore: z.number().optional(),
+        matchDate: z.string().transform(str => new Date(str)).optional(),
+        venue: z.string().optional(),
+        notes: z.string().optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const { id, ...data } = input;
+        await db.updateMatchResult(id, data as any);
+        return { success: true };
+      }),
+
+    delete: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        await db.deleteMatchResult(input.id);
+        return { success: true };
+      }),
+  }),
+
+  // お問い合わせ
+  contact: router({
+    submit: publicProcedure
+      .input(z.object({
+        name: z.string().min(1),
+        email: z.string().email(),
+        message: z.string().min(1),
+      }))
+      .mutation(async ({ input }) => {
+        await db.createContact(input);
+        return { success: true };
+      }),
+
+    list: adminProcedure.query(async () => {
+      return await db.getAllContacts();
+    }),
+  }),
+
+  // BBS掲示板
+  bbs: router({
+    list: publicProcedure.query(async () => {
+      return await db.getAllBbsPosts();
+    }),
+
+    create: protectedProcedure
+      .input(z.object({
+        content: z.string().min(1),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        await db.createBbsPost({
+          ...input,
+          authorId: ctx.user.id,
+          authorName: ctx.user.name || "名無し",
+        });
+        return { success: true };
+      }),
+
+    delete: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input, ctx }) => {
+        // 管理者または投稿者本人のみ削除可能
+        const post = await db.getAllBbsPosts().then(posts => posts.find(p => p.id === input.id));
+        if (!post) {
+          throw new TRPCError({ code: 'NOT_FOUND' });
+        }
+        if (ctx.user.role !== 'admin' && post.authorId !== ctx.user.id) {
+          throw new TRPCError({ code: 'FORBIDDEN' });
+        }
+        await db.deleteBbsPost(input.id);
+        return { success: true };
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;
