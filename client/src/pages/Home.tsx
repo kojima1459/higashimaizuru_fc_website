@@ -85,7 +85,7 @@ export default function Home() {
                   <Target className="h-16 w-16 text-white" />
                 </div>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">
                 Jrから大人までの一体型クラブ運営を目指しています
               </h2>
               <div className="space-y-4 text-lg text-white/95">
@@ -104,11 +104,11 @@ export default function Home() {
                   <Sparkles className="h-16 w-16 text-white" />
                 </div>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
-                サッカーは、子供の創造性をのばすことのできるスポーツです。
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">
+                サッカーは子供の創造性をのばせるスポーツです。
               </h2>
               <div className="space-y-4 text-lg text-white/95">
-                <p className="font-medium">・無限の選択肢が秘めているボールにどんな命を吹き込むか、すべてがその子供の創造性にゆだねられています</p>
+                <p className="font-medium">・無限の選択肢が秘めているボールにどんな命を吹き込むか、全てが子供の創造性次第です</p>
                 <p className="font-medium">・子供たちは自分自身を表現することの楽しさを味わうことができるでしょう。</p>
               </div>
             </div>
@@ -122,8 +122,8 @@ export default function Home() {
                   <Award className="h-16 w-16 text-white" />
                 </div>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                サッカーは子どもを大人にし、<br />大人を紳士にする。
+              <h2 className="text-2xl md:text-3xl font-bold text-white">
+                サッカーは子どもを大人にし、大人を紳士にする。
               </h2>
             </div>
           </div>
