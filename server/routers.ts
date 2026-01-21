@@ -6,13 +6,7 @@ import { z } from "zod";
 import * as db from "./db";
 import { TRPCError } from "@trpc/server";
 
-// 管理者専用プロシージャ
-const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (ctx.user.role !== 'admin') {
-    throw new TRPCError({ code: 'FORBIDDEN', message: '管理者権限が必要です' });
-  }
-  return next({ ctx });
-});
+// 管理者専用プロシージャは削除（認証不要のため）
 
 export const appRouter = router({
   system: systemRouter,
@@ -41,7 +35,7 @@ export const appRouter = router({
         return await db.getNewsById(input.id);
       }),
 
-    create: adminProcedure
+    create: publicProcedure
       .input(z.object({
         title: z.string().min(1),
         content: z.string().min(1),
@@ -50,12 +44,12 @@ export const appRouter = router({
       .mutation(async ({ input, ctx }) => {
         await db.createNews({
           ...input,
-          authorId: ctx.user.id,
+          authorId: ctx.user?.id || null, // 認証不要のため、authorIdはnullableに設定
         });
         return { success: true };
       }),
 
-    update: adminProcedure
+    update: publicProcedure
       .input(z.object({
         id: z.number(),
         title: z.string().min(1).optional(),
@@ -68,7 +62,7 @@ export const appRouter = router({
         return { success: true };
       }),
 
-    delete: adminProcedure
+    delete: publicProcedure
       .input(z.object({ id: z.number() }))
       .mutation(async ({ input }) => {
         await db.deleteNews(input.id);
@@ -88,7 +82,7 @@ export const appRouter = router({
         return await db.getAllMatchResults(input);
       }),
 
-    create: adminProcedure
+    create: publicProcedure
       .input(z.object({
         opponent: z.string().min(1),
         ourScore: z.number(),
@@ -102,7 +96,7 @@ export const appRouter = router({
         return { success: true };
       }),
 
-    update: adminProcedure
+    update: publicProcedure
       .input(z.object({
         id: z.number(),
         opponent: z.string().min(1).optional(),
@@ -118,7 +112,7 @@ export const appRouter = router({
         return { success: true };
       }),
 
-    delete: adminProcedure
+    delete: publicProcedure
       .input(z.object({ id: z.number() }))
       .mutation(async ({ input }) => {
         await db.deleteMatchResult(input.id);
@@ -139,7 +133,7 @@ export const appRouter = router({
         return { success: true };
       }),
 
-    list: adminProcedure.query(async () => {
+    list: publicProcedure.query(async () => {
       return await db.getAllContacts();
     }),
   }),
@@ -193,7 +187,7 @@ export const appRouter = router({
         return await db.getAllSchedules(input);
       }),
 
-    create: adminProcedure
+    create: publicProcedure
       .input(z.object({
         title: z.string().min(1),
         eventType: z.enum(["練習", "試合", "大会", "その他"]),
@@ -207,7 +201,7 @@ export const appRouter = router({
         return { success: true };
       }),
 
-    update: adminProcedure
+    update: publicProcedure
       .input(z.object({
         id: z.number(),
         title: z.string().min(1).optional(),
@@ -223,7 +217,7 @@ export const appRouter = router({
         return { success: true };
       }),
 
-    delete: adminProcedure
+    delete: publicProcedure
       .input(z.object({ id: z.number() }))
       .mutation(async ({ input }) => {
         await db.deleteSchedule(input.id);

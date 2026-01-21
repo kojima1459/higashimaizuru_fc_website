@@ -15,24 +15,7 @@ import { DatePicker } from "@/components/ui/date-picker";
 import { format } from "date-fns";
 
 export default function Admin() {
-  const { user } = useAuth();
   const [, setLocation] = useLocation();
-
-  // 管理者権限チェック
-  if (!user || user.role !== "admin") {
-    return (
-      <div className="min-h-screen bg-background">
-        <div className="container py-12">
-        <Card>
-          <CardContent className="py-12 text-center">
-            <p className="text-muted-foreground mb-4">管理者権限が必要です</p>
-            <Button onClick={() => setLocation("/")}>ホームに戻る</Button>
-          </CardContent>
-        </Card>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background">

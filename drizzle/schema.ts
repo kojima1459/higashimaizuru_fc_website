@@ -26,7 +26,7 @@ export const news = mysqlTable("news", {
   title: varchar("title", { length: 255 }).notNull(),
   content: text("content").notNull(),
   category: mysqlEnum("category", ["練習", "試合", "連絡事項", "その他"]).notNull(),
-  authorId: int("authorId").notNull(),
+  authorId: int("authorId"), // nullableに変更（認証不要のため）
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
