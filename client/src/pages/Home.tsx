@@ -43,8 +43,8 @@ export default function Home() {
       <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background z-10" />
         <img
-          src="/field-photo.jpeg"
-          alt="サッカーフィールド"
+          src="/team-photo.jpg"
+          alt="東舞鶴F.Cチーム集合写真"
           className="absolute inset-0 w-full h-full object-cover parallax"
         />
         <div className="relative z-20 container text-center">
