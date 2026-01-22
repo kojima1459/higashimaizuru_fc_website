@@ -26,3 +26,46 @@ describe("管理画面パスワード認証テスト", () => {
     expect(result.valid).toBe(false);
   });
 });
+
+
+describe("管理画面パスワード変更テスト", () => {
+  it("正しい現在のパスワードで新しいパスワードに変更できる", async () => {
+    const caller = appRouter.createCaller({ user: null });
+    
+    // 現在のパスワードで変更
+    const result = await caller.admin.changePassword({ 
+      currentPassword: "kyoto123",
+      newPassword: "newpass456"
+    });
+    
+    expect(result.success).toBe(true);
+  });
+
+  it("間違った現在のパスワードで変更失敗する", async () => {
+    const caller = appRouter.createCaller({ user: null });
+    
+    try {
+      await caller.admin.changePassword({ 
+        currentPassword: "wrongpassword",
+        newPassword: "newpass456"
+      });
+      expect(true).toBe(false); // ここに到達してはいけない
+    } catch (error: any) {
+      expect(error.code).toBe("UNAUTHORIZED");
+    }
+  });
+
+  it("同じパスワードへの変更は失敗する", async () => {
+    const caller = appRouter.createCaller({ user: null });
+    
+    try {
+      await caller.admin.changePassword({ 
+        currentPassword: "kyoto123",
+        newPassword: "kyoto123"
+      });
+      expect(true).toBe(false); // ここに到達してはいけない
+    } catch (error: any) {
+      expect(error.code).toBe("BAD_REQUEST");
+    }
+  });
+});

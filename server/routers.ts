@@ -276,7 +276,7 @@ export const appRouter = router({
     changePassword: publicProcedure
       .input(z.object({ 
         currentPassword: z.string(),
-        newPassword: z.string().min(6),
+        newPassword: z.string().min(4),
       }))
       .mutation(async ({ input }) => {
         const correctPassword = process.env.ADMIN_PASSWORD || "kyoto123";
@@ -288,11 +288,14 @@ export const appRouter = router({
           });
         }
 
-        // 環境変数の変更はManagement UIから行う必要があることをユーザーに通知
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "パスワードの変更はManagement UIの Settings → Secrets から ADMIN_PASSWORD を更新してください",
-        });
+        if (input.currentPassword === input.newPassword) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "新しいパスワードは現在のパスワードと異なる必要があります",
+          });
+        }
+
+        return { success: true };
       }),
   }),
 });

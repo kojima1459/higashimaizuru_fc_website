@@ -30,10 +30,11 @@ export default function Admin() {
       </div>
 
       <Tabs defaultValue="news" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="news">お知らせ管理</TabsTrigger>
           <TabsTrigger value="results">試合結果管理</TabsTrigger>
           <TabsTrigger value="contacts">お問い合わせ一覧</TabsTrigger>
+          <TabsTrigger value="settings">設定</TabsTrigger>
         </TabsList>
 
         <TabsContent value="news">
@@ -46,6 +47,10 @@ export default function Admin() {
 
         <TabsContent value="contacts">
           <ContactsList />
+        </TabsContent>
+
+        <TabsContent value="settings">
+          <AdminSettings />
         </TabsContent>
       </Tabs>
       </div>
@@ -528,5 +533,164 @@ function ContactsList() {
         )}
       </CardContent>
     </Card>
+  );
+}
+
+
+// 管理画面設定コンポーネント
+function AdminSettings() {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPasswords, setShowPasswords] = useState(false);
+
+  const changePasswordMutation = trpc.admin.changePassword.useMutation({
+    onSuccess: () => {
+      toast.success("パスワードを変更しました");
+      // 新しいパスワードをlocalStorageに保存
+      localStorage.setItem("adminPassword", newPassword);
+      resetForm();
+    },
+    onError: (error) => {
+      toast.error("パスワード変更に失敗しました: " + error.message);
+    },
+  });
+
+  const resetForm = () => {
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // バリデーション
+    if (!currentPassword) {
+      toast.error("現在のパスワードを入力してください");
+      return;
+    }
+
+    if (!newPassword) {
+      toast.error("新しいパスワードを入力してください");
+      return;
+    }
+
+    if (newPassword.length < 4) {
+      toast.error("新しいパスワードは4文字以上である必要があります");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      toast.error("新しいパスワードが一致しません");
+      return;
+    }
+
+    if (currentPassword === newPassword) {
+      toast.error("新しいパスワードは現在のパスワードと異なる必要があります");
+      return;
+    }
+
+    changePasswordMutation.mutate({
+      currentPassword,
+      newPassword,
+    });
+  };
+
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>パスワード変更</CardTitle>
+          <CardDescription>
+            管理画面へのアクセスに使用するパスワードを変更できます
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
+            <div className="space-y-2">
+              <Label htmlFor="currentPassword">現在のパスワード</Label>
+              <Input
+                id="currentPassword"
+                type={showPasswords ? "text" : "password"}
+                placeholder="現在のパスワードを入力"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="newPassword">新しいパスワード</Label>
+              <Input
+                id="newPassword"
+                type={showPasswords ? "text" : "password"}
+                placeholder="新しいパスワードを入力"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword">新しいパスワード（確認）</Label>
+              <Input
+                id="confirmPassword"
+                type={showPasswords ? "text" : "password"}
+                placeholder="新しいパスワードを再度入力"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="showPasswords"
+                checked={showPasswords}
+                onChange={(e) => setShowPasswords(e.target.checked)}
+                className="rounded border-gray-300"
+              />
+              <Label htmlFor="showPasswords" className="font-normal cursor-pointer">
+                パスワードを表示
+              </Label>
+            </div>
+
+            <div className="flex gap-2 pt-4">
+              <Button type="submit" disabled={changePasswordMutation.isPending}>
+                {changePasswordMutation.isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    変更中...
+                  </>
+                ) : (
+                  "パスワードを変更"
+                )}
+              </Button>
+              <Button type="button" variant="outline" onClick={resetForm}>
+                リセット
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>サイト情報</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <p className="text-sm text-muted-foreground">サイト名</p>
+            <p className="font-semibold">東舞鶴F.C ウェブサイト</p>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground">管理画面URL</p>
+            <p className="font-semibold text-sm break-all">{window.location.origin}/admin</p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
