@@ -12,7 +12,7 @@ interface SEOHeadProps {
 export default function SEOHead({
   title = "東舞鶴F.C ウェブサイト",
   description = "京都府舞鶴市を拠点とするサッカースポーツ少年団です。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。",
-  image = "/logo.png",
+  image = "/logo.jpeg",
   url,
   type = "website",
   keywords = "東舞鶴F.C,東舞鶴FC,舞鶴,サッカー,スポーツ少年団,京都,少年サッカー,ジュニアサッカー,サッカークラブ,サッカーチーム",
