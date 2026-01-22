@@ -224,6 +224,45 @@ export const appRouter = router({
         return { success: true };
       }),
   }),
+
+  // 写真ギャラリー
+  photos: router({
+    list: publicProcedure
+      .input(z.object({ category: z.string().optional() }).optional())
+      .query(async ({ input }) => {
+        return await db.getAllPhotos(input);
+      }),
+
+    getById: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input }) => {
+        return await db.getPhotoById(input.id);
+      }),
+
+    upload: publicProcedure
+      .input(z.object({
+        title: z.string().optional(),
+        caption: z.string().optional(),
+        imageUrl: z.string().min(1),
+        imageKey: z.string().min(1),
+        category: z.enum(["練習風景", "試合", "イベント", "その他"]),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        await db.createPhoto({
+          ...input,
+          uploadedBy: ctx.user?.id || null,
+        });
+        return { success: true };
+      }),
+
+    delete: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        // 写真情報を取得してS3からも削除する必要がある場合はここで処理
+        await db.deletePhoto(input.id);
+        return { success: true };
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

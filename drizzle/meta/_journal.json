@@ -36,6 +36,13 @@
       "when": 1768973714696,
       "tag": "0004_nervous_thundra",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1769086917769,
+      "tag": "0005_parched_black_panther",
+      "breakpoints": true
     }
   ]
 }

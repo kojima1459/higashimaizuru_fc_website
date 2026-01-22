@@ -22,7 +22,10 @@ export default function Admin() {
       <div className="container py-12">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-4xl font-bold text-foreground">管理画面</h1>
-        <Button onClick={() => setLocation("/admin/management")}>コンテンツ管理</Button>
+        <div className="flex gap-2">
+          <Button onClick={() => setLocation("/admin/photos")}>写真管理</Button>
+          <Button onClick={() => setLocation("/admin/management")}>コンテンツ管理</Button>
+        </div>
       </div>
 
       <Tabs defaultValue="news" className="w-full">

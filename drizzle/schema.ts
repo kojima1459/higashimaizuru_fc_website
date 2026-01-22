@@ -98,3 +98,21 @@ export const schedules = mysqlTable("schedules", {
 
 export type Schedule = typeof schedules.$inferSelect;
 export type InsertSchedule = typeof schedules.$inferInsert;
+
+/**
+ * 写真ギャラリーテーブル
+ */
+export const photos = mysqlTable("photos", {
+  id: int("id").autoincrement().primaryKey(),
+  title: varchar("title", { length: 255 }),
+  caption: text("caption"),
+  imageUrl: varchar("imageUrl", { length: 500 }).notNull(),
+  imageKey: varchar("imageKey", { length: 500 }).notNull(),
+  category: mysqlEnum("category", ["練習風景", "試合", "イベント", "その他"]).notNull(),
+  uploadedBy: int("uploadedBy"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Photo = typeof photos.$inferSelect;
+export type InsertPhoto = typeof photos.$inferInsert;

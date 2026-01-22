@@ -1,6 +1,6 @@
 import { eq, desc, and, like, gte, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, news, InsertNews, matchResults, InsertMatchResult, contacts, InsertContact, bbsPosts, InsertBbsPost, schedules, InsertSchedule } from "../drizzle/schema";
+import { InsertUser, users, news, InsertNews, matchResults, InsertMatchResult, contacts, InsertContact, bbsPosts, InsertBbsPost, schedules, InsertSchedule, photos, InsertPhoto, Photo } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -275,4 +275,40 @@ export async function deleteSchedule(id: number) {
   if (!db) throw new Error("Database not available");
 
   await db.delete(schedules).where(eq(schedules.id, id));
+}
+
+// ==================== Photos ====================
+
+export async function getAllPhotos(filters?: { category?: string }): Promise<Photo[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  if (filters?.category && filters.category !== "全て") {
+    return await db.select().from(photos).where(eq(photos.category, filters.category as any)).orderBy(desc(photos.createdAt));
+  }
+
+  return await db.select().from(photos).orderBy(desc(photos.createdAt));
+}
+
+export async function getPhotoById(id: number): Promise<Photo | null> {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db.select().from(photos).where(eq(photos.id, id));
+  return result[0] || null;
+}
+
+export async function createPhoto(data: InsertPhoto) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(photos).values(data);
+  return result;
+}
+
+export async function deletePhoto(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.delete(photos).where(eq(photos.id, id));
 }
