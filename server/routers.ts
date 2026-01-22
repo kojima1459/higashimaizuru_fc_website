@@ -263,6 +263,38 @@ export const appRouter = router({
         return { success: true };
       }),
   }),
+
+  // 管理画面認証
+  admin: router({
+    verifyPassword: publicProcedure
+      .input(z.object({ password: z.string() }))
+      .mutation(async ({ input }) => {
+        const correctPassword = process.env.ADMIN_PASSWORD || "kyoto123";
+        return { valid: input.password === correctPassword };
+      }),
+
+    changePassword: publicProcedure
+      .input(z.object({ 
+        currentPassword: z.string(),
+        newPassword: z.string().min(6),
+      }))
+      .mutation(async ({ input }) => {
+        const correctPassword = process.env.ADMIN_PASSWORD || "kyoto123";
+        
+        if (input.currentPassword !== correctPassword) {
+          throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "現在のパスワードが正しくありません",
+          });
+        }
+
+        // 環境変数の変更はManagement UIから行う必要があることをユーザーに通知
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "パスワードの変更はManagement UIの Settings → Secrets から ADMIN_PASSWORD を更新してください",
+        });
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

@@ -116,3 +116,15 @@ export const photos = mysqlTable("photos", {
 
 export type Photo = typeof photos.$inferSelect;
 export type InsertPhoto = typeof photos.$inferInsert;
+
+/**
+ * 管理画面パスワードテーブル
+ */
+export const adminPassword = mysqlTable("admin_password", {
+  id: int("id").autoincrement().primaryKey(),
+  password: varchar("password", { length: 255 }).notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type AdminPassword = typeof adminPassword.$inferSelect;
+export type InsertAdminPassword = typeof adminPassword.$inferInsert;

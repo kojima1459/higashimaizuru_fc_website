@@ -12,8 +12,10 @@ import { toast } from "sonner";
 import { Loader2, Trash2, Edit } from "lucide-react";
 import { DatePicker } from "@/components/ui/date-picker";
 import { format } from "date-fns";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 export default function Admin() {
+  useAdminAuth();
   const [, setLocation] = useLocation();
 
   return (

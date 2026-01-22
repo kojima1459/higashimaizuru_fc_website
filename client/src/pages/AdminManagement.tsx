@@ -9,10 +9,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Trash2, Edit, Plus } from "lucide-react";
 import { toast } from "sonner";
 import SEOHead from "@/components/SEOHead";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 type Tab = "bbs" | "schedules" | "results";
 
 export default function AdminManagement() {
+  useAdminAuth();
   const [activeTab, setActiveTab] = useState<Tab>("bbs");
 
 

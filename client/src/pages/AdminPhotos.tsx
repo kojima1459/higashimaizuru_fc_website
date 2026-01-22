@@ -10,8 +10,10 @@ import { Trash2, Upload, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import SEOHead from "@/components/SEOHead";
 import { storagePut } from "@/lib/storage";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 export default function AdminPhotos() {
+  useAdminAuth();
   const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
     title: "",

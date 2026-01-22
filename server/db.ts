@@ -1,6 +1,6 @@
 import { eq, desc, and, like, gte, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, news, InsertNews, matchResults, InsertMatchResult, contacts, InsertContact, bbsPosts, InsertBbsPost, schedules, InsertSchedule, photos, InsertPhoto, Photo } from "../drizzle/schema";
+import { InsertUser, users, news, InsertNews, matchResults, InsertMatchResult, contacts, InsertContact, bbsPosts, InsertBbsPost, schedules, InsertSchedule, photos, InsertPhoto, Photo, adminPassword } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -311,4 +311,33 @@ export async function deletePhoto(id: number) {
   if (!db) throw new Error("Database not available");
 
   await db.delete(photos).where(eq(photos.id, id));
+}
+
+// Admin Password helpers
+export async function getAdminPassword() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.select().from(adminPassword).limit(1);
+  return result[0] || null;
+}
+
+export async function updateAdminPassword(newPassword: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db
+    .update(adminPassword)
+    .set({ password: newPassword })
+    .where(eq(adminPassword.id, 1));
+  return result;
+}
+
+export async function initializeAdminPassword(initialPassword: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const existing = await getAdminPassword();
+  if (!existing) {
+    await db.insert(adminPassword).values({
+      password: initialPassword,
+    });
+  }
 }

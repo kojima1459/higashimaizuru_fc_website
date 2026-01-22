@@ -43,6 +43,13 @@
       "when": 1769086917769,
       "tag": "0005_parched_black_panther",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1769089625584,
+      "tag": "0006_wooden_talon",
+      "breakpoints": true
     }
   ]
 }

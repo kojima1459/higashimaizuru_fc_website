@@ -19,6 +19,7 @@ import Admin from "./pages/Admin";
 import AdminManagement from "./pages/AdminManagement";
 import AdminPhotos from "./pages/AdminPhotos";
 import Gallery from "./pages/Gallery";
+import AdminLogin from "./pages/AdminLogin";
 
 function Router() {
   return (
@@ -34,6 +35,7 @@ function Router() {
           <Route path="/team" component={Team} />
           <Route path="/contact" component={Contact} />
           <Route path="/bbs" component={Bbs} />
+          <Route path="/admin/login" component={AdminLogin} />
           <Route path="/admin" component={Admin} />
           <Route path="/admin/management" component={AdminManagement} />
           <Route path="/admin/photos" component={AdminPhotos} />
