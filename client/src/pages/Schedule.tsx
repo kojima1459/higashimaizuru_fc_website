@@ -199,16 +199,27 @@ export default function Schedule() {
         </Card>
       )}
 
-      {/* Googleカレンダー埋め込み（プレースホルダー） */}
+      {/* Googleカレンダー埋め込み */}
       <Card className="mt-8">
         <CardHeader>
           <CardTitle>Googleカレンダー</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-            <p className="text-muted-foreground">
-              Googleカレンダーの埋め込みコードを設定してください
-            </p>
+          <div className="relative w-full" style={{ paddingBottom: '75%' }}>
+            <iframe
+              src="https://calendar.google.com/calendar/embed?src=higashimaidurufc%40gmail.com&ctz=Asia%2FTokyo"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                border: 0
+              }}
+              frameBorder="0"
+              scrolling="no"
+              title="東舞鶴F.C スケジュール"
+            />
           </div>
         </CardContent>
       </Card>
