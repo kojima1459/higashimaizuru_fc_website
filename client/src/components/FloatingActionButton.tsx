@@ -26,7 +26,7 @@ export default function FloatingActionButton() {
           </Link>
 
           {/* 電話 */}
-          <a href="tel:0773-12-3456">
+          <a href="tel:090-9624-9395">
             <Button
               variant="outline"
               size="icon"
@@ -39,7 +39,7 @@ export default function FloatingActionButton() {
 
           {/* LINE */}
           <a
-            href="https://line.me/R/ti/p/@higashimaizurufc"
+            href="https://line.me/ti/p/sanky13"
             target="_blank"
             rel="noopener noreferrer"
           >
