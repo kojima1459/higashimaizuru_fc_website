@@ -60,9 +60,12 @@ export default function NewsDetail() {
 
       <Card>
         <CardHeader>
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
             <span className="text-xs px-2 py-1 rounded bg-primary text-primary-foreground">
-              {news.category}
+              {news.mainCategory}
+            </span>
+            <span className="text-xs px-2 py-1 rounded bg-secondary text-secondary-foreground">
+              {news.subCategory}
             </span>
             <span className="text-sm text-muted-foreground">
               {new Date(news.createdAt).toLocaleDateString("ja-JP")}

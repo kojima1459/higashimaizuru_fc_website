@@ -37,7 +37,8 @@ describe("news router", () => {
     const result = await caller.news.create({
       title: "テストニュース",
       content: "これはテストです",
-      category: "練習",
+      mainCategory: "練習",
+      subCategory: "U7",
     });
 
     expect(result).toEqual({ success: true });

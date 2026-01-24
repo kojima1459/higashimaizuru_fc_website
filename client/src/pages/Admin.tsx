@@ -62,7 +62,8 @@ export default function Admin() {
 function NewsManagement() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [category, setCategory] = useState<"練習" | "試合" | "連絡事項" | "その他">("練習");
+  const [mainCategory, setMainCategory] = useState<"練習" | "試合" | "連絡事項" | "その他">("練習");
+  const [subCategory, setSubCategory] = useState<"U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体" | "その他">("U7");
   const [editingId, setEditingId] = useState<number | null>(null);
 
   const { data: newsList, isLoading } = trpc.news.list.useQuery();
@@ -103,7 +104,8 @@ function NewsManagement() {
   const resetForm = () => {
     setTitle("");
     setContent("");
-    setCategory("練習");
+    setMainCategory("練習");
+    setSubCategory("U7");
     setEditingId(null);
   };
 
@@ -116,16 +118,17 @@ function NewsManagement() {
     }
 
     if (editingId) {
-      updateMutation.mutate({ id: editingId, title, content, category });
+      updateMutation.mutate({ id: editingId, title, content, mainCategory, subCategory });
     } else {
-      createMutation.mutate({ title, content, category });
+      createMutation.mutate({ title, content, mainCategory, subCategory });
     }
   };
 
   const handleEdit = (news: any) => {
     setTitle(news.title);
     setContent(news.content);
-    setCategory(news.category);
+    setMainCategory(news.mainCategory);
+    setSubCategory(news.subCategory);
     setEditingId(news.id);
   };
 
@@ -153,19 +156,40 @@ function NewsManagement() {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="category">カテゴリ</Label>
-              <Select value={category} onValueChange={(value: any) => setCategory(value)}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="練習">練習</SelectItem>
-                  <SelectItem value="試合">試合</SelectItem>
-                  <SelectItem value="連絡事項">連絡事項</SelectItem>
-                  <SelectItem value="その他">その他</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="mainCategory">メインカテゴリ</Label>
+                <Select value={mainCategory} onValueChange={(value: any) => setMainCategory(value)}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="練習">練習</SelectItem>
+                    <SelectItem value="試合">試合</SelectItem>
+                    <SelectItem value="連絡事項">連絡事項</SelectItem>
+                    <SelectItem value="その他">その他</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="subCategory">学年</Label>
+                <Select value={subCategory} onValueChange={(value: any) => setSubCategory(value)}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="U7">U7</SelectItem>
+                    <SelectItem value="U8">U8</SelectItem>
+                    <SelectItem value="U9">U9</SelectItem>
+                    <SelectItem value="U10">U10</SelectItem>
+                    <SelectItem value="U11">U11</SelectItem>
+                    <SelectItem value="U12">U12</SelectItem>
+                    <SelectItem value="全体">全体</SelectItem>
+                    <SelectItem value="その他">その他</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             <div className="space-y-2">
@@ -218,7 +242,10 @@ function NewsManagement() {
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <span className="text-xs px-2 py-1 rounded bg-primary text-primary-foreground mr-2">
-                        {news.category}
+                        {news.mainCategory}
+                      </span>
+                      <span className="text-xs px-2 py-1 rounded bg-secondary text-secondary-foreground mr-2">
+                        {news.subCategory}
                       </span>
                       <span className="text-sm text-muted-foreground">
                         {new Date(news.createdAt).toLocaleDateString("ja-JP")}

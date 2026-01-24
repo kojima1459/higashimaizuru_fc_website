@@ -89,13 +89,24 @@ export async function getUserByOpenId(openId: string) {
 }
 
 // お知らせ記事関連
-export async function getAllNews(category?: string) {
+export async function getAllNews(filters?: { mainCategory?: string; subCategory?: string }) {
   const db = await getDb();
   if (!db) return [];
 
-  if (category && category !== "全ての記事") {
-    return await db.select().from(news).where(eq(news.category, category as any)).orderBy(desc(news.createdAt));
+  const conditions = [];
+
+  if (filters?.mainCategory && filters.mainCategory !== "全ての記事") {
+    conditions.push(eq(news.mainCategory, filters.mainCategory as any));
   }
+
+  if (filters?.subCategory && filters.subCategory !== "全て") {
+    conditions.push(eq(news.subCategory, filters.subCategory as any));
+  }
+
+  if (conditions.length > 0) {
+    return await db.select().from(news).where(and(...conditions)).orderBy(desc(news.createdAt));
+  }
+
   return await db.select().from(news).orderBy(desc(news.createdAt));
 }
 

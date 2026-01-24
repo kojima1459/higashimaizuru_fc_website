@@ -24,9 +24,9 @@ export const appRouter = router({
   // お知らせ記事
   news: router({
     list: publicProcedure
-      .input(z.object({ category: z.string().optional() }).optional())
+      .input(z.object({ mainCategory: z.string().optional(), subCategory: z.string().optional() }).optional())
       .query(async ({ input }) => {
-        return await db.getAllNews(input?.category);
+        return await db.getAllNews(input);
       }),
     
     getById: publicProcedure
@@ -39,7 +39,8 @@ export const appRouter = router({
       .input(z.object({
         title: z.string().min(1),
         content: z.string().min(1),
-        category: z.enum(["練習", "試合", "連絡事項", "その他"]),
+        mainCategory: z.enum(["練習", "試合", "連絡事項", "その他"]),
+        subCategory: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "全体", "その他"]),
       }))
       .mutation(async ({ input, ctx }) => {
         await db.createNews({
@@ -54,7 +55,8 @@ export const appRouter = router({
         id: z.number(),
         title: z.string().min(1).optional(),
         content: z.string().min(1).optional(),
-        category: z.enum(["練習", "試合", "連絡事項", "その他"]).optional(),
+        mainCategory: z.enum(["練習", "試合", "連絡事項", "その他"]).optional(),
+        subCategory: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "全体", "その他"]).optional(),
       }))
       .mutation(async ({ input }) => {
         const { id, ...data } = input;
