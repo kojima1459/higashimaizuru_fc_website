@@ -90,6 +90,7 @@ export const schedules = mysqlTable("schedules", {
   id: int("id").autoincrement().primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
   eventType: mysqlEnum("eventType", ["練習", "試合", "大会", "その他"]).notNull(),
+  grade: mysqlEnum("grade", ["U7", "U8", "U9", "U10", "U11", "U12", "全体"]).notNull(),
   opponent: varchar("opponent", { length: 255 }),
   eventDate: timestamp("eventDate").notNull(),
   venue: varchar("venue", { length: 255 }),

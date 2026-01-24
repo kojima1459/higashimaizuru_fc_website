@@ -64,6 +64,20 @@
       "when": 1769225038094,
       "tag": "0008_lively_blade",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1769226033863,
+      "tag": "0009_amusing_lionheart",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1769226061417,
+      "tag": "0010_same_surge",
+      "breakpoints": true
     }
   ]
 }

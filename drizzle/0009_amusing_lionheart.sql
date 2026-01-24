@@ -1,0 +1,1 @@
+ALTER TABLE `schedules` ADD `grade` enum('U7','U8','U9','U10','U11','U12') NOT NULL;

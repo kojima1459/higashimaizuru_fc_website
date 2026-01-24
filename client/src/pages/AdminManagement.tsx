@@ -114,6 +114,7 @@ function ScheduleManagement() {
   const [formData, setFormData] = useState({
     title: "",
     eventType: "練習" as "練習" | "試合" | "大会" | "その他",
+    grade: "U7" as "U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体",
     opponent: "",
     eventDate: "",
     venue: "",
@@ -155,6 +156,7 @@ function ScheduleManagement() {
     setFormData({
       title: "",
       eventType: "練習",
+      grade: "U7",
       opponent: "",
       eventDate: "",
       venue: "",
@@ -177,6 +179,7 @@ function ScheduleManagement() {
     setFormData({
       title: schedule.title,
       eventType: schedule.eventType,
+      grade: schedule.grade,
       opponent: schedule.opponent || "",
       eventDate: new Date(schedule.eventDate).toISOString().split("T")[0],
       venue: schedule.venue || "",
@@ -226,6 +229,26 @@ function ScheduleManagement() {
                     <SelectItem value="試合">試合</SelectItem>
                     <SelectItem value="大会">大会</SelectItem>
                     <SelectItem value="その他">その他</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="grade">学年 *</Label>
+                <Select
+                  value={formData.grade}
+                  onValueChange={(value: any) => setFormData({ ...formData, grade: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="U7">U7</SelectItem>
+                    <SelectItem value="U8">U8</SelectItem>
+                    <SelectItem value="U9">U9</SelectItem>
+                    <SelectItem value="U10">U10</SelectItem>
+                    <SelectItem value="U11">U11</SelectItem>
+                    <SelectItem value="U12">U12</SelectItem>
+                    <SelectItem value="全体">全体</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -282,7 +305,7 @@ function ScheduleManagement() {
                 <div>
                   <CardTitle className="text-lg">{schedule.title}</CardTitle>
                   <CardDescription>
-                    {schedule.eventType} | {new Date(schedule.eventDate).toLocaleDateString("ja-JP")}
+                    {schedule.eventType} | {schedule.grade} | {new Date(schedule.eventDate).toLocaleDateString("ja-JP")}
                     {schedule.opponent && ` | 対戦相手: ${schedule.opponent}`}
                   </CardDescription>
                 </div>

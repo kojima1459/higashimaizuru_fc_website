@@ -10,11 +10,13 @@ import SEOHead from "@/components/SEOHead";
 export default function Schedule() {
   const [opponent, setOpponent] = useState("");
   const [eventType, setEventType] = useState("全て");
+  const [grade, setGrade] = useState("all");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [appliedFilters, setAppliedFilters] = useState<{
     opponent?: string;
     eventType?: string;
+    grade?: string;
     startDate?: string;
     endDate?: string;
   }>({});
@@ -25,6 +27,7 @@ export default function Schedule() {
     setAppliedFilters({
       opponent: opponent || undefined,
       eventType: eventType !== "全て" ? eventType : undefined,
+      grade: grade === "all" ? undefined : grade || undefined,
       startDate: startDate || undefined,
       endDate: endDate || undefined,
     });
@@ -33,12 +36,13 @@ export default function Schedule() {
   const handleReset = () => {
     setOpponent("");
     setEventType("全て");
+    setGrade("all");
     setStartDate("");
     setEndDate("");
     setAppliedFilters({});
   };
 
-  const hasActiveFilters = appliedFilters.opponent || (appliedFilters.eventType && appliedFilters.eventType !== "全て") || appliedFilters.startDate || appliedFilters.endDate;
+  const hasActiveFilters = appliedFilters.opponent || (appliedFilters.eventType && appliedFilters.eventType !== "全て") || appliedFilters.grade || appliedFilters.startDate || appliedFilters.endDate;
 
   const getEventTypeColor = (type: string) => {
     switch (type) {
@@ -81,6 +85,26 @@ export default function Schedule() {
                   <SelectItem value="試合">試合</SelectItem>
                   <SelectItem value="大会">大会</SelectItem>
                   <SelectItem value="その他">その他</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">
+                学年
+              </label>
+              <Select value={grade} onValueChange={setGrade}>
+                <SelectTrigger>
+                  <SelectValue placeholder="すべて" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">すべて</SelectItem>
+                  <SelectItem value="U7">U7</SelectItem>
+                  <SelectItem value="U8">U8</SelectItem>
+                  <SelectItem value="U9">U9</SelectItem>
+                  <SelectItem value="U10">U10</SelectItem>
+                  <SelectItem value="U11">U11</SelectItem>
+                  <SelectItem value="U12">U12</SelectItem>
+                  <SelectItem value="全体">全体</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -131,6 +155,7 @@ export default function Schedule() {
           {hasActiveFilters && (
             <div className="mt-4 text-sm text-muted-foreground">
               {appliedFilters.eventType && appliedFilters.eventType !== "全て" && <span className="mr-4">種別: {appliedFilters.eventType}</span>}
+              {appliedFilters.grade && <span className="mr-4">学年: {appliedFilters.grade}</span>}
               {appliedFilters.opponent && <span className="mr-4">対戦相手: {appliedFilters.opponent}</span>}
               {appliedFilters.startDate && <span className="mr-4">開始日: {new Date(appliedFilters.startDate).toLocaleDateString("ja-JP")}</span>}
               {appliedFilters.endDate && <span>終了日: {new Date(appliedFilters.endDate).toLocaleDateString("ja-JP")}</span>}
@@ -159,6 +184,9 @@ export default function Schedule() {
                     <div className="flex items-center gap-2 mb-2">
                       <span className={`text-xs px-2 py-1 rounded text-white ${getEventTypeColor(schedule.eventType)}`}>
                         {schedule.eventType}
+                      </span>
+                      <span className="text-xs px-2 py-1 rounded bg-orange-500 text-white">
+                        {schedule.grade}
                       </span>
                       <span className="text-sm text-muted-foreground">
                         {new Date(schedule.eventDate).toLocaleDateString("ja-JP", {

@@ -1,0 +1,1 @@
+ALTER TABLE `schedules` MODIFY COLUMN `grade` enum('U7','U8','U9','U10','U11','U12','全体') NOT NULL;
