@@ -406,12 +406,21 @@ function ResultsManagement() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="matchDate">試合日</Label>
-                <DatePicker
-                  date={matchDate}
-                  onDateChange={setMatchDate}
-                  placeholder="試合日を選択"
+                <Label htmlFor="matchDate">試合日 *</Label>
+                <input
+                  id="matchDate"
+                  type="date"
+                  value={matchDate ? format(matchDate, "yyyy-MM-dd") : ""}
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      setMatchDate(new Date(e.target.value));
+                    } else {
+                      setMatchDate(undefined);
+                    }
+                  }}
+                  className="w-full px-3 py-2 border border-input rounded-md"
                 />
+              </div>
 
               <div className="space-y-2">
                 <Label htmlFor="category">カテゴリー *</Label>
@@ -429,7 +438,6 @@ function ResultsManagement() {
                     <SelectItem value="その他">その他</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
               </div>
 
               <div className="space-y-2">

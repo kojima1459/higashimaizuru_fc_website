@@ -32,7 +32,7 @@ export default function Results() {
   const handleSearch = () => {
     setAppliedFilters({
       opponent: opponent || undefined,
-      category: category || undefined,
+      category: category === "all" ? undefined : category || undefined,
       startDate: startDate || undefined,
       endDate: endDate || undefined,
     });
@@ -40,7 +40,7 @@ export default function Results() {
 
   const handleReset = () => {
     setOpponent("");
-    setCategory("");
+    setCategory("all");
     setStartDate("");
     setEndDate("");
     setAppliedFilters({});
@@ -86,7 +86,7 @@ export default function Results() {
                   <SelectValue placeholder="すべて" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">すべて</SelectItem>
+                  <SelectItem value="all">すべて</SelectItem>
                   <SelectItem value="U7">U7</SelectItem>
                   <SelectItem value="U8">U8</SelectItem>
                   <SelectItem value="U9">U9</SelectItem>
