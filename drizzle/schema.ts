@@ -44,6 +44,7 @@ export const matchResults = mysqlTable("match_results", {
   ourScore: int("ourScore").notNull(),
   opponentScore: int("opponentScore").notNull(),
   matchDate: timestamp("matchDate").notNull(),
+  category: mysqlEnum("category", ["U7", "U8", "U9", "U10", "U11", "U12", "その他"]).notNull(),
   venue: varchar("venue", { length: 255 }),
   notes: text("notes"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),

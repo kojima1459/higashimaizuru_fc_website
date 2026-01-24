@@ -1,0 +1,1 @@
+ALTER TABLE `match_results` ADD `category` enum('U7','U8','U9','U10','U11','U12','その他') NOT NULL;

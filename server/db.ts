@@ -143,6 +143,7 @@ export async function deleteNews(id: number) {
 // 試合結果関連
 export async function getAllMatchResults(filters?: {
   opponent?: string;
+  category?: string;
   startDate?: string;
   endDate?: string;
 }) {
@@ -153,6 +154,10 @@ export async function getAllMatchResults(filters?: {
 
   if (filters?.opponent) {
     conditions.push(like(matchResults.opponent, `%${filters.opponent}%`));
+  }
+
+  if (filters?.category && filters.category !== "全て") {
+    conditions.push(eq(matchResults.category, filters.category as any));
   }
 
   if (filters?.startDate) {

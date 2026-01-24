@@ -329,6 +329,7 @@ function ResultsManagement() {
     ourScore: 0,
     opponentScore: 0,
     matchDate: "",
+    category: "",
     venue: "",
     notes: "",
   });
@@ -370,6 +371,7 @@ function ResultsManagement() {
       ourScore: 0,
       opponentScore: 0,
       matchDate: "",
+      category: "",
       venue: "",
       notes: "",
     });
@@ -380,9 +382,9 @@ function ResultsManagement() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editingId) {
-      updateMutation.mutate({ id: editingId, ...formData });
+      updateMutation.mutate({ id: editingId, opponent: formData.opponent, ourScore: formData.ourScore, opponentScore: formData.opponentScore, matchDate: formData.matchDate, category: formData.category as any, venue: formData.venue, notes: formData.notes });
     } else {
-      createMutation.mutate(formData);
+      createMutation.mutate({ opponent: formData.opponent, ourScore: formData.ourScore, opponentScore: formData.opponentScore, matchDate: formData.matchDate, category: formData.category as any, venue: formData.venue, notes: formData.notes });
     }
   };
 
@@ -392,6 +394,7 @@ function ResultsManagement() {
       ourScore: result.ourScore,
       opponentScore: result.opponentScore,
       matchDate: new Date(result.matchDate).toISOString().split("T")[0],
+      category: result.category || "",
       venue: result.venue || "",
       notes: result.notes || "",
     });
@@ -458,6 +461,23 @@ function ResultsManagement() {
                   onChange={(e) => setFormData({ ...formData, matchDate: e.target.value })}
                   required
                 />
+              <div>
+                <Label htmlFor="category">カテゴリー *</Label>
+                <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value as any })}>
+                  <SelectTrigger id="category">
+                    <SelectValue placeholder="カテゴリーを選択" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="U7">U7</SelectItem>
+                    <SelectItem value="U8">U8</SelectItem>
+                    <SelectItem value="U9">U9</SelectItem>
+                    <SelectItem value="U10">U10</SelectItem>
+                    <SelectItem value="U11">U11</SelectItem>
+                    <SelectItem value="U12">U12</SelectItem>
+                    <SelectItem value="その他">その他</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               </div>
               <div>
                 <Label htmlFor="venue">会場</Label>

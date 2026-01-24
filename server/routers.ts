@@ -77,6 +77,7 @@ export const appRouter = router({
     list: publicProcedure
       .input(z.object({
         opponent: z.string().optional(),
+        category: z.string().optional(),
         startDate: z.string().optional(),
         endDate: z.string().optional(),
       }).optional())
@@ -90,6 +91,7 @@ export const appRouter = router({
         ourScore: z.number(),
         opponentScore: z.number(),
         matchDate: z.string().transform(str => new Date(str)),
+        category: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "その他"]),
         venue: z.string().optional(),
         notes: z.string().optional(),
       }))
@@ -105,6 +107,7 @@ export const appRouter = router({
         ourScore: z.number().optional(),
         opponentScore: z.number().optional(),
         matchDate: z.string().transform(str => new Date(str)).optional(),
+        category: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "その他"]).optional(),
         venue: z.string().optional(),
         notes: z.string().optional(),
       }))

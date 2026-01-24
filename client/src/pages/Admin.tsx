@@ -285,6 +285,7 @@ function ResultsManagement() {
   const [ourScore, setOurScore] = useState("0");
   const [opponentScore, setOpponentScore] = useState("0");
   const [matchDate, setMatchDate] = useState<Date | undefined>(undefined);
+  const [category, setCategory] = useState("");
   const [venue, setVenue] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -317,6 +318,7 @@ function ResultsManagement() {
     setOurScore("0");
     setOpponentScore("0");
     setMatchDate(undefined);
+    setCategory("");
     setVenue("");
     setNotes("");
   };
@@ -329,7 +331,7 @@ function ResultsManagement() {
     console.log("Form submit - ourScore:", ourScore);
     console.log("Form submit - opponentScore:", opponentScore);
 
-    // バリデーション：対戦相手と試合日は必須、スコアは0以上の数値
+    // バリデーション：対戦相手、試合日、カテゴリーは必須、スコアは0以上の数値
     const ourScoreNum = parseInt(ourScore, 10);
     const opponentScoreNum = parseInt(opponentScore, 10);
     
@@ -340,6 +342,11 @@ function ResultsManagement() {
     
     if (!matchDate) {
       toast.error("試合日を選択してください");
+      return;
+    }
+    
+    if (!category) {
+      toast.error("カテゴリーを選択してください");
       return;
     }
     
@@ -367,6 +374,7 @@ function ResultsManagement() {
       ourScore: ourScoreNum,
       opponentScore: opponentScoreNum,
       matchDate: format(matchDate, "yyyy-MM-dd"),
+      category: category as any,
       venue: venue || undefined,
       notes: notes || undefined,
     });
@@ -404,6 +412,24 @@ function ResultsManagement() {
                   onDateChange={setMatchDate}
                   placeholder="試合日を選択"
                 />
+
+              <div className="space-y-2">
+                <Label htmlFor="category">カテゴリー *</Label>
+                <Select value={category} onValueChange={setCategory}>
+                  <SelectTrigger id="category">
+                    <SelectValue placeholder="カテゴリーを選択" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="U7">U7</SelectItem>
+                    <SelectItem value="U8">U8</SelectItem>
+                    <SelectItem value="U9">U9</SelectItem>
+                    <SelectItem value="U10">U10</SelectItem>
+                    <SelectItem value="U11">U11</SelectItem>
+                    <SelectItem value="U12">U12</SelectItem>
+                    <SelectItem value="その他">その他</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               </div>
 
               <div className="space-y-2">

@@ -13,13 +13,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function Results() {
   const [opponent, setOpponent] = useState("");
+  const [category, setCategory] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [appliedFilters, setAppliedFilters] = useState<{
     opponent?: string;
+    category?: string;
     startDate?: string;
     endDate?: string;
   }>({});
@@ -29,6 +32,7 @@ export default function Results() {
   const handleSearch = () => {
     setAppliedFilters({
       opponent: opponent || undefined,
+      category: category || undefined,
       startDate: startDate || undefined,
       endDate: endDate || undefined,
     });
@@ -36,12 +40,13 @@ export default function Results() {
 
   const handleReset = () => {
     setOpponent("");
+    setCategory("");
     setStartDate("");
     setEndDate("");
     setAppliedFilters({});
   };
 
-  const hasActiveFilters = appliedFilters.opponent || appliedFilters.startDate || appliedFilters.endDate;
+  const hasActiveFilters = appliedFilters.opponent || appliedFilters.category || appliedFilters.startDate || appliedFilters.endDate;
 
   return (
     <div className="min-h-screen bg-background">
@@ -60,7 +65,7 @@ export default function Results() {
           <CardTitle className="text-lg">検索・フィルター</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
             <div>
               <label className="text-sm font-medium text-foreground mb-2 block">
                 対戦相手
@@ -71,6 +76,26 @@ export default function Results() {
                 onChange={(e) => setOpponent(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">
+                カテゴリー
+              </label>
+              <Select value={category} onValueChange={setCategory}>
+                <SelectTrigger>
+                  <SelectValue placeholder="すべて" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">すべて</SelectItem>
+                  <SelectItem value="U7">U7</SelectItem>
+                  <SelectItem value="U8">U8</SelectItem>
+                  <SelectItem value="U9">U9</SelectItem>
+                  <SelectItem value="U10">U10</SelectItem>
+                  <SelectItem value="U11">U11</SelectItem>
+                  <SelectItem value="U12">U12</SelectItem>
+                  <SelectItem value="その他">その他</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label className="text-sm font-medium text-foreground mb-2 block">
@@ -108,6 +133,7 @@ export default function Results() {
           {hasActiveFilters && (
             <div className="mt-4 text-sm text-muted-foreground">
               {appliedFilters.opponent && <span className="mr-4">対戦相手: {appliedFilters.opponent}</span>}
+              {appliedFilters.category && <span className="mr-4">カテゴリー: {appliedFilters.category}</span>}
               {appliedFilters.startDate && <span className="mr-4">開始日: {new Date(appliedFilters.startDate).toLocaleDateString("ja-JP")}</span>}
               {appliedFilters.endDate && <span>終了日: {new Date(appliedFilters.endDate).toLocaleDateString("ja-JP")}</span>}
             </div>
@@ -130,6 +156,7 @@ export default function Results() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>日時</TableHead>
+                    <TableHead>カテゴリー</TableHead>
                     <TableHead>対戦相手</TableHead>
                     <TableHead className="text-center">スコア</TableHead>
                     <TableHead>会場</TableHead>
@@ -147,6 +174,7 @@ export default function Results() {
                         <TableCell>
                           {new Date(result.matchDate).toLocaleDateString("ja-JP")}
                         </TableCell>
+                        <TableCell className="font-medium">{result.category}</TableCell>
                         <TableCell className="font-medium">{result.opponent}</TableCell>
                         <TableCell className={`text-center font-bold ${resultColor}`}>
                           {result.ourScore} - {result.opponentScore}
