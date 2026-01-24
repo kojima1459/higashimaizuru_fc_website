@@ -53,6 +53,19 @@ export default function Schedule() {
     }
   };
 
+  const getGradeColor = (grade: string) => {
+    switch (grade) {
+      case "U7": return "bg-red-500";
+      case "U8": return "bg-orange-500";
+      case "U9": return "bg-yellow-500";
+      case "U10": return "bg-green-500";
+      case "U11": return "bg-blue-500";
+      case "U12": return "bg-purple-500";
+      case "全体": return "bg-pink-500";
+      default: return "bg-gray-500";
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -185,7 +198,7 @@ export default function Schedule() {
                       <span className={`text-xs px-2 py-1 rounded text-white ${getEventTypeColor(schedule.eventType)}`}>
                         {schedule.eventType}
                       </span>
-                      <span className="text-xs px-2 py-1 rounded bg-orange-500 text-white">
+                      <span className={`text-xs px-2 py-1 rounded text-white ${getGradeColor(schedule.grade)}`}>
                         {schedule.grade}
                       </span>
                       <span className="text-sm text-muted-foreground">
