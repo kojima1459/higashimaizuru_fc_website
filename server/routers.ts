@@ -211,6 +211,7 @@ export const appRouter = router({
         id: z.number(),
         title: z.string().min(1).optional(),
         eventType: z.enum(["練習", "試合", "大会", "その他"]).optional(),
+        grade: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "全体"]).optional(),
         opponent: z.string().optional(),
         eventDate: z.string().transform(str => new Date(str)).optional(),
         venue: z.string().optional(),
