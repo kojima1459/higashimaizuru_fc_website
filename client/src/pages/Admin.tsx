@@ -27,12 +27,13 @@ export default function Admin() {
       </div>
 
       <Tabs defaultValue="news" className="w-full">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="news">お知らせ管理</TabsTrigger>
           <TabsTrigger value="results">試合結果管理</TabsTrigger>
           <TabsTrigger value="contacts">お問い合わせ一覧</TabsTrigger>
           <TabsTrigger value="schedule">スケジュール管理</TabsTrigger>
           <TabsTrigger value="photos">写真管理</TabsTrigger>
+          <TabsTrigger value="bbs">掲示板管理</TabsTrigger>
           <TabsTrigger value="settings">設定</TabsTrigger>
         </TabsList>
 
@@ -58,6 +59,10 @@ export default function Admin() {
 
         <TabsContent value="photos">
           <PhotosManagement />
+        </TabsContent>
+
+        <TabsContent value="bbs">
+          <BbsManagement />
         </TabsContent>
       </Tabs>
       </div>
@@ -1197,5 +1202,73 @@ function ScheduleManagement() {
   );
 }
 
+// 掲示板管理コンポーネント
+function BbsManagement() {
+  const { data: posts, isLoading } = trpc.bbs.list.useQuery();
+  const utils = trpc.useUtils();
 
+  const deleteMutation = trpc.bbs.delete.useMutation({
+    onSuccess: () => {
+      toast.success("投稿を削除しました");
+      utils.bbs.list.invalidate();
+    },
+    onError: (error) => {
+      toast.error("削除に失敗しました: " + error.message);
+    },
+  });
 
+  const handleDelete = (postId: number) => {
+    if (confirm("この投稿を削除しますか？")) {
+      deleteMutation.mutate({ id: postId });
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>掲示板投稿一覧</CardTitle>
+          <CardDescription>ユーザーが投稿した掲示板の内容を管理できます</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {isLoading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+          ) : posts && posts.length > 0 ? (
+            <div className="space-y-4">
+              {posts.map((post) => (
+                <Card key={post.id}>
+                  <CardContent className="pt-6">
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <span className="font-semibold text-foreground">
+                          {post.authorName}
+                        </span>
+                        <span className="text-sm text-muted-foreground ml-2">
+                          {new Date(post.createdAt).toLocaleString("ja-JP")}
+                        </span>
+                      </div>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleDelete(post.id)}
+                        disabled={deleteMutation.isPending}
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        削除
+                      </Button>
+                    </div>
+                    <p className="text-foreground whitespace-pre-wrap">{post.content}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground py-8">投稿はまだありません</p>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
