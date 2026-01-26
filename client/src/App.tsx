@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
+import { Redirect } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Header from "./components/Header";
@@ -16,8 +17,6 @@ import Team from "./pages/Team";
 import Contact from "./pages/Contact";
 import Bbs from "./pages/Bbs";
 import Admin from "./pages/Admin";
-import AdminManagement from "./pages/AdminManagement";
-import AdminPhotos from "./pages/AdminPhotos";
 import Gallery from "./pages/Gallery";
 import AdminLogin from "./pages/AdminLogin";
 
@@ -37,8 +36,8 @@ function Router() {
           <Route path="/bbs" component={Bbs} />
           <Route path="/admin/login" component={AdminLogin} />
           <Route path="/admin" component={Admin} />
-          <Route path="/admin/management" component={AdminManagement} />
-          <Route path="/admin/photos" component={AdminPhotos} />
+          <Route path="/admin/management">{() => <Redirect to="/admin" />}</Route>
+          <Route path="/admin/photos">{() => <Redirect to="/admin" />}</Route>
           <Route path="/gallery" component={Gallery} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />

@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { Loader2, Trash2, Edit } from "lucide-react";
+import { Loader2, Trash2, Edit, Plus, Upload } from "lucide-react";
 import { DatePicker } from "@/components/ui/date-picker";
 import { format } from "date-fns";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -23,17 +23,16 @@ export default function Admin() {
       <div className="container py-12">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-4xl font-bold text-foreground">管理画面</h1>
-        <div className="flex gap-2">
-          <Button onClick={() => setLocation("/admin/photos")}>写真管理</Button>
-          <Button onClick={() => setLocation("/admin/management")}>コンテンツ管理</Button>
-        </div>
+        
       </div>
 
       <Tabs defaultValue="news" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="news">お知らせ管理</TabsTrigger>
           <TabsTrigger value="results">試合結果管理</TabsTrigger>
           <TabsTrigger value="contacts">お問い合わせ一覧</TabsTrigger>
+          <TabsTrigger value="schedule">スケジュール管理</TabsTrigger>
+          <TabsTrigger value="photos">写真管理</TabsTrigger>
           <TabsTrigger value="settings">設定</TabsTrigger>
         </TabsList>
 
@@ -51,6 +50,14 @@ export default function Admin() {
 
         <TabsContent value="settings">
           <AdminSettings />
+        </TabsContent>
+
+        <TabsContent value="schedule">
+          <ScheduleManagement />
+        </TabsContent>
+
+        <TabsContent value="photos">
+          <PhotosManagement />
         </TabsContent>
       </Tabs>
       </div>
@@ -755,3 +762,433 @@ function AdminSettings() {
     </div>
   );
 }
+
+// 写真管理コンポーネント
+function PhotosManagement() {
+  const [isUploading, setIsUploading] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    caption: "",
+    category: "練習風景" as "練習風景" | "試合" | "イベント" | "その他",
+  });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [categoryFilter, setCategoryFilter] = useState<string>("全て");
+
+  const { data: photos, refetch } = trpc.photos.list.useQuery({ 
+    category: categoryFilter === "全て" ? undefined : categoryFilter 
+  });
+  
+  const uploadMutation = trpc.photos.upload.useMutation({
+    onSuccess: () => {
+      toast.success("写真をアップロードしました");
+      refetch();
+      resetForm();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+      setIsUploading(false);
+    },
+  });
+
+  const deleteMutation = trpc.photos.delete.useMutation({
+    onSuccess: () => {
+      toast.success("写真を削除しました");
+      refetch();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const resetForm = () => {
+    setFormData({
+      title: "",
+      caption: "",
+      category: "練習風景",
+    });
+    setSelectedFile(null);
+    setPreviewUrl(null);
+    setIsUploading(false);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error("ファイルサイズは10MB以下にしてください");
+        return;
+      }
+      if (!file.type.startsWith("image/")) {
+        toast.error("画像ファイルを選択してください");
+        return;
+      }
+      setSelectedFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedFile) {
+      toast.error("写真を選択してください");
+      return;
+    }
+    setIsUploading(true);
+    try {
+      const fileExtension = selectedFile.name.split('.').pop();
+      const randomSuffix = Math.random().toString(36).substring(2, 15);
+      const fileKey = `photos/${Date.now()}-${randomSuffix}.${fileExtension}`;
+      const { storagePut } = await import("@/lib/storage");
+      const { url, key } = await storagePut(fileKey, selectedFile, selectedFile.type);
+      await uploadMutation.mutateAsync({
+        title: formData.title || undefined,
+        caption: formData.caption || undefined,
+        imageUrl: url,
+        imageKey: key,
+        category: formData.category,
+      });
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast.error("アップロードに失敗しました");
+      setIsUploading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-8">
+      <Card>
+        <CardHeader>
+          <CardTitle>写真をアップロード</CardTitle>
+          <CardDescription>練習風景や試合の写真を追加できます</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label htmlFor="file">写真ファイル *</Label>
+              <Input
+                id="file"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                disabled={isUploading}
+                required
+              />
+              <p className="text-sm text-muted-foreground mt-1">ファイルサイズ: 10MB以下</p>
+            </div>
+            {previewUrl && (
+              <div className="border rounded-lg p-4">
+                <p className="text-sm font-medium mb-2">プレビュー:</p>
+                <img src={previewUrl} alt="Preview" className="max-w-full h-auto max-h-64 rounded-lg object-contain" />
+              </div>
+            )}
+            <div>
+              <Label htmlFor="category">カテゴリー *</Label>
+              <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value as any })} disabled={isUploading}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="練習風景">練習風景</SelectItem>
+                  <SelectItem value="試合">試合</SelectItem>
+                  <SelectItem value="イベント">イベント</SelectItem>
+                  <SelectItem value="その他">その他</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="title">タイトル（任意）</Label>
+              <Input id="title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} placeholder="例: 2024年春季大会" disabled={isUploading} />
+            </div>
+            <div>
+              <Label htmlFor="caption">キャプション（任意）</Label>
+              <Textarea id="caption" value={formData.caption} onChange={(e) => setFormData({ ...formData, caption: e.target.value })} placeholder="写真の説明を入力してください" rows={3} disabled={isUploading} />
+            </div>
+            <div className="flex gap-2">
+              <Button type="submit" disabled={isUploading || !selectedFile}>{isUploading ? "アップロード中..." : "アップロード"}</Button>
+              {(selectedFile || formData.title || formData.caption) && (<Button type="button" variant="outline" onClick={resetForm} disabled={isUploading}>キャンセル</Button>)}
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+      <div className="mb-4">
+        <Label>カテゴリーで絞り込み</Label>
+        <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+          <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="全て">全て</SelectItem>
+            <SelectItem value="練習風景">練習風景</SelectItem>
+            <SelectItem value="試合">試合</SelectItem>
+            <SelectItem value="イベント">イベント</SelectItem>
+            <SelectItem value="その他">その他</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {photos?.map((photo) => (
+          <Card key={photo.id} className="overflow-hidden">
+            <div className="aspect-video bg-muted relative">
+              <img src={photo.imageUrl} alt={photo.title || "写真"} className="w-full h-full object-cover" />
+            </div>
+            <CardHeader>
+              <div className="flex justify-between items-start">
+                <div className="flex-1">
+                  <CardTitle className="text-base">{photo.title || "無題"}</CardTitle>
+                  <CardDescription>{photo.category} • {new Date(photo.createdAt).toLocaleDateString("ja-JP")}</CardDescription>
+                </div>
+                <Button variant="destructive" size="sm" onClick={() => { if (confirm("この写真を削除しますか？")) { deleteMutation.mutate({ id: photo.id }); } }}><Trash2 className="h-4 w-4" /></Button>
+              </div>
+            </CardHeader>
+            {photo.caption && (<CardContent><p className="text-sm text-muted-foreground">{photo.caption}</p></CardContent>)}
+          </Card>
+        ))}
+        {!photos || photos.length === 0 && (
+          <div className="col-span-full text-center py-12">
+            <p className="text-muted-foreground">写真がありません</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// スケジュール管理コンポーネント
+function ScheduleManagement() {
+  const [isCreating, setIsCreating] = useState(false);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [formData, setFormData] = useState({
+    title: "",
+    eventType: "練習" as "練習" | "試合" | "大会" | "その他",
+    grade: "U7" as "U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体",
+    opponent: "",
+    eventDate: "",
+    venue: "",
+    notes: "",
+  });
+
+  const { data: schedules, refetch } = trpc.schedules.list.useQuery();
+  const createMutation = trpc.schedules.create.useMutation({
+    onSuccess: () => {
+      toast.success("作成しました");
+      refetch();
+      resetForm();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+  const updateMutation = trpc.schedules.update.useMutation({
+    onSuccess: () => {
+      toast.success("更新しました");
+      refetch();
+      resetForm();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+  const deleteMutation = trpc.schedules.delete.useMutation({
+    onSuccess: () => {
+      toast.success("削除しました");
+      refetch();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const resetForm = () => {
+    setFormData({
+      title: "",
+      eventType: "練習",
+      grade: "U7",
+      opponent: "",
+      eventDate: "",
+      venue: "",
+      notes: "",
+    });
+    setIsCreating(false);
+    setEditingId(null);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editingId) {
+      updateMutation.mutate({ id: editingId, ...formData });
+    } else {
+      createMutation.mutate(formData);
+    }
+  };
+
+  const handleEdit = (schedule: any) => {
+    setFormData({
+      title: schedule.title,
+      eventType: schedule.eventType,
+      grade: schedule.grade,
+      opponent: schedule.opponent || "",
+      eventDate: new Date(schedule.eventDate).toISOString().split("T")[0],
+      venue: schedule.venue || "",
+      notes: schedule.notes || "",
+    });
+    setEditingId(schedule.id);
+    setIsCreating(true);
+  };
+
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">スケジュール一覧</h2>
+        <Button onClick={() => setIsCreating(!isCreating)}>
+          <Plus className="h-4 w-4 mr-2" />
+          {isCreating ? "キャンセル" : "新規作成"}
+        </Button>
+      </div>
+
+      {isCreating && (
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>{editingId ? "スケジュール編集" : "新規スケジュール作成"}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <Label htmlFor="title">タイトル *</Label>
+                <Input
+                  id="title"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="eventType">種別 *</Label>
+                <Select
+                  value={formData.eventType}
+                  onValueChange={(value: any) => setFormData({ ...formData, eventType: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="練習">練習</SelectItem>
+                    <SelectItem value="試合">試合</SelectItem>
+                    <SelectItem value="大会">大会</SelectItem>
+                    <SelectItem value="その他">その他</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="grade">学年 *</Label>
+                <Select
+                  value={formData.grade}
+                  onValueChange={(value: any) => setFormData({ ...formData, grade: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="U7">U7</SelectItem>
+                    <SelectItem value="U8">U8</SelectItem>
+                    <SelectItem value="U9">U9</SelectItem>
+                    <SelectItem value="U10">U10</SelectItem>
+                    <SelectItem value="U11">U11</SelectItem>
+                    <SelectItem value="U12">U12</SelectItem>
+                    <SelectItem value="全体">全体</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="opponent">対戦相手</Label>
+                <Input
+                  id="opponent"
+                  value={formData.opponent}
+                  onChange={(e) => setFormData({ ...formData, opponent: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label htmlFor="eventDate">日時 *</Label>
+                <Input
+                  id="eventDate"
+                  type="date"
+                  value={formData.eventDate}
+                  onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="venue">場所</Label>
+                <Input
+                  id="venue"
+                  value={formData.venue}
+                  onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label htmlFor="notes">備考</Label>
+                <Textarea
+                  id="notes"
+                  value={formData.notes}
+                  onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                />
+              </div>
+              <div className="flex gap-2">
+                <Button type="submit">{editingId ? "更新" : "作成"}</Button>
+                <Button type="button" variant="outline" onClick={resetForm}>
+                  キャンセル
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      )}
+
+      <div className="space-y-4">
+        {schedules?.map((schedule) => (
+          <Card key={schedule.id}>
+            <CardHeader>
+              <div className="flex justify-between items-start">
+                <div>
+                  <CardTitle className="text-lg">{schedule.title}</CardTitle>
+                  <CardDescription>
+                    {schedule.eventType} | {schedule.grade} | {new Date(schedule.eventDate).toLocaleDateString("ja-JP")}
+                    {schedule.opponent && ` | 対戦相手: ${schedule.opponent}`}
+                  </CardDescription>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" onClick={() => handleEdit(schedule)}>
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => {
+                      if (confirm("このスケジュールを削除しますか？")) {
+                        deleteMutation.mutate({ id: schedule.id });
+                      }
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            {(schedule.venue || schedule.notes) && (
+              <CardContent>
+                {schedule.venue && <p>場所: {schedule.venue}</p>}
+                {schedule.notes && <p className="text-muted-foreground">{schedule.notes}</p>}
+              </CardContent>
+            )}
+          </Card>
+        ))}
+        {!schedules || schedules.length === 0 && (
+          <p className="text-muted-foreground text-center py-8">スケジュールがありません</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
+
