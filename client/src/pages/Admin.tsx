@@ -159,8 +159,10 @@ function NewsManagement() {
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="お知らせのタイトル"
+                placeholder="例: 2月の練習スケジュールについて"
+                required
               />
+              <p className="text-sm text-muted-foreground mt-1">わかりやすいタイトルを入力してください</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -408,8 +410,10 @@ function ResultsManagement() {
                   id="opponent"
                   value={opponent}
                   onChange={(e) => setOpponent(e.target.value)}
-                  placeholder="対戦相手名"
+                  placeholder="例: 綾部FC"
+                  required
                 />
+                <p className="text-sm text-muted-foreground mt-1">対戦相手のチーム名を入力してください</p>
               </div>
 
               <div className="space-y-2">
@@ -477,8 +481,9 @@ function ResultsManagement() {
                   id="venue"
                   value={venue}
                   onChange={(e) => setVenue(e.target.value)}
-                  placeholder="会場名"
+                  placeholder="例: 朝来グラウンド"
                 />
+                <p className="text-sm text-muted-foreground mt-1">試合会場を入力してください</p>
               </div>
 
               <div className="space-y-2 md:col-span-2">
@@ -1061,6 +1066,7 @@ function ScheduleManagement() {
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   required
                 />
+                <p className="text-sm text-muted-foreground mt-1">例: U10練習試合 vs 綾部FC</p>
               </div>
               <div>
                 <Label htmlFor="eventType">種別 *</Label>
@@ -1106,6 +1112,7 @@ function ScheduleManagement() {
                   value={formData.opponent}
                   onChange={(e) => setFormData({ ...formData, opponent: e.target.value })}
                 />
+                <p className="text-sm text-muted-foreground mt-1">試合の場合は対戦相手を入力してください</p>
               </div>
               <div>
                 <Label htmlFor="eventDate">日時 *</Label>
