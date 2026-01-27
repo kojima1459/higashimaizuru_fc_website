@@ -1204,6 +1204,7 @@ function ScheduleManagement() {
 
 // 掲示板管理コンポーネント
 function BbsManagement() {
+  const [expandedPostId, setExpandedPostId] = useState<number | null>(null);
   const { data: posts, isLoading } = trpc.bbs.list.useQuery();
   const utils = trpc.useUtils();
 
@@ -1238,30 +1239,49 @@ function BbsManagement() {
           ) : posts && posts.length > 0 ? (
             <div className="space-y-4">
               {posts.map((post) => (
-                <Card key={post.id}>
-                  <CardContent className="pt-6">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <span className="font-semibold text-foreground">
-                          {post.authorName}
-                        </span>
-                        <span className="text-sm text-muted-foreground ml-2">
-                          {new Date(post.createdAt).toLocaleString("ja-JP")}
-                        </span>
+                <div key={post.id}>
+                  <Card>
+                    <CardContent className="pt-6">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <span className="font-semibold text-foreground">
+                            {post.authorName}
+                          </span>
+                          <span className="text-sm text-muted-foreground ml-2">
+                            {new Date(post.createdAt).toLocaleString("ja-JP")}
+                          </span>
+                        </div>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => handleDelete(post.id)}
+                          disabled={deleteMutation.isPending}
+                        >
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          削除
+                        </Button>
                       </div>
+                      <p className="text-foreground whitespace-pre-wrap">{post.content}</p>
+                      
+                      {/* コメント表示ボタン */}
                       <Button
-                        variant="destructive"
+                        variant="outline"
                         size="sm"
-                        onClick={() => handleDelete(post.id)}
-                        disabled={deleteMutation.isPending}
+                        onClick={() => setExpandedPostId(expandedPostId === post.id ? null : post.id)}
+                        className="mt-4"
                       >
-                        <Trash2 className="h-4 w-4 mr-2" />
-                        削除
+                        コメント管理
                       </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* コメント管理セクション */}
+                  {expandedPostId === post.id && (
+                    <div className="mt-2 ml-4 p-4 bg-muted rounded-lg border border-border">
+                      <BbsCommentManagement postId={post.id} />
                     </div>
-                    <p className="text-foreground whitespace-pre-wrap">{post.content}</p>
-                  </CardContent>
-                </Card>
+                  )}
+                </div>
               ))}
             </div>
           ) : (
@@ -1269,6 +1289,69 @@ function BbsManagement() {
           )}
         </CardContent>
       </Card>
+    </div>
+  );
+}
+
+
+// コメント管理コンポーネント
+function BbsCommentManagement({ postId }: { postId: number }) {
+  const { data: comments, isLoading: commentsLoading } = trpc.bbsComments.listByPost.useQuery({ postId });
+  const utils = trpc.useUtils();
+
+  const deleteCommentMutation = trpc.bbsComments.delete.useMutation({
+    onSuccess: () => {
+      toast.success("コメントを削除しました");
+      utils.bbsComments.listByPost.invalidate({ postId });
+    },
+    onError: (error) => {
+      toast.error("削除に失敗しました: " + error.message);
+    },
+  });
+
+  const handleDeleteComment = (commentId: number) => {
+    if (confirm("このコメントを削除しますか？")) {
+      deleteCommentMutation.mutate({ id: commentId });
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <h4 className="font-semibold text-foreground text-sm">コメント一覧</h4>
+      {commentsLoading ? (
+        <div className="flex justify-center py-4">
+          <Loader2 className="h-4 w-4 animate-spin text-primary" />
+        </div>
+      ) : comments && comments.length > 0 ? (
+        <div className="space-y-2">
+          {comments.map((comment) => (
+            <div key={comment.id} className="bg-background p-3 rounded border border-border text-sm">
+              <div className="flex items-start justify-between mb-1">
+                <div>
+                  <span className="font-semibold text-foreground text-xs">
+                    {comment.authorName}
+                  </span>
+                  <span className="text-xs text-muted-foreground ml-2">
+                    {new Date(comment.createdAt).toLocaleString("ja-JP")}
+                  </span>
+                </div>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => handleDeleteComment(comment.id)}
+                  disabled={deleteCommentMutation.isPending}
+                  className="h-6 px-2"
+                >
+                  <Trash2 className="h-3 w-3" />
+                </Button>
+              </div>
+              <p className="text-foreground text-xs whitespace-pre-wrap">{comment.content}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-muted-foreground text-xs py-2">コメントはまだありません</p>
+      )}
     </div>
   );
 }

@@ -84,6 +84,22 @@ export type BbsPost = typeof bbsPosts.$inferSelect;
 export type InsertBbsPost = typeof bbsPosts.$inferInsert;
 
 /**
+ * BBSコメントテーブル
+ */
+export const bbsComments = mysqlTable("bbs_comments", {
+  id: int("id").autoincrement().primaryKey(),
+  postId: int("postId").notNull(),
+  authorId: int("authorId"),
+  authorName: varchar("authorName", { length: 255 }).notNull(),
+  content: text("content").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type BbsComment = typeof bbsComments.$inferSelect;
+export type InsertBbsComment = typeof bbsComments.$inferInsert;
+
+/**
  * スケジュールテーブル
  */
 export const schedules = mysqlTable("schedules", {

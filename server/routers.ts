@@ -179,6 +179,56 @@ export const appRouter = router({
       }),
   }),
 
+  // BBSコメント
+  bbsComments: router({
+    listByPost: publicProcedure
+      .input(z.object({ postId: z.number() }))
+      .query(async ({ input }) => {
+        return await db.getAllBbsComments(input.postId);
+      }),
+
+    create: publicProcedure
+      .input(z.object({
+        postId: z.number(),
+        content: z.string().min(1),
+        authorName: z.string().min(1).optional(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        await db.createBbsComment({
+          postId: input.postId,
+          content: input.content,
+          authorId: ctx.user?.id || null,
+          authorName: input.authorName || ctx.user?.name || "名無し",
+        });
+        return { success: true };
+      }),
+
+    delete: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input, ctx }) => {
+        // 管理者またはコメント投稿者本人のみ削除可能
+        const allPosts = await db.getAllBbsPosts();
+        let targetComment = null;
+        for (const post of allPosts) {
+          const postComments = await db.getAllBbsComments(post.id);
+          const comment = postComments.find(c => c.id === input.id);
+          if (comment) {
+            targetComment = comment;
+            break;
+          }
+        }
+        
+        if (!targetComment) {
+          throw new TRPCError({ code: 'NOT_FOUND' });
+        }
+        if (ctx.user.role !== 'admin' && targetComment.authorId !== ctx.user.id) {
+          throw new TRPCError({ code: 'FORBIDDEN' });
+        }
+        await db.deleteBbsComment(input.id);
+        return { success: true };
+      }),
+  }),
+
   // スケジュール
   schedules: router({
     list: publicProcedure

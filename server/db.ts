@@ -1,6 +1,6 @@
 import { eq, desc, and, like, gte, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, news, InsertNews, matchResults, InsertMatchResult, contacts, InsertContact, bbsPosts, InsertBbsPost, schedules, InsertSchedule, photos, InsertPhoto, Photo, adminPassword } from "../drizzle/schema";
+import { InsertUser, users, news, InsertNews, matchResults, InsertMatchResult, contacts, InsertContact, bbsPosts, InsertBbsPost, schedules, InsertSchedule, photos, InsertPhoto, Photo, adminPassword, bbsComments, InsertBbsComment } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -234,6 +234,29 @@ export async function deleteBbsPost(id: number) {
   if (!db) throw new Error("Database not available");
 
   await db.delete(bbsPosts).where(eq(bbsPosts.id, id));
+}
+
+// BBSコメント関連
+export async function getAllBbsComments(postId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db.select().from(bbsComments).where(eq(bbsComments.postId, postId)).orderBy(desc(bbsComments.createdAt));
+}
+
+export async function createBbsComment(data: InsertBbsComment) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(bbsComments).values(data);
+  return result;
+}
+
+export async function deleteBbsComment(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.delete(bbsComments).where(eq(bbsComments.id, id));
 }
 
 // スケジュール関連
