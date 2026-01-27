@@ -224,4 +224,16 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+  /* Icon rotation animation for floating button */
+  @keyframes iconRotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .icon-rotate {
+    animation: iconRotate 0.6s ease-in-out;
+  }
 }

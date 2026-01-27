@@ -5,11 +5,12 @@ import { Link } from "wouter";
 
 export default function FloatingActionButton() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-50 sm:bottom-8 sm:right-8 md:bottom-10 md:right-10">
       {/* アクションメニュー */}
       {isOpen && (
         <div className="absolute bottom-16 right-0 flex flex-col gap-3 mb-2 animate-fade-in-up">
@@ -58,13 +59,19 @@ export default function FloatingActionButton() {
       {/* メインボタン */}
       <Button
         onClick={toggleMenu}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
         size="icon"
         className={`h-14 w-14 rounded-full shadow-2xl hover:scale-110 transition-all bg-orange-500 hover:bg-orange-600 text-white ${
           isOpen ? "rotate-45" : ""
         }`}
         title={isOpen ? "閉じる" : "お問い合わせメニュー"}
       >
-        {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
+        {isOpen ? (
+          <X className="h-6 w-6" />
+        ) : (
+          <MessageCircle className={`h-6 w-6 ${isHovering ? "icon-rotate" : ""}`} />
+        )}
       </Button>
     </div>
   );
