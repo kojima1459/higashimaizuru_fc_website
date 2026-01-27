@@ -59,7 +59,7 @@ export default function FloatingActionButton() {
       <Button
         onClick={toggleMenu}
         size="icon"
-        className={`h-14 w-14 rounded-full shadow-2xl hover:scale-110 transition-all ${
+        className={`h-14 w-14 rounded-full shadow-2xl hover:scale-110 transition-all bg-orange-500 hover:bg-orange-600 text-white ${
           isOpen ? "rotate-45" : ""
         }`}
         title={isOpen ? "閉じる" : "お問い合わせメニュー"}
