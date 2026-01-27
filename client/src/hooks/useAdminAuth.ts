@@ -1,12 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 
 export function useAdminAuth() {
   const [, setLocation] = useLocation();
   const verifyPassword = trpc.admin.verifyPassword.useMutation();
+  const hasChecked = useRef(false);
 
   useEffect(() => {
+    // 既にチェック済みの場合はスキップ
+    if (hasChecked.current) return;
+    hasChecked.current = true;
+
     const checkAuth = async () => {
       const storedPassword = localStorage.getItem("adminPassword");
       
@@ -35,5 +40,5 @@ export function useAdminAuth() {
     };
 
     checkAuth();
-  }, [setLocation, verifyPassword]);
+  }, [setLocation]);
 }
