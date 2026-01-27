@@ -219,9 +219,13 @@ export default function Schedule() {
                         weekday: "short",
                       })}
                     </p>
-                    {schedule.meetingTime && (
+                    {schedule.meetingTime ? (
                       <p className="text-sm text-foreground mb-1">
                         <span className="font-medium">集合時間:</span> {schedule.meetingTime}
+                      </p>
+                    ) : (
+                      <p className="text-sm text-muted-foreground mb-1">
+                        <span className="font-medium">集合時間:</span> 未定
                       </p>
                     )}
                     {schedule.venue && (
