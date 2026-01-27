@@ -339,8 +339,9 @@ function ScheduleManagement() {
                 </div>
               </div>
             </CardHeader>
-            {(schedule.venue || schedule.notes) && (
+            {(schedule.meetingTime || schedule.venue || schedule.notes) && (
               <CardContent>
+                {schedule.meetingTime && <p>集合時間: {schedule.meetingTime}</p>}
                 {schedule.venue && <p>場所: {schedule.venue}</p>}
                 {schedule.notes && <p className="text-muted-foreground">{schedule.notes}</p>}
               </CardContent>

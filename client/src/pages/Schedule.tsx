@@ -211,11 +211,14 @@ export default function Schedule() {
                       </span>
                     </div>
                     <h3 className="text-xl font-bold text-foreground mb-2">{schedule.title}</h3>
-                    {schedule.opponent && (
-                      <p className="text-sm text-foreground mb-1">
-                        <span className="font-medium">対戦相手:</span> {schedule.opponent}
-                      </p>
-                    )}
+                    <p className="text-sm text-foreground mb-1">
+                      <span className="font-medium">日時:</span> {new Date(schedule.eventDate).toLocaleDateString("ja-JP", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        weekday: "short",
+                      })}
+                    </p>
                     {schedule.meetingTime && (
                       <p className="text-sm text-foreground mb-1">
                         <span className="font-medium">集合時間:</span> {schedule.meetingTime}
@@ -224,6 +227,11 @@ export default function Schedule() {
                     {schedule.venue && (
                       <p className="text-sm text-foreground mb-1">
                         <span className="font-medium">場所:</span> {schedule.venue}
+                      </p>
+                    )}
+                    {schedule.opponent && (
+                      <p className="text-sm text-foreground mb-1">
+                        <span className="font-medium">対戦相手:</span> {schedule.opponent}
                       </p>
                     )}
                     {schedule.notes && (
