@@ -27,14 +27,14 @@ export default function Admin() {
       </div>
 
       <Tabs defaultValue="news" className="w-full">
-        <TabsList className="grid w-full grid-cols-7">
-          <TabsTrigger value="news">お知らせ管理</TabsTrigger>
-          <TabsTrigger value="results">試合結果管理</TabsTrigger>
-          <TabsTrigger value="contacts">お問い合わせ一覧</TabsTrigger>
-          <TabsTrigger value="schedule">スケジュール管理</TabsTrigger>
-          <TabsTrigger value="photos">写真管理</TabsTrigger>
-          <TabsTrigger value="bbs">掲示板管理</TabsTrigger>
-          <TabsTrigger value="settings">設定</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-1">
+          <TabsTrigger value="news" className="text-xs sm:text-sm">お知らせ</TabsTrigger>
+          <TabsTrigger value="results" className="text-xs sm:text-sm">試合結果</TabsTrigger>
+          <TabsTrigger value="contacts" className="text-xs sm:text-sm">お問い合わせ</TabsTrigger>
+          <TabsTrigger value="schedule" className="text-xs sm:text-sm">スケジュール</TabsTrigger>
+          <TabsTrigger value="photos" className="text-xs sm:text-sm">写真</TabsTrigger>
+          <TabsTrigger value="bbs" className="text-xs sm:text-sm">掲示板</TabsTrigger>
+          <TabsTrigger value="settings" className="text-xs sm:text-sm">設定</TabsTrigger>
         </TabsList>
 
         <TabsContent value="news">
