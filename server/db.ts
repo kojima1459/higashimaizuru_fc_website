@@ -385,3 +385,72 @@ export async function initializeAdminPassword(initialPassword: string) {
     });
   }
 }
+
+
+// ========================================
+// Match Results Statistics
+// ========================================
+
+export async function getMatchResultsStatistics() {
+  const db = await getDb();
+  if (!db) return null;
+
+  const results = await db.select().from(matchResults);
+
+  // 学年別統計
+  const statsByCategory = results.reduce((acc, result) => {
+    if (!acc[result.category]) {
+      acc[result.category] = {
+        wins: 0,
+        draws: 0,
+        losses: 0,
+        goalsFor: 0,
+        goalsAgainst: 0,
+        totalMatches: 0,
+      };
+    }
+
+    const stats = acc[result.category];
+    stats.totalMatches++;
+    stats.goalsFor += result.ourScore;
+    stats.goalsAgainst += result.opponentScore;
+
+    if (result.ourScore > result.opponentScore) {
+      stats.wins++;
+    } else if (result.ourScore === result.opponentScore) {
+      stats.draws++;
+    } else {
+      stats.losses++;
+    }
+
+    return acc;
+  }, {} as Record<string, { wins: number; draws: number; losses: number; goalsFor: number; goalsAgainst: number; totalMatches: number }>);
+
+  // 全体統計
+  const overallStats = {
+    totalMatches: results.length,
+    wins: 0,
+    draws: 0,
+    losses: 0,
+    goalsFor: 0,
+    goalsAgainst: 0,
+  };
+
+  results.forEach((result) => {
+    overallStats.goalsFor += result.ourScore;
+    overallStats.goalsAgainst += result.opponentScore;
+
+    if (result.ourScore > result.opponentScore) {
+      overallStats.wins++;
+    } else if (result.ourScore === result.opponentScore) {
+      overallStats.draws++;
+    } else {
+      overallStats.losses++;
+    }
+  });
+
+  return {
+    byCategory: statsByCategory,
+    overall: overallStats,
+  };
+}

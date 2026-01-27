@@ -353,6 +353,13 @@ export const appRouter = router({
         return { success: true };
       }),
   }),
+
+  // 試合結果統計
+  statistics: router({
+    matchResults: publicProcedure.query(async () => {
+      return await db.getMatchResultsStatistics();
+    }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

@@ -14,6 +14,7 @@ export default function Header() {
     { label: "お知らせ", href: "/news" },
     { label: "スケジュール", href: "/schedule" },
     { label: "試合結果", href: "/results" },
+    { label: "統計", href: "/statistics" },
     { label: "写真", href: "/gallery" },
     { label: "チーム情報", href: "/team" },
     { label: "掲示板", href: "/bbs" },

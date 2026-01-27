@@ -19,6 +19,7 @@ import Bbs from "./pages/Bbs";
 import Admin from "./pages/Admin";
 import Gallery from "./pages/Gallery";
 import AdminLogin from "./pages/AdminLogin";
+import Statistics from "./pages/Statistics";
 
 function Router() {
   return (
@@ -39,6 +40,7 @@ function Router() {
           <Route path="/admin/management">{() => <Redirect to="/admin" />}</Route>
           <Route path="/admin/photos">{() => <Redirect to="/admin" />}</Route>
           <Route path="/gallery" component={Gallery} />
+          <Route path="/statistics" component={Statistics} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>
