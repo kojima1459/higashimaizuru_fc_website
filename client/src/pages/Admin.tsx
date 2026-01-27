@@ -969,6 +969,7 @@ function ScheduleManagement() {
     grade: "U7" as "U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体",
     opponent: "",
     eventDate: "",
+    meetingTime: "",
     venue: "",
     notes: "",
   });
@@ -1011,6 +1012,7 @@ function ScheduleManagement() {
       grade: "U7",
       opponent: "",
       eventDate: "",
+      meetingTime: "",
       venue: "",
       notes: "",
     });
@@ -1034,6 +1036,7 @@ function ScheduleManagement() {
       grade: schedule.grade,
       opponent: schedule.opponent || "",
       eventDate: new Date(schedule.eventDate).toISOString().split("T")[0],
+      meetingTime: schedule.meetingTime || "",
       venue: schedule.venue || "",
       notes: schedule.notes || "",
     });
@@ -1122,6 +1125,15 @@ function ScheduleManagement() {
                   value={formData.eventDate}
                   onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
                   required
+                />
+              </div>
+              <div>
+                <Label htmlFor="meetingTime">集合時間</Label>
+                <Input
+                  id="meetingTime"
+                  type="time"
+                  value={formData.meetingTime}
+                  onChange={(e) => setFormData({ ...formData, meetingTime: e.target.value })}
                 />
               </div>
               <div>
