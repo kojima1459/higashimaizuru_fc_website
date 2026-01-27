@@ -16,11 +16,13 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function Results() {
+  const [matchTitle, setMatchTitle] = useState("");
   const [opponent, setOpponent] = useState("");
   const [category, setCategory] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [appliedFilters, setAppliedFilters] = useState<{
+    matchTitle?: string;
     opponent?: string;
     category?: string;
     startDate?: string;
@@ -31,6 +33,7 @@ export default function Results() {
 
   const handleSearch = () => {
     setAppliedFilters({
+      matchTitle: matchTitle || undefined,
       opponent: opponent || undefined,
       category: category === "all" ? undefined : category || undefined,
       startDate: startDate || undefined,
@@ -39,6 +42,7 @@ export default function Results() {
   };
 
   const handleReset = () => {
+    setMatchTitle("");
     setOpponent("");
     setCategory("all");
     setStartDate("");
@@ -46,7 +50,7 @@ export default function Results() {
     setAppliedFilters({});
   };
 
-  const hasActiveFilters = appliedFilters.opponent || appliedFilters.category || appliedFilters.startDate || appliedFilters.endDate;
+  const hasActiveFilters = appliedFilters.matchTitle || appliedFilters.opponent || appliedFilters.category || appliedFilters.startDate || appliedFilters.endDate;
 
   return (
     <div className="min-h-screen bg-background">
@@ -65,7 +69,18 @@ export default function Results() {
           <CardTitle className="text-lg">検索・フィルター</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">
+                試合タイトル
+              </label>
+              <Input
+                placeholder="例：京都府大会予選"
+                value={matchTitle}
+                onChange={(e) => setMatchTitle(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+              />
+            </div>
             <div>
               <label className="text-sm font-medium text-foreground mb-2 block">
                 対戦相手
@@ -159,7 +174,7 @@ export default function Results() {
                     <TableHead>カテゴリー</TableHead>
                     <TableHead>対戦相手</TableHead>
                     <TableHead className="text-center">スコア</TableHead>
-                    <TableHead>会場</TableHead>
+                    <TableHead>試合タイトル</TableHead>
                     <TableHead>備考</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -179,7 +194,7 @@ export default function Results() {
                         <TableCell className={`text-center font-bold ${resultColor}`}>
                           {result.ourScore} - {result.opponentScore}
                         </TableCell>
-                        <TableCell>{result.venue || "-"}</TableCell>
+                        <TableCell>{result.matchTitle}</TableCell>
                         <TableCell className="text-sm text-muted-foreground">
                           {result.notes || "-"}
                         </TableCell>

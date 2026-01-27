@@ -76,6 +76,7 @@ export const appRouter = router({
   matchResults: router({
     list: publicProcedure
       .input(z.object({
+        matchTitle: z.string().optional(),
         opponent: z.string().optional(),
         category: z.string().optional(),
         startDate: z.string().optional(),
@@ -87,12 +88,12 @@ export const appRouter = router({
 
     create: publicProcedure
       .input(z.object({
+        matchTitle: z.string().min(1).max(15),
         opponent: z.string().min(1),
         ourScore: z.number(),
         opponentScore: z.number(),
         matchDate: z.string().transform(str => new Date(str)),
         category: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "その他"]),
-        venue: z.string().optional(),
         notes: z.string().optional(),
       }))
       .mutation(async ({ input }) => {
@@ -103,12 +104,12 @@ export const appRouter = router({
     update: publicProcedure
       .input(z.object({
         id: z.number(),
+        matchTitle: z.string().min(1).max(15).optional(),
         opponent: z.string().min(1).optional(),
         ourScore: z.number().optional(),
         opponentScore: z.number().optional(),
         matchDate: z.string().transform(str => new Date(str)).optional(),
         category: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "その他"]).optional(),
-        venue: z.string().optional(),
         notes: z.string().optional(),
       }))
       .mutation(async ({ input }) => {
@@ -248,7 +249,6 @@ export const appRouter = router({
         eventType: z.enum(["練習", "試合", "大会", "その他"]),
         opponent: z.string().optional(),
         eventDate: z.string().transform(str => new Date(str)),
-        venue: z.string().optional(),
         notes: z.string().optional(),
       }))
       .mutation(async ({ input }) => {
@@ -264,7 +264,6 @@ export const appRouter = router({
         grade: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "全体"]).optional(),
         opponent: z.string().optional(),
         eventDate: z.string().transform(str => new Date(str)).optional(),
-        venue: z.string().optional(),
         notes: z.string().optional(),
       }))
       .mutation(async ({ input }) => {

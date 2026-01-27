@@ -216,9 +216,14 @@ export default function Schedule() {
                         <span className="font-medium">対戦相手:</span> {schedule.opponent}
                       </p>
                     )}
+                    {schedule.meetingTime && (
+                      <p className="text-sm text-foreground mb-1">
+                        <span className="font-medium">集合時間:</span> {schedule.meetingTime}
+                      </p>
+                    )}
                     {schedule.venue && (
                       <p className="text-sm text-foreground mb-1">
-                        <span className="font-medium">会場:</span> {schedule.venue}
+                        <span className="font-medium">場所:</span> {schedule.venue}
                       </p>
                     )}
                     {schedule.notes && (

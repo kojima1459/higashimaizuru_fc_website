@@ -295,12 +295,12 @@ function NewsManagement() {
 
 // 試合結果管理コンポーネント
 function ResultsManagement() {
+  const [matchTitle, setMatchTitle] = useState("");
   const [opponent, setOpponent] = useState("");
   const [ourScore, setOurScore] = useState("0");
   const [opponentScore, setOpponentScore] = useState("0");
   const [matchDate, setMatchDate] = useState<Date | undefined>(undefined);
   const [category, setCategory] = useState("");
-  const [venue, setVenue] = useState("");
   const [notes, setNotes] = useState("");
 
   const { data: results, isLoading } = trpc.matchResults.list.useQuery();
@@ -328,12 +328,12 @@ function ResultsManagement() {
   });
 
   const resetForm = () => {
+    setMatchTitle("");
     setOpponent("");
     setOurScore("0");
     setOpponentScore("0");
     setMatchDate(undefined);
     setCategory("");
-    setVenue("");
     setNotes("");
   };
 
@@ -374,22 +374,18 @@ function ResultsManagement() {
       return;
     }
 
-    console.log("ミューテーション実行:", {
-      opponent,
-      ourScore: parseInt(ourScore),
-      opponentScore: parseInt(opponentScore),
-      matchDate,
-      venue: venue || undefined,
-      notes: notes || undefined,
-    });
+    if (!matchTitle.trim()) {
+      toast.error("試合タイトルを入力してください");
+      return;
+    }
 
     createMutation.mutate({
+      matchTitle: matchTitle.trim(),
       opponent: opponent.trim(),
       ourScore: ourScoreNum,
       opponentScore: opponentScoreNum,
       matchDate: format(matchDate, "yyyy-MM-dd"),
       category: category as any,
-      venue: venue || undefined,
       notes: notes || undefined,
     });
   };
@@ -409,6 +405,18 @@ function ResultsManagement() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="matchTitle">試合タイトル（大会名） *</Label>
+                <Input
+                  id="matchTitle"
+                  value={matchTitle}
+                  onChange={(e) => setMatchTitle(e.target.value.slice(0, 15))}
+                  placeholder="例: 京都府大会予選"
+                  maxLength={15}
+                  required
+                />
+                <p className="text-sm text-muted-foreground mt-1">最大15文字です</p>
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="opponent">対戦相手</Label>
                 <Input
@@ -481,17 +489,6 @@ function ResultsManagement() {
               </div>
 
               <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="venue">会場（任意）</Label>
-                <Input
-                  id="venue"
-                  value={venue}
-                  onChange={(e) => setVenue(e.target.value)}
-                  placeholder="例: 朝来グラウンド"
-                />
-                <p className="text-sm text-muted-foreground mt-1">試合会場を入力してください</p>
-              </div>
-
-              <div className="space-y-2 md:col-span-2">
                 <Label htmlFor="notes">備考（任意）</Label>
                 <Textarea
                   id="notes"
@@ -545,6 +542,7 @@ function ResultsManagement() {
                       <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
                   </div>
+                  <div className="text-sm text-muted-foreground mb-2">{result.matchTitle}</div>
                   <div className="flex items-center gap-4">
                     <span className="font-semibold text-foreground">東舞鶴F.C</span>
                     <span className="text-2xl font-bold text-primary">
@@ -552,9 +550,6 @@ function ResultsManagement() {
                     </span>
                     <span className="font-semibold text-foreground">{result.opponent}</span>
                   </div>
-                  {result.venue && (
-                    <p className="text-sm text-muted-foreground mt-2">会場: {result.venue}</p>
-                  )}
                   {result.notes && (
                     <p className="text-sm text-muted-foreground mt-1">{result.notes}</p>
                   )}

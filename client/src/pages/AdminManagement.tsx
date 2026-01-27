@@ -117,6 +117,7 @@ function ScheduleManagement() {
     grade: "U7" as "U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体",
     opponent: "",
     eventDate: "",
+    meetingTime: "",
     venue: "",
     notes: "",
   });
@@ -159,6 +160,7 @@ function ScheduleManagement() {
       grade: "U7",
       opponent: "",
       eventDate: "",
+      meetingTime: "",
       venue: "",
       notes: "",
     });
@@ -182,6 +184,7 @@ function ScheduleManagement() {
       grade: schedule.grade,
       opponent: schedule.opponent || "",
       eventDate: new Date(schedule.eventDate).toISOString().split("T")[0],
+      meetingTime: schedule.meetingTime || "",
       venue: schedule.venue || "",
       notes: schedule.notes || "",
     });
@@ -271,6 +274,15 @@ function ScheduleManagement() {
                 />
               </div>
               <div>
+                <Label htmlFor="meetingTime">集合時間</Label>
+                <Input
+                  id="meetingTime"
+                  type="time"
+                  value={formData.meetingTime}
+                  onChange={(e) => setFormData({ ...formData, meetingTime: e.target.value })}
+                />
+              </div>
+              <div>
                 <Label htmlFor="venue">場所</Label>
                 <Input
                   id="venue"
@@ -348,12 +360,12 @@ function ResultsManagement() {
   const [isCreating, setIsCreating] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
+    matchTitle: "",
     opponent: "",
     ourScore: 0,
     opponentScore: 0,
     matchDate: "",
     category: "",
-    venue: "",
     notes: "",
   });
 
@@ -390,12 +402,12 @@ function ResultsManagement() {
 
   const resetForm = () => {
     setFormData({
+      matchTitle: "",
       opponent: "",
       ourScore: 0,
       opponentScore: 0,
       matchDate: "",
       category: "",
-      venue: "",
       notes: "",
     });
     setIsCreating(false);
@@ -405,20 +417,20 @@ function ResultsManagement() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editingId) {
-      updateMutation.mutate({ id: editingId, opponent: formData.opponent, ourScore: formData.ourScore, opponentScore: formData.opponentScore, matchDate: formData.matchDate, category: formData.category as any, venue: formData.venue, notes: formData.notes });
+      updateMutation.mutate({ id: editingId, matchTitle: formData.matchTitle, opponent: formData.opponent, ourScore: formData.ourScore, opponentScore: formData.opponentScore, matchDate: formData.matchDate, category: formData.category as any, notes: formData.notes });
     } else {
-      createMutation.mutate({ opponent: formData.opponent, ourScore: formData.ourScore, opponentScore: formData.opponentScore, matchDate: formData.matchDate, category: formData.category as any, venue: formData.venue, notes: formData.notes });
+      createMutation.mutate({ matchTitle: formData.matchTitle, opponent: formData.opponent, ourScore: formData.ourScore, opponentScore: formData.opponentScore, matchDate: formData.matchDate, category: formData.category as any, notes: formData.notes });
     }
   };
 
   const handleEdit = (result: any) => {
     setFormData({
+      matchTitle: result.matchTitle || "",
       opponent: result.opponent,
       ourScore: result.ourScore,
       opponentScore: result.opponentScore,
       matchDate: new Date(result.matchDate).toISOString().split("T")[0],
       category: result.category || "",
-      venue: result.venue || "",
       notes: result.notes || "",
     });
     setEditingId(result.id);
@@ -503,11 +515,13 @@ function ResultsManagement() {
               </div>
               </div>
               <div>
-                <Label htmlFor="venue">会場</Label>
+                <Label htmlFor="matchTitle">試合タイトル</Label>
                 <Input
-                  id="venue"
-                  value={formData.venue}
-                  onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
+                  id="matchTitle"
+                  value={formData.matchTitle}
+                  onChange={(e) => setFormData({ ...formData, matchTitle: e.target.value.slice(0, 15) })}
+                  maxLength={15}
+                  placeholder="例: 京都府大会予選"
                 />
               </div>
               <div>
@@ -539,8 +553,7 @@ function ResultsManagement() {
                     東舞鶴F.C {result.ourScore} - {result.opponentScore} {result.opponent}
                   </CardTitle>
                   <CardDescription>
-                    {new Date(result.matchDate).toLocaleDateString("ja-JP")}
-                    {result.venue && ` | 会場: ${result.venue}`}
+                    {result.matchTitle} | {new Date(result.matchDate).toLocaleDateString("ja-JP")}
                   </CardDescription>
                 </div>
                 <div className="flex gap-2">
