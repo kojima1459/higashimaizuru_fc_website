@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE schedules SET meetingTime = '10:00' WHERE title = 'test:time';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user FgFwwtUbtDZZFFR.5af862aaa5de --database K5xmaj9LJC8i33MwfxMs8E --execute UPDATE schedules SET meetingTime = '10:00' WHERE title = 'test:time';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1533
+}

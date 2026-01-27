@@ -247,8 +247,11 @@ export const appRouter = router({
       .input(z.object({
         title: z.string().min(1),
         eventType: z.enum(["練習", "試合", "大会", "その他"]),
+        grade: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "全体"]),
         opponent: z.string().optional(),
         eventDate: z.string().transform(str => new Date(str)),
+        meetingTime: z.string().optional(),
+        venue: z.string().optional(),
         notes: z.string().optional(),
       }))
       .mutation(async ({ input }) => {
@@ -264,10 +267,14 @@ export const appRouter = router({
         grade: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "全体"]).optional(),
         opponent: z.string().optional(),
         eventDate: z.string().transform(str => new Date(str)).optional(),
+        meetingTime: z.string().optional(),
+        venue: z.string().optional(),
         notes: z.string().optional(),
       }))
       .mutation(async ({ input }) => {
+        console.log("[DEBUG] schedules.update - input:", JSON.stringify(input, null, 2));
         const { id, ...data } = input;
+        console.log("[DEBUG] schedules.update - data to update:", JSON.stringify(data, null, 2));
         await db.updateSchedule(id, data as any);
         return { success: true };
       }),

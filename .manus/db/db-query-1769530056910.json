@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, title, meetingTime, venue FROM schedules WHERE id = 120001;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user FgFwwtUbtDZZFFR.5af862aaa5de --database K5xmaj9LJC8i33MwfxMs8E --execute SELECT id, title, meetingTime, venue FROM schedules WHERE id = 120001;",
+  "rows": [
+    {
+      "id": "120001",
+      "title": "test:time",
+      "meetingTime": "",
+      "venue": ""
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tmeetingTime\tvenue\n120001\ttest:time\t\t\n",
+  "stderr": "",
+  "execution_time_ms": 1541
+}

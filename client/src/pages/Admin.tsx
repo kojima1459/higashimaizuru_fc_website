@@ -1022,9 +1022,13 @@ function ScheduleManagement() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("[DEBUG] handleSubmit - formData:", formData);
+    console.log("[DEBUG] handleSubmit - meetingTime:", formData.meetingTime);
     if (editingId) {
+      console.log("[DEBUG] Updating schedule with ID:", editingId);
       updateMutation.mutate({ id: editingId, ...formData });
     } else {
+      console.log("[DEBUG] Creating new schedule");
       createMutation.mutate(formData);
     }
   };
@@ -1133,7 +1137,10 @@ function ScheduleManagement() {
                   id="meetingTime"
                   type="time"
                   value={formData.meetingTime}
-                  onChange={(e) => setFormData({ ...formData, meetingTime: e.target.value })}
+                  onChange={(e) => {
+                    console.log("[DEBUG] meetingTime onChange - value:", e.target.value);
+                    setFormData({ ...formData, meetingTime: e.target.value });
+                  }}
                 />
               </div>
               <div>
@@ -1193,9 +1200,10 @@ function ScheduleManagement() {
                 </div>
               </div>
             </CardHeader>
-            {(schedule.venue || schedule.notes) && (
+            {(schedule.venue || schedule.meetingTime || schedule.notes) && (
               <CardContent>
                 {schedule.venue && <p>場所: {schedule.venue}</p>}
+                {schedule.meetingTime && <p>集合時間　{schedule.meetingTime}</p>}
                 {schedule.notes && <p className="text-muted-foreground">{schedule.notes}</p>}
               </CardContent>
             )}
