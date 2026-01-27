@@ -1203,7 +1203,11 @@ function ScheduleManagement() {
             {(schedule.venue || schedule.meetingTime || schedule.notes) && (
               <CardContent>
                 {schedule.venue && <p>場所: {schedule.venue}</p>}
-                {schedule.meetingTime && <p>集合時間　{schedule.meetingTime}</p>}
+                {schedule.meetingTime ? (
+                  <p>集合時間　{schedule.meetingTime}</p>
+                ) : (
+                  <p className="text-muted-foreground">集合時間未定</p>
+                )}
                 {schedule.notes && <p className="text-muted-foreground">{schedule.notes}</p>}
               </CardContent>
             )}
