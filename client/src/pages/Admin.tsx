@@ -302,6 +302,7 @@ function ResultsManagement() {
   const [matchDate, setMatchDate] = useState<Date | undefined>(undefined);
   const [category, setCategory] = useState("");
   const [notes, setNotes] = useState("");
+  const [editingId, setEditingId] = useState<number | null>(null);
 
   const { data: results, isLoading } = trpc.matchResults.list.useQuery();
   const utils = trpc.useUtils();
@@ -314,6 +315,17 @@ function ResultsManagement() {
     },
     onError: (error) => {
       toast.error("登録に失敗しました: " + error.message);
+    },
+  });
+
+  const updateMutation = trpc.matchResults.update.useMutation({
+    onSuccess: () => {
+      toast.success("試合結果を更新しました");
+      resetForm();
+      utils.matchResults.list.invalidate();
+    },
+    onError: (error) => {
+      toast.error("更新に失敗しました: " + error.message);
     },
   });
 
@@ -335,15 +347,23 @@ function ResultsManagement() {
     setMatchDate(undefined);
     setCategory("");
     setNotes("");
+    setEditingId(null);
+  };
+
+  const handleEdit = (result: any) => {
+    setEditingId(result.id);
+    setMatchTitle(result.matchTitle);
+    setOpponent(result.opponent);
+    setOurScore(String(result.ourScore));
+    setOpponentScore(String(result.opponentScore));
+    setMatchDate(new Date(result.matchDate));
+    setCategory(result.category);
+    setNotes(result.notes || "");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    console.log("Form submit - matchDate:", matchDate);
-    console.log("Form submit - opponent:", opponent);
-    console.log("Form submit - ourScore:", ourScore);
-    console.log("Form submit - opponentScore:", opponentScore);
 
     // バリデーション：対戦相手、試合日、カテゴリーは必須、スコアは0以上の数値
     const ourScoreNum = parseInt(ourScore, 10);
@@ -379,15 +399,28 @@ function ResultsManagement() {
       return;
     }
 
-    createMutation.mutate({
-      matchTitle: matchTitle.trim(),
-      opponent: opponent.trim(),
-      ourScore: ourScoreNum,
-      opponentScore: opponentScoreNum,
-      matchDate: format(matchDate, "yyyy-MM-dd"),
-      category: category as any,
-      notes: notes || undefined,
-    });
+    if (editingId) {
+      updateMutation.mutate({
+        id: editingId,
+        matchTitle: matchTitle.trim(),
+        opponent: opponent.trim(),
+        ourScore: ourScoreNum,
+        opponentScore: opponentScoreNum,
+        matchDate: format(matchDate, "yyyy-MM-dd"),
+        category: category as any,
+        notes: notes || undefined,
+      });
+    } else {
+      createMutation.mutate({
+        matchTitle: matchTitle.trim(),
+        opponent: opponent.trim(),
+        ourScore: ourScoreNum,
+        opponentScore: opponentScoreNum,
+        matchDate: format(matchDate, "yyyy-MM-dd"),
+        category: category as any,
+        notes: notes || undefined,
+      });
+    }
   };
 
   const handleDelete = (id: number) => {
@@ -500,16 +533,23 @@ function ResultsManagement() {
               </div>
             </div>
 
-            <Button type="submit" disabled={createMutation.isPending}>
-              {createMutation.isPending ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  登録中...
-                </>
-              ) : (
-                "登録する"
+            <div className="flex gap-2">
+              <Button type="submit" disabled={createMutation.isPending || updateMutation.isPending}>
+                {createMutation.isPending || updateMutation.isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {editingId ? "更新中..." : "登録中..."}
+                  </>
+                ) : (
+                  editingId ? "更新する" : "登録する"
+                )}
+              </Button>
+              {editingId && (
+                <Button type="button" variant="outline" onClick={resetForm}>
+                  キャンセル
+                </Button>
               )}
-            </Button>
+            </div>
           </form>
         </CardContent>
       </Card>
@@ -533,14 +573,23 @@ function ResultsManagement() {
                         {new Date(result.matchDate).toLocaleDateString("ja-JP")}
                       </span>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleDelete(result.id)}
-                      disabled={deleteMutation.isPending}
-                    >
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleEdit(result)}
+                      >
+                        <Edit className="h-4 w-4 text-blue-500" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDelete(result.id)}
+                        disabled={deleteMutation.isPending}
+                      >
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    </div>
                   </div>
                   <div className="text-sm text-muted-foreground mb-2">{result.matchTitle}</div>
                   <div className="flex items-center gap-4">
