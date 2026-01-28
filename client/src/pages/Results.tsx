@@ -170,11 +170,11 @@ export default function Results() {
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead>試合タイトル</TableHead>
                     <TableHead>日時</TableHead>
                     <TableHead>カテゴリー</TableHead>
                     <TableHead>対戦相手</TableHead>
                     <TableHead className="text-center">スコア</TableHead>
-                    <TableHead>試合タイトル</TableHead>
                     <TableHead>備考</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -186,6 +186,7 @@ export default function Results() {
                     
                     return (
                       <TableRow key={result.id}>
+                        <TableCell>{result.matchTitle}</TableCell>
                         <TableCell>
                           {new Date(result.matchDate).toLocaleDateString("ja-JP")}
                         </TableCell>
@@ -194,7 +195,6 @@ export default function Results() {
                         <TableCell className={`text-center font-bold ${resultColor}`}>
                           {result.ourScore} - {result.opponentScore}
                         </TableCell>
-                        <TableCell>{result.matchTitle}</TableCell>
                         <TableCell className="text-sm text-muted-foreground">
                           {result.notes || "-"}
                         </TableCell>
