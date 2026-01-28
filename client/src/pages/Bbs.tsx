@@ -75,21 +75,19 @@ export default function Bbs() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {!isAuthenticated && (
-              <div>
-                <label htmlFor="authorName" className="block text-sm font-medium mb-2">
-                  名前（任意）
-                </label>
-                <input
-                  id="authorName"
-                  type="text"
-                  placeholder="名前を入力（空欄の場合は「名無し」）"
-                  value={authorName}
-                  onChange={(e) => setAuthorName(e.target.value)}
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
-                />
-              </div>
-            )}
+            <div>
+              <label htmlFor="authorName" className="block text-sm font-medium mb-2">
+                名前（任意）
+              </label>
+              <input
+                id="authorName"
+                type="text"
+                placeholder="名前を入力（空欄の場合は「名無し」）"
+                value={authorName}
+                onChange={(e) => setAuthorName(e.target.value)}
+                className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
+              />
+            </div>
             <Textarea
               placeholder="投稿内容を入力してください"
               value={content}
