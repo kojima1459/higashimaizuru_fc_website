@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
-import { Calendar, Trophy, Users, MessageSquare, Target, Sparkles, Award } from "lucide-react";
+import { Calendar, Trophy, Users, MessageSquare, Target, Sparkles, Award, ArrowRight, Zap, Heart, Shield } from "lucide-react";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import ShareButtons from "@/components/ShareButtons";
 import AccessMap from "@/components/AccessMap";
@@ -39,102 +39,177 @@ export default function Home() {
           }),
         }}
       />
-      {/* ヒーローセクション */}
+      {/* ヒーローセクション - 改良版 */}
       <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-600/60 via-blue-500/40 to-background/80 z-10" />
         <img
           src="/team-photo.jpg"
           alt="東舞鶴F.Cチーム集合写真"
-          className="absolute inset-0 w-full h-full object-cover parallax"
+          className="absolute inset-0 w-full h-full object-cover parallax scale-105"
         />
         <div className="relative z-20 container text-center">
-          <img src="/logo.jpeg" alt="東舞鶴F.C" className="h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-primary glow-effect" />
-          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4">
-            東舞鶴F.C
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-            スポーツ少年団
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact">
-              <Button size="lg" className="text-lg px-8">
-                入団のお問い合わせ
-              </Button>
-            </Link>
-            <Link href="/team">
-              <Button size="lg" variant="outline" className="text-lg px-8">
-                チーム情報
-              </Button>
-            </Link>
-          </div>
-          {/* SNSシェアボタン */}
-          <div className="mt-8 flex justify-center">
-            <ShareButtons />
+          <div className="animate-fade-in-up">
+            <img src="/logo.jpeg" alt="東舞鶴F.C" className="h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-white shadow-2xl glow-effect" />
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+              東舞鶴F.C
+            </h1>
+            <p className="text-2xl md:text-3xl text-white/90 mb-8 drop-shadow-md font-medium">
+              スポーツ少年団
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact">
+                <Button size="lg" className="text-lg px-8 bg-white text-blue-600 hover:bg-blue-50 font-semibold shadow-lg">
+                  入団のお問い合わせ
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href="/team">
+                <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white/20 font-semibold shadow-lg">
+                  チーム情報
+                </Button>
+              </Link>
+            </div>
+            {/* SNSシェアボタン */}
+            <div className="mt-8 flex justify-center">
+              <ShareButtons />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 基本方針 */}
-      <section className="py-0">
-        <div className="w-full">
-          {/* セクション1: クラブ運営の目標 */}
-          <div className="bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-500 py-16 px-4">
-            <div className="container max-w-4xl mx-auto text-center">
-              <div className="flex justify-center mb-6">
-                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
-                  <Target className="h-16 w-16 text-white" />
-                </div>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">
-                Jrから大人までの一体型クラブ運営を目指しています
-              </h2>
-              <div className="space-y-4 text-lg text-white/95">
-                <p className="font-medium">・サッカーを大好きになってほしい</p>
-                <p className="font-medium">・サッカーを通して仲間の大切さに気づき、人を思いやる心を育んでほしい</p>
-                <p className="font-medium">・いつも感謝の心を大切にしてほしい</p>
-              </div>
-            </div>
+      {/* 基本方針 - カードレイアウト版 */}
+      <section className="py-20 bg-gradient-to-b from-background to-blue-50/20">
+        <div className="container">
+          <div className="text-center mb-16 animate-fade-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              私たちの想い
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Jrから大人までの一体型クラブ運営を目指しています
+            </p>
           </div>
 
-          {/* セクション2: サッカーの教育的価値 */}
-          <div className="bg-gradient-to-br from-rose-400 via-red-400 to-rose-500 py-16 px-4">
-            <div className="container max-w-4xl mx-auto text-center">
-              <div className="flex justify-center mb-6">
-                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
-                  <Sparkles className="h-16 w-16 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {/* カード1 */}
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-amber-50 to-yellow-50">
+              <CardHeader>
+                <div className="flex justify-center mb-4">
+                  <div className="bg-amber-100 rounded-full p-4">
+                    <Target className="h-8 w-8 text-amber-600" />
+                  </div>
                 </div>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">
-                サッカーは子供の創造性をのばせるスポーツです。
-              </h2>
-              <div className="space-y-4 text-lg text-white/95">
-                <p className="font-medium">・無限の選択肢が秘めているボールにどんな命を吹き込むか、全てが子供の創造性次第です</p>
-                <p className="font-medium">・子供たちは自分自身を表現することの楽しさを味わうことができるでしょう。</p>
-              </div>
-            </div>
-          </div>
+                <CardTitle className="text-center text-amber-900">
+                  サッカーへの情熱
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-muted-foreground font-medium">
+                  サッカーを大好きになってほしい
+                </p>
+              </CardContent>
+            </Card>
 
-          {/* セクション3: サッカーの人間形成 */}
-          <div className="bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 py-16 px-4">
-            <div className="container max-w-4xl mx-auto text-center">
-              <div className="flex justify-center mb-6">
-                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
-                  <Award className="h-16 w-16 text-white" />
+            {/* カード2 */}
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-rose-50 to-pink-50">
+              <CardHeader>
+                <div className="flex justify-center mb-4">
+                  <div className="bg-rose-100 rounded-full p-4">
+                    <Heart className="h-8 w-8 text-rose-600" />
+                  </div>
+                </div>
+                <CardTitle className="text-center text-rose-900">
+                  仲間の大切さ
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-muted-foreground font-medium">
+                  人を思いやる心を育んでほしい
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* カード3 */}
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-blue-50 to-cyan-50">
+              <CardHeader>
+                <div className="flex justify-center mb-4">
+                  <div className="bg-blue-100 rounded-full p-4">
+                    <Sparkles className="h-8 w-8 text-blue-600" />
+                  </div>
+                </div>
+                <CardTitle className="text-center text-blue-900">
+                  感謝の心
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-muted-foreground font-medium">
+                  いつも感謝の心を大切にしてほしい
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* サッカーの価値 - 強調セクション */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+            <div className="text-white animate-fade-in-up">
+              <div className="flex items-center gap-3 mb-4">
+                <Zap className="h-8 w-8 text-yellow-300" />
+                <h3 className="text-sm font-bold tracking-wider text-yellow-300">
+                  サッカーの力
+                </h3>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                子供の創造性を<br />のばせるスポーツ
+              </h2>
+              <p className="text-lg text-white/90 leading-relaxed">
+                無限の選択肢が秘めているボールにどんな命を吹き込むか、全てが子供の創造性次第です。子供たちは自分自身を表現することの楽しさを味わうことができます。
+              </p>
+            </div>
+            <div className="hidden md:block">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="bg-yellow-300 rounded-full p-2 mt-1">
+                      <Shield className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="text-white font-semibold">創造性の発展</p>
+                      <p className="text-white/70 text-sm">自分らしい表現を学ぶ</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="bg-yellow-300 rounded-full p-2 mt-1">
+                      <Heart className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="text-white font-semibold">チームワーク</p>
+                      <p className="text-white/70 text-sm">仲間との絆を深める</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="bg-yellow-300 rounded-full p-2 mt-1">
+                      <Trophy className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="text-white font-semibold">人間形成</p>
+                      <p className="text-white/70 text-sm">紳士的な人格を育成</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white">
-                サッカーは子どもを大人にし、大人を紳士にする。
-              </h2>
             </div>
           </div>
         </div>
       </section>
 
       {/* チーム紹介 */}
-      <section className="py-16 bg-background">
+      <section className="py-20 bg-background">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center mb-12 animate-fade-in-up">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               東舞鶴F.Cについて
             </h2>
             <p className="text-lg text-muted-foreground">
@@ -143,31 +218,37 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto animate-fade-in-up">
-            <Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-primary" />
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <div className="bg-blue-100 rounded-full p-2">
+                    <Calendar className="h-6 w-6 text-blue-600" />
+                  </div>
                   練習日時
                 </CardTitle>
               </CardHeader>
               <CardContent>
+                <p className="text-lg font-semibold text-foreground mb-2">
+                  毎週土曜・日曜
+                </p>
                 <p className="text-muted-foreground">
-                  毎週土曜・日曜<br />
                   9時〜12時
                 </p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-primary" />
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <div className="bg-blue-100 rounded-full p-2">
+                    <Users className="h-6 w-6 text-blue-600" />
+                  </div>
                   練習場所
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
+                <p className="text-lg font-semibold text-foreground">
                   舞鶴市立朝来小学校
                 </p>
               </CardContent>
@@ -176,21 +257,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 機能紹介 */}
-      <section className="py-16 bg-background">
+      {/* 機能紹介 - 改良版 */}
+      <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
         <div className="container">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12 animate-fade-in-up">
+          <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-16 animate-fade-in-up">
             サイト機能
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Link href="/news">
-              <Card className="cursor-pointer hover:border-primary transition-colors h-full">
+              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full bg-gradient-to-br from-blue-50 to-blue-100/50">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-primary" />
-                    お知らせ
-                  </CardTitle>
-                  <CardDescription>
+                  <div className="flex justify-center mb-4">
+                    <div className="bg-blue-200 rounded-full p-3">
+                      <Calendar className="h-6 w-6 text-blue-600" />
+                    </div>
+                  </div>
+                  <CardTitle className="text-center">お知らせ</CardTitle>
+                  <CardDescription className="text-center">
                     練習や試合の最新情報
                   </CardDescription>
                 </CardHeader>
@@ -198,13 +281,15 @@ export default function Home() {
             </Link>
 
             <Link href="/schedule">
-              <Card className="cursor-pointer hover:border-primary transition-colors h-full">
+              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full bg-gradient-to-br from-green-50 to-green-100/50">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-primary" />
-                    スケジュール
-                  </CardTitle>
-                  <CardDescription>
+                  <div className="flex justify-center mb-4">
+                    <div className="bg-green-200 rounded-full p-3">
+                      <Calendar className="h-6 w-6 text-green-600" />
+                    </div>
+                  </div>
+                  <CardTitle className="text-center">スケジュール</CardTitle>
+                  <CardDescription className="text-center">
                     練習・試合予定の確認
                   </CardDescription>
                 </CardHeader>
@@ -212,13 +297,15 @@ export default function Home() {
             </Link>
 
             <Link href="/results">
-              <Card className="cursor-pointer hover:border-primary transition-colors h-full">
+              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full bg-gradient-to-br from-orange-50 to-orange-100/50">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Trophy className="h-5 w-5 text-primary" />
-                    試合結果
-                  </CardTitle>
-                  <CardDescription>
+                  <div className="flex justify-center mb-4">
+                    <div className="bg-orange-200 rounded-full p-3">
+                      <Trophy className="h-6 w-6 text-orange-600" />
+                    </div>
+                  </div>
+                  <CardTitle className="text-center">試合結果</CardTitle>
+                  <CardDescription className="text-center">
                     過去の試合結果一覧
                   </CardDescription>
                 </CardHeader>
@@ -226,13 +313,15 @@ export default function Home() {
             </Link>
 
             <Link href="/bbs">
-              <Card className="cursor-pointer hover:border-primary transition-colors h-full">
+              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full bg-gradient-to-br from-purple-50 to-purple-100/50">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MessageSquare className="h-5 w-5 text-primary" />
-                    掲示板
-                  </CardTitle>
-                  <CardDescription>
+                  <div className="flex justify-center mb-4">
+                    <div className="bg-purple-200 rounded-full p-3">
+                      <MessageSquare className="h-6 w-6 text-purple-600" />
+                    </div>
+                  </div>
+                  <CardTitle className="text-center">掲示板</CardTitle>
+                  <CardDescription className="text-center">
                     保護者・選手の交流
                   </CardDescription>
                 </CardHeader>
@@ -242,20 +331,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 団員募集 */}
-      <section className="py-16 bg-background">
+      {/* 団員募集 - 改良版 */}
+      <section className="py-20 bg-gradient-to-r from-amber-400 via-orange-400 to-red-400">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              団員募集中
+          <div className="max-w-3xl mx-auto text-center animate-fade-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
+              🎯 団員募集中
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-xl text-white/95 mb-10 leading-relaxed drop-shadow-md">
               サッカーが好きな子どもたち、一緒にサッカーを楽しみませんか？<br />
               初心者も大歓迎です。まずはお気軽にお問い合わせください。
             </p>
             <Link href="/contact">
-              <Button size="lg" className="text-lg px-8">
+              <Button size="lg" className="text-lg px-10 bg-white text-orange-600 hover:bg-orange-50 font-bold shadow-xl">
                 お問い合わせはこちら
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
           </div>
