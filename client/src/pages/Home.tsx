@@ -227,7 +227,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto animate-fade-in-up">
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <Card className="border-0 shadow-lg info-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-xl">
                   <div className="bg-blue-100 rounded-full p-2">
@@ -246,7 +246,7 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <Card className="border-0 shadow-lg info-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-xl">
                   <div className="bg-blue-100 rounded-full p-2">
@@ -274,7 +274,7 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in-up">
             <Link href="/news">
-              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full bg-gradient-to-br from-blue-50 to-blue-100/50">
+              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full card-hover-gradient feature-card-blue">
                 <CardHeader>
                   <div className="flex justify-center mb-4">
                     <div className="bg-blue-200 rounded-full p-3">
@@ -290,7 +290,7 @@ export default function Home() {
             </Link>
 
             <Link href="/schedule">
-              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full bg-gradient-to-br from-green-50 to-green-100/50">
+              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full card-hover-gradient feature-card-green">
                 <CardHeader>
                   <div className="flex justify-center mb-4">
                     <div className="bg-green-200 rounded-full p-3">
@@ -306,7 +306,7 @@ export default function Home() {
             </Link>
 
             <Link href="/results">
-              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full bg-gradient-to-br from-orange-50 to-orange-100/50">
+              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full card-hover-gradient feature-card-orange">
                 <CardHeader>
                   <div className="flex justify-center mb-4">
                     <div className="bg-orange-200 rounded-full p-3">
@@ -322,7 +322,7 @@ export default function Home() {
             </Link>
 
             <Link href="/bbs">
-              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full bg-gradient-to-br from-purple-50 to-purple-100/50">
+              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full card-hover-gradient feature-card-purple">
                 <CardHeader>
                   <div className="flex justify-center mb-4">
                     <div className="bg-purple-200 rounded-full p-3">
