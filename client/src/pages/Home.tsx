@@ -67,7 +67,7 @@ export default function Home() {
         <div className="relative z-20 container text-center">
           <div className="animate-fade-in-up">
             <img src="/logo.jpeg" alt="東舞鶴F.C" className="h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-white shadow-2xl glow-effect" />
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg neon-title">
               東舞鶴F.C
             </h1>
             <p className="text-2xl md:text-3xl text-white/90 mb-8 drop-shadow-md font-medium">
@@ -148,6 +148,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* セクション区切り線 */}
+      <div className="section-divider-animated" />
+
       {/* サッカーの価値 - 強調セクション */}
       <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 relative overflow-hidden" ref={soccerPowerRef}>
         {/* 背景グラデーションオーバーレイ */}
@@ -205,6 +208,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* セクション区切り線 */}
+      <div className="section-divider" />
 
       {/* チーム紹介 */}
       <section className="py-20 bg-background" ref={teamInfoRef}>
@@ -334,6 +340,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* セクション区切り線 */}
+      <div className="section-divider-animated" />
+
       {/* 団元募集 - 改良版 */}
       <section className="py-20 bg-gradient-to-r from-amber-400 via-orange-400 to-red-400" ref={recruitmentRef}>
         <div className="container" ref={recruitmentParallaxRef}>
@@ -355,6 +364,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* セクション区切り線 */}
+      <div className="section-divider" />
 
       {/* アクセス・地図 */}
       <section className="py-16 bg-muted/30 animate-fade-in-up" ref={accessRef}>
