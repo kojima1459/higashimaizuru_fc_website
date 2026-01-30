@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
@@ -6,8 +7,24 @@ import { InstagramFeed } from "@/components/InstagramFeed";
 import ShareButtons from "@/components/ShareButtons";
 import AccessMap from "@/components/AccessMap";
 import SEOHead from "@/components/SEOHead";
+import { useScrollAnimation, useParallax } from "@/hooks/useScrollAnimation";
 
 export default function Home() {
+  // スクロールトリガーアニメーション用のref
+  const basicPolicyRef = useScrollAnimation();
+  const soccerPowerRef = useScrollAnimation();
+  const teamInfoRef = useScrollAnimation();
+  const functionsRef = useScrollAnimation();
+  const recruitmentRef = useScrollAnimation();
+  const accessRef = useScrollAnimation();
+  const instagramRef = useScrollAnimation();
+
+  // パララックス効果用のref
+  const heroParallaxRef = useParallax(0.5);
+  const basicPolicyParallaxRef = useParallax(0.3);
+  const soccerPowerParallaxRef = useParallax(0.4);
+  const recruitmentParallaxRef = useParallax(0.3);
+
   return (
     <div className="w-full">
       <SEOHead
@@ -78,8 +95,8 @@ export default function Home() {
       </section>
 
       {/* 基本方針 */}
-      <section className="py-0">
-        <div className="w-full">
+      <section className="py-0" ref={basicPolicyRef}>
+        <div className="w-full" ref={basicPolicyParallaxRef}>
           {/* セクション1: クラブ運営の目標 */}
           <div className="bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-500 py-16 px-4 shadow-lg">
             <div className="container max-w-4xl mx-auto text-center">
@@ -132,10 +149,10 @@ export default function Home() {
       </section>
 
       {/* サッカーの価値 - 強調セクション */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 relative overflow-hidden" ref={soccerPowerRef}>
         {/* 背景グラデーションオーバーレイ */}
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent pointer-events-none" />
-        <div className="container relative z-10">
+        <div className="container relative z-10" ref={soccerPowerParallaxRef}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
             <div className="text-white animate-fade-in-up">
               <div className="flex items-center gap-3 mb-4">
@@ -190,7 +207,7 @@ export default function Home() {
       </section>
 
       {/* チーム紹介 */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-background" ref={teamInfoRef}>
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 relative pb-4">
@@ -243,7 +260,7 @@ export default function Home() {
       </section>
 
       {/* 機能紹介 - 改良版 */}
-      <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
+      <section className="py-20 bg-gradient-to-b from-background to-slate-50/30" ref={functionsRef}>
         <div className="container">
           <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-16 animate-fade-in-up relative pb-6 inline-block w-full">
             サイト機能
@@ -318,8 +335,8 @@ export default function Home() {
       </section>
 
       {/* 団元募集 - 改良版 */}
-      <section className="py-20 bg-gradient-to-r from-amber-400 via-orange-400 to-red-400">
-        <div className="container">
+      <section className="py-20 bg-gradient-to-r from-amber-400 via-orange-400 to-red-400" ref={recruitmentRef}>
+        <div className="container" ref={recruitmentParallaxRef}>
           <div className="max-w-3xl mx-auto text-center animate-fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg relative pb-6">
               🎯 団元募集中
@@ -340,14 +357,14 @@ export default function Home() {
       </section>
 
       {/* アクセス・地図 */}
-      <section className="py-16 bg-muted/30 animate-fade-in-up">
+      <section className="py-16 bg-muted/30 animate-fade-in-up" ref={accessRef}>
         <div className="container">
           <AccessMap />
         </div>
       </section>
 
       {/* Instagramフィード */}
-      <section className="py-16 bg-background animate-fade-in-up">
+      <section className="py-16 bg-background animate-fade-in-up" ref={instagramRef}>
         <div className="container">
           <InstagramFeed />
         </div>
