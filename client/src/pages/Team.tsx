@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import SEOHead from "@/components/SEOHead";
+import AnimatedTitle from "@/components/AnimatedTitle";
 
 export default function Team() {
   const clubFees = [
@@ -39,7 +40,9 @@ export default function Team() {
         type="website"
       />
       <div className="container py-12">
-        <h1 className="text-4xl font-bold text-foreground mb-8">チーム情報</h1>
+        <h1 className="text-4xl font-bold text-foreground mb-8">
+          <AnimatedTitle text="チーム情報" staggerDelay={60} />
+        </h1>
 
         {/* 基本方針 */}
         <Card className="mb-8">

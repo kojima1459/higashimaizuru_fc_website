@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
+import AnimatedTitle from "@/components/AnimatedTitle";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -47,7 +48,9 @@ export default function Contact() {
       />
       <div className="container py-12">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold text-foreground mb-8">お問い合わせ</h1>
+        <h1 className="text-4xl font-bold text-foreground mb-8">
+          <AnimatedTitle text="お問い合わせ" staggerDelay={60} />
+        </h1>
 
         <Card className="mb-8">
           <CardHeader>

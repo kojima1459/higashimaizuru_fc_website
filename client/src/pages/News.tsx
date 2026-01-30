@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { Loader2 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
+import AnimatedTitle from "@/components/AnimatedTitle";
 
 const mainCategories = ["全ての記事", "練習", "試合", "連絡事項", "その他"];
 const subCategories = ["全て", "U7", "U8", "U9", "U10", "U11", "U12", "全体", "その他"];
@@ -27,7 +28,9 @@ export default function News() {
         type="website"
       />
       <div className="container py-12">
-        <h1 className="text-4xl font-bold text-foreground mb-8">お知らせ</h1>
+        <h1 className="text-4xl font-bold text-foreground mb-8">
+          <AnimatedTitle text="お知らせ" staggerDelay={60} />
+        </h1>
 
         {/* メインカテゴリフィルター */}
         <div className="mb-6">

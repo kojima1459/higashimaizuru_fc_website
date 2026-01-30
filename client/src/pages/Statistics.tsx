@@ -3,6 +3,7 @@ import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
+import AnimatedTitle from "@/components/AnimatedTitle";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -54,7 +55,9 @@ export default function Statistics() {
           keywords="東舞鶴FC, 試合結果, 統計, データ分析, グラフ"
         />
         <div className="container py-12">
-          <h1 className="text-4xl font-bold text-foreground mb-8 text-center">試合結果統計</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-8 text-center">
+            <AnimatedTitle text="試合結果統計" staggerDelay={60} />
+          </h1>
           <Card>
             <CardContent className="py-12 text-center">
               <p className="text-muted-foreground">試合結果データがまだありません</p>

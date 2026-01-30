@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2, Search, X, Calendar } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
+import AnimatedTitle from "@/components/AnimatedTitle";
 
 export default function Schedule() {
   const [opponent, setOpponent] = useState("");
@@ -75,7 +76,9 @@ export default function Schedule() {
         type="website"
       />
       <div className="container py-12">
-      <h1 className="text-4xl font-bold text-foreground mb-8">スケジュール</h1>
+      <h1 className="text-4xl font-bold text-foreground mb-8">
+        <AnimatedTitle text="スケジュール" staggerDelay={60} />
+      </h1>
 
       {/* 検索・フィルターUI */}
       <Card className="mb-6">

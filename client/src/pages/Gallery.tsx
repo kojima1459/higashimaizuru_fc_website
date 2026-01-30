@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { X, Image as ImageIcon } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
+import AnimatedTitle from "@/components/AnimatedTitle";
 
 export default function Gallery() {
   const [categoryFilter, setCategoryFilter] = useState<string>("全て");
@@ -21,7 +22,9 @@ export default function Gallery() {
       />
       
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">写真ギャラリー</h1>
+        <h1 className="text-4xl font-bold mb-4">
+          <AnimatedTitle text="写真ギャラリー" staggerDelay={60} />
+        </h1>
         <p className="text-muted-foreground">
           練習風景や試合の様子をご覧ください
         </p>

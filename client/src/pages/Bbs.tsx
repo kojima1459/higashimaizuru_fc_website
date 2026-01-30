@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Loader2, Trash2, MessageCircle } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
+import AnimatedTitle from "@/components/AnimatedTitle";
 
 export default function Bbs() {
   const { user, isAuthenticated } = useAuth();
@@ -66,7 +67,9 @@ export default function Bbs() {
         type="website"
       />
       <div className="container py-12">
-      <h1 className="text-4xl font-bold text-foreground mb-8">掲示板</h1>
+      <h1 className="text-4xl font-bold text-foreground mb-8">
+        <AnimatedTitle text="掲示板" staggerDelay={60} />
+      </h1>
 
       {/* 投稿フォーム */}
       <Card className="mb-8">

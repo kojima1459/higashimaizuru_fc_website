@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2, Search, X } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
+import AnimatedTitle from "@/components/AnimatedTitle";
 import {
   Table,
   TableBody,
@@ -61,7 +62,9 @@ export default function Results() {
         type="website"
       />
       <div className="container py-12">
-      <h1 className="text-4xl font-bold text-foreground mb-8">試合結果</h1>
+      <h1 className="text-4xl font-bold text-foreground mb-8">
+        <AnimatedTitle text="試合結果" staggerDelay={60} />
+      </h1>
 
       {/* 検索・フィルターUI */}
       <Card className="mb-6">
