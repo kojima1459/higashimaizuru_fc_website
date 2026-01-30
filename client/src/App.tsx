@@ -5,6 +5,8 @@ import { Route, Switch } from "wouter";
 import { Redirect } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { PageTransitionProvider } from "./contexts/PageTransitionContext";
+import PageTransitionOverlay from "./components/PageTransitionOverlay";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FloatingActionButton from "./components/FloatingActionButton";
@@ -55,10 +57,13 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
+        <PageTransitionProvider>
+          <TooltipProvider>
+            <Toaster />
+            <PageTransitionOverlay />
+            <Router />
+          </TooltipProvider>
+        </PageTransitionProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
