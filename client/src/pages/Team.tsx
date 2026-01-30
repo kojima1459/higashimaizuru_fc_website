@@ -29,6 +29,7 @@ export default function Team() {
     { position: "U6~U8担当", name: "上田 凌大", license: "" },
     { position: "フリーコーチ", name: "前 宏治", license: "D級公認コーチ" },
     { position: "フリーコーチ", name: "本田 朋之武", license: "D級公認コーチ" },
+    { position: "ITスタッフ", name: "小島 正豪", license: "-" },
   ];
 
   return (
