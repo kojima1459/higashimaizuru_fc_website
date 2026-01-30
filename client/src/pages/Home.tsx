@@ -77,75 +77,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 基本方針 - カードレイアウト版 */}
-      <section className="py-20 bg-gradient-to-b from-background to-blue-50/20">
-        <div className="container">
-          <div className="text-center mb-16 animate-fade-in-up">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              私たちの想い
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Jrから大人までの一体型クラブ運営を目指しています
-            </p>
+      {/* 基本方針 */}
+      <section className="py-0">
+        <div className="w-full">
+          {/* セクション1: クラブ運営の目標 */}
+          <div className="bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-500 py-16 px-4 shadow-lg">
+            <div className="container max-w-4xl mx-auto text-center">
+              <div className="flex justify-center mb-6">
+                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
+                  <Target className="h-16 w-16 text-white" />
+                </div>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 drop-shadow-lg">
+                Jrから大人までの一体型クラブ運営を目指しています
+              </h2>
+              <div className="space-y-4 text-lg text-white/95">
+                <p className="font-medium">・サッカーを大好きになってほしい</p>
+                <p className="font-medium">・サッカーを通して仲間の大切さに気づき、人を思いやる心を育んでほしい</p>
+                <p className="font-medium">・いつも感謝の心を大切にしてほしい</p>
+              </div>
+            </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* カード1 */}
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-amber-50 to-yellow-50">
-              <CardHeader>
-                <div className="flex justify-center mb-4">
-                  <div className="bg-amber-100 rounded-full p-4">
-                    <Target className="h-8 w-8 text-amber-600" />
-                  </div>
+          {/* セクション2: サッカーの教育的価値 */}
+          <div className="bg-gradient-to-br from-rose-400 via-red-400 to-rose-500 py-16 px-4 shadow-lg">
+            <div className="container max-w-4xl mx-auto text-center">
+              <div className="flex justify-center mb-6">
+                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
+                  <Sparkles className="h-16 w-16 text-white" />
                 </div>
-                <CardTitle className="text-center text-amber-900">
-                  サッカーへの情熱
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground font-medium">
-                  サッカーを大好きになってほしい
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* カード2 */}
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-rose-50 to-pink-50">
-              <CardHeader>
-                <div className="flex justify-center mb-4">
-                  <div className="bg-rose-100 rounded-full p-4">
-                    <Heart className="h-8 w-8 text-rose-600" />
-                  </div>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 drop-shadow-lg">
+                サッカーは子供の創造性をのばせるスポーツです。
+              </h2>
+              <div className="space-y-4 text-lg text-white/95">
+                <p className="font-medium">・無限の選択肢が秘めているボールにどんな命を吹き込むか、全てが子供の創造性次第です</p>
+                <p className="font-medium">・子供たちは自分自身を表現することの楽しさを味わうことができるでしょう。</p>
+              </div>
+            </div>
+          </div>
+          {/* セクション3: サッカーの人間形成 */}
+          <div className="bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 py-16 px-4 shadow-lg">
+            <div className="container max-w-4xl mx-auto text-center">
+              <div className="flex justify-center mb-6">
+                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
+                  <Award className="h-16 w-16 text-white" />
                 </div>
-                <CardTitle className="text-center text-rose-900">
-                  仲間の大切さ
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground font-medium">
-                  人を思いやる心を育んでほしい
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* カード3 */}
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-blue-50 to-cyan-50">
-              <CardHeader>
-                <div className="flex justify-center mb-4">
-                  <div className="bg-blue-100 rounded-full p-4">
-                    <Sparkles className="h-8 w-8 text-blue-600" />
-                  </div>
-                </div>
-                <CardTitle className="text-center text-blue-900">
-                  感謝の心
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground font-medium">
-                  いつも感謝の心を大切にしてほしい
-                </p>
-              </CardContent>
-            </Card>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">
+                サッカーは子どもを大人にし、大人を紳士にする。
+              </h2>
+            </div>
           </div>
         </div>
       </section>
