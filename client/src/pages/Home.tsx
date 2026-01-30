@@ -132,8 +132,10 @@ export default function Home() {
       </section>
 
       {/* サッカーの価値 - 強調セクション */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
-        <div className="container">
+      <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 relative overflow-hidden">
+        {/* 背景グラデーションオーバーレイ */}
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent pointer-events-none" />
+        <div className="container relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
             <div className="text-white animate-fade-in-up">
               <div className="flex items-center gap-3 mb-4">
@@ -142,8 +144,9 @@ export default function Home() {
                   サッカーの力
                 </h3>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight relative pb-6">
                 子供の創造性を<br />のばせるスポーツ
+                <span className="absolute bottom-0 left-0 w-24 h-1 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full" />
               </h2>
               <p className="text-lg text-white/90 leading-relaxed">
                 無限の選択肢が秘めているボールにどんな命を吹き込むか、全てが子供の創造性次第です。子供たちは自分自身を表現することの楽しさを味わうことができます。
@@ -190,16 +193,17 @@ export default function Home() {
       <section className="py-20 bg-background">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              東舞鶴F.Cについて
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 relative pb-4">
+              東舞鶶F.Cについて
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
             </h2>
             <p className="text-lg text-muted-foreground">
-              京都府舞鶴市を拠点とするサッカースポーツ少年団です。<br />
+              京都府舞鶶市を拠点とするサッカースポーツ少年団です。<br />
               子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto animate-fade-in-up">
             <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-xl">
@@ -241,10 +245,11 @@ export default function Home() {
       {/* 機能紹介 - 改良版 */}
       <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
         <div className="container">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-16 animate-fade-in-up">
+          <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-16 animate-fade-in-up relative pb-6 inline-block w-full">
             サイト機能
+            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in-up">
             <Link href="/news">
               <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full bg-gradient-to-br from-blue-50 to-blue-100/50">
                 <CardHeader>
@@ -312,12 +317,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 団員募集 - 改良版 */}
+      {/* 団元募集 - 改良版 */}
       <section className="py-20 bg-gradient-to-r from-amber-400 via-orange-400 to-red-400">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center animate-fade-in-up">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
-              🎯 団員募集中
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg relative pb-6">
+              🎯 団元募集中
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-1 bg-white/40 rounded-full" />
             </h2>
             <p className="text-xl text-white/95 mb-10 leading-relaxed drop-shadow-md">
               サッカーが好きな子どもたち、一緒にサッカーを楽しみませんか？<br />
@@ -334,14 +340,14 @@ export default function Home() {
       </section>
 
       {/* アクセス・地図 */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-16 bg-muted/30 animate-fade-in-up">
         <div className="container">
           <AccessMap />
         </div>
       </section>
 
       {/* Instagramフィード */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-background animate-fade-in-up">
         <div className="container">
           <InstagramFeed />
         </div>
