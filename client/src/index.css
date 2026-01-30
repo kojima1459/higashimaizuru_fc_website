@@ -282,4 +282,34 @@
   .stagger-item:nth-child(4) {
     animation-delay: 0.4s;
   }
+
+  /* Dark mode adjustments for animations */
+  .dark .glow-effect {
+    animation: glow-dark 3s ease-in-out infinite;
+  }
+
+  @keyframes glow-dark {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(96, 165, 250, 0.6),
+                  0 0 40px rgba(96, 165, 250, 0.4),
+                  0 0 60px rgba(96, 165, 250, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(96, 165, 250, 0.8),
+                  0 0 60px rgba(96, 165, 250, 0.6),
+                  0 0 90px rgba(96, 165, 250, 0.4);
+    }
+  }
+
+  /* Enhanced text visibility in dark mode for animated sections */
+  .dark .animate-scroll-in {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Dark mode gradient text adjustments */
+  .dark h2[class*="text-white"],
+  .dark h3[class*="text-white"],
+  .dark p[class*="text-white"] {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  }
 }

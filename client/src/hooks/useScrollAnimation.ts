@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * スクロール位置に基づいてアニメーションをトリガーするカスタムフック
@@ -42,11 +42,31 @@ export function useScrollAnimation() {
 /**
  * パララックス効果を実装するカスタムフック
  * スクロール位置に基づいて要素を移動させる
+ * モバイルデバイスでは効果を無効化してパフォーマンスを最適化
  */
 export function useParallax(speed: number = 0.5) {
   const ref = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
+  // モバイルデバイスの判定
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
+  // スクロールイベントリスナー
+  useEffect(() => {
+    // モバイルではパララックス効果を無効化してパフォーマンスを最適化
+    if (isMobile) return;
+
     const handleScroll = () => {
       if (!ref.current) return;
 
@@ -63,7 +83,7 @@ export function useParallax(speed: number = 0.5) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [speed]);
+  }, [speed, isMobile]);
 
   return ref;
 }
