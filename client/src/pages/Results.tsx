@@ -164,7 +164,7 @@ export default function Results() {
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
       ) : results && results.length > 0 ? (
-        <Card>
+        <Card className="premium-section">
           <CardHeader>
             <CardTitle>試合結果一覧（{results.length}件）</CardTitle>
           </CardHeader>

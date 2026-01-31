@@ -75,13 +75,24 @@ export default function Schedule() {
         image="/logo.jpeg"
         type="website"
       />
-      <div className="container py-12">
-      <h1 className="text-4xl font-bold text-foreground mb-8">
-        <AnimatedTitle text="スケジュール" staggerDelay={60} />
-      </h1>
+      {/* プレミアムページヘッダー */}
+      <div className="relative w-full bg-gradient-to-b from-slate-900 via-slate-950 to-black py-16 overflow-hidden premium-section">
+        <div className="absolute inset-0 opacity-30 geometric-pattern" />
+        <div className="relative z-10 container">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg hero-title">
+            <AnimatedTitle text="スケジュール" staggerDelay={60} />
+          </h1>
+          <div className="premium-divider w-32" />
+          <p className="text-lg text-amber-300 mt-4">練習・試合予定を確認</p>
+        </div>
+      </div>
 
-      {/* 検索・フィルターUI */}
-      <Card className="mb-6">
+      <div className="container py-12">
+      {/* セクションセパレーター */}
+      <div className="section-separator" />
+
+      {/* 検索フィルター */}
+      <Card className="mb-8 premium-section">
         <CardHeader>
           <CardTitle className="text-lg">検索・フィルター</CardTitle>
         </CardHeader>
@@ -180,13 +191,14 @@ export default function Schedule() {
         </CardContent>
       </Card>
 
+      {/* スケジュール一覧 */}
       {isLoading ? (
         <div className="flex justify-center py-12">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
       ) : schedules && schedules.length > 0 ? (
-        <div className="space-y-4">
-          <div className="text-sm text-muted-foreground mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 premium-section">
+          <div className="col-span-full font-semibold mb-4">
             {schedules.length}件のスケジュール
           </div>
           {schedules.map((schedule) => (

@@ -28,15 +28,13 @@ export default function News() {
         type="website"
       />
       {/* プレミアムページヘッダー */}
-      <div className="relative w-full bg-gradient-to-b from-slate-900 via-slate-950 to-black py-16 overflow-hidden">
-        <div className="absolute inset-0 opacity-30" style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(251, 191, 36, 0.1) 35px, rgba(251, 191, 36, 0.1) 70px)'
-        }} />
+      <div className="relative w-full bg-gradient-to-b from-slate-900 via-slate-950 to-black py-16 overflow-hidden premium-section">
+        <div className="absolute inset-0 opacity-30 geometric-pattern" />
         <div className="relative z-10 container">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg hero-title">
             <AnimatedTitle text="お知らせ" staggerDelay={60} />
           </h1>
-          <div className="w-32 h-1 bg-gradient-to-r from-amber-400 to-amber-300 rounded-full" />
+          <div className="premium-divider w-32" />
           <p className="text-lg text-amber-300 mt-4">東舞鶴F.Cの最新情報</p>
         </div>
       </div>
@@ -77,13 +75,16 @@ export default function News() {
           </div>
         </div>
 
+        {/* セクションセパレーター */}
+        <div className="section-separator" />
+
         {/* お知らせ一覧 */}
         {isLoading ? (
           <div className="flex justify-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
         ) : newsList && newsList.length > 0 ? (
-          <div className="grid gap-6">
+          <div className="grid gap-6 premium-section">
             {newsList.map((news) => (
               <Link key={news.id} href={`/news/${news.id}`}>
                 <Card className="cursor-pointer hover:border-primary transition-all hover:shadow-lg hover:shadow-amber-400/20 dark:hover:shadow-amber-400/10">
