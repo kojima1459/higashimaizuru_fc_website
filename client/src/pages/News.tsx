@@ -45,14 +45,14 @@ export default function News() {
 
         {/* メインカテゴリフィルター */}
         <div className="mb-6 mt-8">
-          <h3 className="text-sm font-semibold mb-3 text-foreground">カテゴリ</h3>
-          <div className="flex flex-wrap gap-2">
+          <h3 className="text-sm md:text-base font-semibold mb-3 text-foreground">カテゴリ</h3>
+          <div className="flex flex-wrap gap-1 md:gap-2">
             {mainCategories.map((category) => (
               <Button
                 key={category}
                 variant={selectedMainCategory === category ? "default" : "outline"}
                 onClick={() => setSelectedMainCategory(category)}
-                className={selectedMainCategory === category ? "bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-black" : ""}
+                className={`text-xs md:text-sm px-2 md:px-4 py-2 min-h-10 md:min-h-12 ${selectedMainCategory === category ? "bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-black" : ""}`}
               >
                 {category}
               </Button>
@@ -62,14 +62,14 @@ export default function News() {
 
         {/* サブカテゴリフィルター */}
         <div className="mb-8">
-          <h3 className="text-sm font-semibold mb-3 text-foreground">学年</h3>
-          <div className="flex flex-wrap gap-2">
+          <h3 className="text-sm md:text-base font-semibold mb-3 text-foreground">学年</h3>
+          <div className="flex flex-wrap gap-1 md:gap-2">
             {subCategories.map((category) => (
               <Button
                 key={category}
                 variant={selectedSubCategory === category ? "default" : "outline"}
                 onClick={() => setSelectedSubCategory(category)}
-                className={selectedSubCategory === category ? "bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-black" : ""}
+                className={`text-xs md:text-sm px-2 md:px-4 py-2 min-h-10 md:min-h-12 ${selectedSubCategory === category ? "bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-black" : ""}`}
               >
                 {category}
               </Button>

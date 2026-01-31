@@ -86,7 +86,7 @@ export default function Schedule() {
           <CardTitle className="text-lg">検索・フィルター</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 mb-4">
             <div>
               <label className="text-sm font-medium text-foreground mb-2 block">
                 イベント種別
@@ -156,8 +156,8 @@ export default function Schedule() {
               />
             </div>
           </div>
-          <div className="flex gap-2">
-            <Button onClick={handleSearch} className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row gap-2 w-full">
+            <Button onClick={handleSearch} className="flex items-center justify-center gap-2 min-h-10 md:min-h-12 text-sm md:text-base w-full sm:w-auto">
               <Search className="h-4 w-4" />
               検索
             </Button>
