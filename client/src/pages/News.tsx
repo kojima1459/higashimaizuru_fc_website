@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Link } from "wouter";
 import { Loader2 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import AnimatedTitle from "@/components/AnimatedTitle";
+import { useState } from "react";
 
 const mainCategories = ["全ての記事", "練習", "試合", "連絡事項", "その他"];
 const subCategories = ["全て", "U7", "U8", "U9", "U10", "U11", "U12", "全体", "その他"];
@@ -27,13 +27,24 @@ export default function News() {
         image="/logo.jpeg"
         type="website"
       />
+      {/* プレミアムページヘッダー */}
+      <div className="relative w-full bg-gradient-to-b from-slate-900 via-slate-950 to-black py-16 overflow-hidden">
+        <div className="absolute inset-0 opacity-30" style={{
+          backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(251, 191, 36, 0.1) 35px, rgba(251, 191, 36, 0.1) 70px)'
+        }} />
+        <div className="relative z-10 container">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+            <AnimatedTitle text="お知らせ" staggerDelay={60} />
+          </h1>
+          <div className="w-32 h-1 bg-gradient-to-r from-amber-400 to-amber-300 rounded-full" />
+          <p className="text-lg text-amber-300 mt-4">東舞鶴F.Cの最新情報</p>
+        </div>
+      </div>
+
       <div className="container py-12">
-        <h1 className="text-4xl font-bold text-foreground mb-8">
-          <AnimatedTitle text="お知らせ" staggerDelay={60} />
-        </h1>
 
         {/* メインカテゴリフィルター */}
-        <div className="mb-6">
+        <div className="mb-6 mt-8">
           <h3 className="text-sm font-semibold mb-3 text-foreground">カテゴリ</h3>
           <div className="flex flex-wrap gap-2">
             {mainCategories.map((category) => (
@@ -41,6 +52,7 @@ export default function News() {
                 key={category}
                 variant={selectedMainCategory === category ? "default" : "outline"}
                 onClick={() => setSelectedMainCategory(category)}
+                className={selectedMainCategory === category ? "bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-black" : ""}
               >
                 {category}
               </Button>
@@ -57,6 +69,7 @@ export default function News() {
                 key={category}
                 variant={selectedSubCategory === category ? "default" : "outline"}
                 onClick={() => setSelectedSubCategory(category)}
+                className={selectedSubCategory === category ? "bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-black" : ""}
               >
                 {category}
               </Button>
@@ -73,7 +86,7 @@ export default function News() {
           <div className="grid gap-6">
             {newsList.map((news) => (
               <Link key={news.id} href={`/news/${news.id}`}>
-                <Card className="cursor-pointer hover:border-primary transition-colors">
+                <Card className="cursor-pointer hover:border-primary transition-all hover:shadow-lg hover:shadow-amber-400/20 dark:hover:shadow-amber-400/10">
                   <CardHeader>
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
                       <span className="text-xs px-2 py-1 rounded bg-primary text-primary-foreground">

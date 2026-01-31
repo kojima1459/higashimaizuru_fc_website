@@ -132,49 +132,30 @@ export default function Home() {
                   <Target className="h-16 w-16 text-white" />
                 </div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 drop-shadow-lg relative pb-4">
-                Jrから大人までの一体型クラブ運営を目指しています
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-10 drop-shadow-lg relative pb-4">
+                Jrから大人まで、共に成長する
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full" />
               </h2>
-              <div className="space-y-4 text-lg text-white/95">
-                <p className="font-medium">・サッカーを大好きになってほしい</p>
-                <p className="font-medium">・サッカーを通して仲間の大切さに気づき、人を思いやる心を育んでほしい</p>
-                <p className="font-medium">・いつも感謝の心を大切にしてほしい</p>
-              </div>
-            </div>
-          </div>
-          {/* セクション2: サッカーの教育的価値 */}
-          <div className="bg-gradient-to-br from-rose-400 via-red-400 to-rose-500 py-16 px-4 shadow-lg">
-            <div className="container max-w-4xl mx-auto text-center">
-              <div className="flex justify-center mb-6">
-                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
-                  <Sparkles className="h-16 w-16 text-white" />
+              <div className="grid md:grid-cols-3 gap-8 text-white/95">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all">
+                  <Heart className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
+                  <h3 className="text-xl font-bold mb-3">サッカーへの情熱</h3>
+                  <p className="text-sm leading-relaxed">ボールを追いかける喜び、ゴールを決める興奮。サッカーを心から愛する気持ちを育みます。</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all">
+                  <Users className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
+                  <h3 className="text-xl font-bold mb-3">仲間との絆</h3>
+                  <p className="text-sm leading-relaxed">チームメイトとの協力、相手への思いやり。サッカーを通じて人を大切にする心を学びます。</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all">
+                  <Sparkles className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
+                  <h3 className="text-xl font-bold mb-3">感謝の心</h3>
+                  <p className="text-sm leading-relaxed">支えてくれる家族、指導してくれるコーチ。周りへの感謝を忘れない人間性を育てます。</p>
                 </div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 drop-shadow-lg relative pb-4">
-                サッカーは子供の創造性をのばせるスポーツです。
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full" />
-              </h2>
-              <div className="space-y-4 text-lg text-white/95">
-                <p className="font-medium">・無限の選択肢が秘めているボールにどんな命を吹き込むか、全てが子供の創造性次第です</p>
-                <p className="font-medium">・子供たちは自分自身を表現することの楽しさを味わうことができるでしょう。</p>
-              </div>
             </div>
           </div>
-          {/* セクション3: サッカーの人間形成 */}
-          <div className="bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 py-16 px-4 shadow-lg">
-            <div className="container max-w-4xl mx-auto text-center">
-              <div className="flex justify-center mb-6">
-                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
-                  <Award className="h-16 w-16 text-white" />
-                </div>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg relative pb-4">
-                サッカーは子どもを大人にし、大人を紳士にする。
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full" />
-              </h2>
-            </div>
-          </div>
+
         </div>
       </section>
 
