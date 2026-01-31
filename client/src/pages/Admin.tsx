@@ -813,6 +813,110 @@ function AdminSettings() {
           </div>
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>試合結果統計</CardTitle>
+          <CardDescription>
+            試合結果の統計データを表示
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <StatisticsView />
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+// 統計情報表示コンポーネント
+function StatisticsView() {
+  const { data: statistics, isLoading } = trpc.statistics.matchResults.useQuery();
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-8">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!statistics || !statistics.byCategory || Object.keys(statistics.byCategory).length === 0) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-muted-foreground">試合結果データがまだありません</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="text-center">
+              <p className="text-sm text-muted-foreground mb-2">総試合数</p>
+              <p className="text-3xl font-bold text-primary">
+                {statistics.overall.wins + statistics.overall.draws + statistics.overall.losses}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="text-center">
+              <p className="text-sm text-muted-foreground mb-2">勝率</p>
+              <p className="text-3xl font-bold text-green-600">
+                {(
+                  (statistics.overall.wins /
+                    (statistics.overall.wins +
+                      statistics.overall.draws +
+                      statistics.overall.losses)) *
+                  100
+                ).toFixed(1)}
+                %
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="text-center">
+              <p className="text-sm text-muted-foreground mb-2">総得点</p>
+              <p className="text-3xl font-bold text-blue-600">
+                {statistics.overall.goalsFor}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">学年別成績</h3>
+        <div className="space-y-2">
+          {Object.entries(statistics.byCategory).map(([category, stats]: [string, any]) => (
+            <div key={category} className="border border-border rounded-lg p-4">
+              <div className="flex justify-between items-center">
+                <span className="font-semibold">{category}</span>
+                <span className="text-sm text-muted-foreground">
+                  勝: {stats.wins} | 分: {stats.draws} | 敗: {stats.losses}
+                </span>
+              </div>
+              <div className="mt-2 w-full bg-gray-200 rounded-full h-2">
+                <div
+                  className="bg-green-500 h-2 rounded-full"
+                  style={{
+                    width: `${(
+                      (stats.wins / (stats.wins + stats.draws + stats.losses)) *
+                      100
+                    ).toFixed(0)}%`,
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
