@@ -93,8 +93,9 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/team">
-                <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white/20 font-semibold shadow-lg">
+                <Button size="lg" className="premium-button text-lg px-8 font-semibold">
                   チーム情報
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </div>
@@ -121,18 +122,19 @@ export default function Home() {
       </section>
 
       {/* 基本方針 */}
-      <section className="py-0" ref={basicPolicyRef}>
+      <section className="py-0 geometric-pattern" ref={basicPolicyRef}>
         <div className="w-full" ref={basicPolicyParallaxRef}>
           {/* セクション1: クラブ運営の目標 */}
-          <div className="bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-500 py-16 px-4 shadow-lg">
+          <div className="bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-500 py-16 px-4 shadow-lg premium-section">
             <div className="container max-w-4xl mx-auto text-center">
               <div className="flex justify-center mb-6">
                 <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
                   <Target className="h-16 w-16 text-white" />
                 </div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 drop-shadow-lg">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 drop-shadow-lg relative pb-4">
                 Jrから大人までの一体型クラブ運営を目指しています
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full" />
               </h2>
               <div className="space-y-4 text-lg text-white/95">
                 <p className="font-medium">・サッカーを大好きになってほしい</p>
@@ -149,8 +151,9 @@ export default function Home() {
                   <Sparkles className="h-16 w-16 text-white" />
                 </div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 drop-shadow-lg">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 drop-shadow-lg relative pb-4">
                 サッカーは子供の創造性をのばせるスポーツです。
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full" />
               </h2>
               <div className="space-y-4 text-lg text-white/95">
                 <p className="font-medium">・無限の選択肢が秘めているボールにどんな命を吹き込むか、全てが子供の創造性次第です</p>
@@ -166,8 +169,9 @@ export default function Home() {
                   <Award className="h-16 w-16 text-white" />
                 </div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">
+              <h2 className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg relative pb-4">
                 サッカーは子どもを大人にし、大人を紳士にする。
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full" />
               </h2>
             </div>
           </div>
@@ -178,7 +182,7 @@ export default function Home() {
       <div className="section-divider-animated" />
 
       {/* サッカーの価値 - 強調セクション */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 relative overflow-hidden" ref={soccerPowerRef}>
+      <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 relative overflow-hidden geometric-pattern premium-section" ref={soccerPowerRef}>
         {/* 背景グラデーションオーバーレイ */}
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent pointer-events-none" />
         <div className="container relative z-10" ref={soccerPowerParallaxRef}>
@@ -239,7 +243,7 @@ export default function Home() {
       <div className="section-divider" />
 
       {/* チーム紹介 */}
-      <section className="py-20 bg-background" ref={teamInfoRef}>
+      <section className="py-20 bg-background geometric-pattern premium-section" ref={teamInfoRef}>
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 relative pb-4">
@@ -292,7 +296,7 @@ export default function Home() {
       </section>
 
       {/* 機能紹介 - 改良版 */}
-      <section className="py-20 bg-gradient-to-b from-background to-slate-50/30" ref={functionsRef}>
+      <section className="py-20 bg-gradient-to-b from-background to-slate-50/30 geometric-pattern premium-section" ref={functionsRef}>
         <div className="container">
           <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-16 animate-fade-in-up relative pb-6 inline-block w-full">
             サイト機能

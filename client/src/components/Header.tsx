@@ -29,36 +29,39 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-primary/20 bg-primary backdrop-blur supports-[backdrop-filter]:bg-primary/95">
+    <header className="sticky top-0 z-50 w-full">
       <div className="container">
         <div className="flex h-16 items-center justify-between">
-          {/* ロゴ */}
+          {/* ロゴ - プレミアム版 */}
           <Link href="/" onClick={handleNavClick}>
-            <div className="flex items-center gap-3 cursor-pointer">
-              <img src="/logo.jpeg" alt="東舞鶴F.C" className="h-12 w-12 rounded-full object-cover" />
-              <span className="text-xl font-bold text-primary-foreground hidden sm:inline">東舞鶴F.C</span>
+            <div className="flex items-center gap-3 cursor-pointer group">
+              <img src="/logo.jpeg" alt="東舞鶴F.C" className="h-12 w-12 rounded-full object-cover group-hover:shadow-lg group-hover:shadow-amber-500/50 transition-all duration-300" />
+              <span className="text-xl font-bold text-primary-foreground hidden sm:inline group-hover:text-amber-300 transition-colors duration-300">東舞鶴F.C</span>
             </div>
           </Link>
 
-          {/* デスクトップナビゲーション */}
-          <div className="hidden md:flex items-center gap-6">
-            <nav className="flex items-center gap-6">
+          {/* デスクトップナビゲーション - プレミアム版 */}
+          <div className="hidden md:flex items-center gap-8">
+            <nav className="flex items-center gap-8">
               {navItems.map((item) => (
                 <Link key={item.href} href={item.href} onClick={handleNavClick}>
-                  <span className="text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground transition-colors cursor-pointer">
+                  <span className="text-sm font-medium text-primary-foreground/85 hover:text-amber-300 transition-all duration-300 cursor-pointer relative group">
                     {item.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-300 group-hover:w-full transition-all duration-300"></span>
                   </span>
                 </Link>
               ))}
               {isAuthenticated && user?.role === "admin" && (
                 <Link href="/admin" onClick={handleNavClick}>
-                  <span className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors cursor-pointer font-semibold">
+                  <span className="text-sm font-medium text-primary-foreground/85 hover:text-amber-300 transition-all duration-300 cursor-pointer font-semibold relative group">
                     管理画面
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-300 group-hover:w-full transition-all duration-300"></span>
                   </span>
                 </Link>
               )}
             </nav>
-            <div className="text-primary-foreground">
+            <div className="h-6 w-px bg-gradient-to-b from-transparent via-amber-400/50 to-transparent"></div>
+            <div className="text-primary-foreground hover:text-amber-300 transition-colors duration-300">
               <ThemeToggle />
             </div>
           </div>
