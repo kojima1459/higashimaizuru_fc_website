@@ -378,7 +378,7 @@ export default function Home() {
         <div className="container" ref={recruitmentParallaxRef}>
           <div className="max-w-3xl mx-auto text-center animate-fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg relative pb-6">
-              🎯 団元募集中
+              🎯 新規団員募集中
               <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-1 bg-white/40 rounded-full" />
             </h2>
             <p className="text-xl text-white/95 mb-10 leading-relaxed drop-shadow-md">
