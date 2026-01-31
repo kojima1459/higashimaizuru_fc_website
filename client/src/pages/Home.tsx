@@ -168,49 +168,49 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent pointer-events-none" />
         <div className="container relative z-10" ref={soccerPowerParallaxRef}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-            <div className="text-white animate-fade-in-up">
+            <div className="text-white dark:text-white animate-fade-in-up">
               <div className="flex items-center gap-3 mb-4">
-                <Zap className="h-8 w-8 text-yellow-300" />
-                <h3 className="text-sm font-bold tracking-wider text-yellow-300">
+                <Zap className="h-8 w-8 text-yellow-300 dark:text-yellow-300" />
+                <h3 className="text-sm font-bold tracking-wider text-yellow-300 dark:text-yellow-300">
                   サッカーの力
                 </h3>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight relative pb-6">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight relative pb-6 text-white dark:text-white">
                 子供の創造性を<br />のばせるスポーツ
                 <span className="absolute bottom-0 left-0 w-24 h-1 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full" />
               </h2>
-              <p className="text-lg text-white/90 leading-relaxed">
+              <p className="text-lg text-white dark:text-white leading-relaxed">
                 無限の選択肢が秘めているボールにどんな命を吹き込むか、全てが子供の創造性次第です。子供たちは自分自身を表現することの楽しさを味わうことができます。
               </p>
             </div>
             <div className="hidden md:block">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+              <div className="bg-white/10 dark:bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 dark:border-white/20">
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
-                    <div className="bg-yellow-300 rounded-full p-2 mt-1">
-                      <Shield className="h-5 w-5 text-blue-600" />
+                    <div className="bg-yellow-300 dark:bg-yellow-300 rounded-full p-2 mt-1">
+                      <Shield className="h-5 w-5 text-blue-600 dark:text-blue-600" />
                     </div>
                     <div>
-                      <p className="text-white font-semibold">創造性の発展</p>
-                      <p className="text-white/70 text-sm">自分らしい表現を学ぶ</p>
+                      <p className="text-white dark:text-white font-semibold">創造性の発展</p>
+                      <p className="text-white/70 dark:text-white/70 text-sm">自分らしい表現を学ぶ</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="bg-yellow-300 rounded-full p-2 mt-1">
-                      <Heart className="h-5 w-5 text-blue-600" />
+                    <div className="bg-yellow-300 dark:bg-yellow-300 rounded-full p-2 mt-1">
+                      <Heart className="h-5 w-5 text-blue-600 dark:text-blue-600" />
                     </div>
                     <div>
-                      <p className="text-white font-semibold">チームワーク</p>
-                      <p className="text-white/70 text-sm">仲間との絆を深める</p>
+                      <p className="text-white dark:text-white font-semibold">チームワーク</p>
+                      <p className="text-white/70 dark:text-white/70 text-sm">仲間との絆を深める</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="bg-yellow-300 rounded-full p-2 mt-1">
-                      <Trophy className="h-5 w-5 text-blue-600" />
+                    <div className="bg-yellow-300 dark:bg-yellow-300 rounded-full p-2 mt-1">
+                      <Trophy className="h-5 w-5 text-blue-600 dark:text-blue-600" />
                     </div>
                     <div>
-                      <p className="text-white font-semibold">人間形成</p>
-                      <p className="text-white/70 text-sm">紳士的な人格を育成</p>
+                      <p className="text-white dark:text-white font-semibold">人間形成</p>
+                      <p className="text-white/70 dark:text-white/70 text-sm">紳士的な人格を育成</p>
                     </div>
                   </div>
                 </div>

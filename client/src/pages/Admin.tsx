@@ -34,7 +34,7 @@ export default function Admin() {
           <TabsTrigger value="schedule" className="text-xs sm:text-sm">スケジュール</TabsTrigger>
           <TabsTrigger value="photos" className="text-xs sm:text-sm">写真</TabsTrigger>
           <TabsTrigger value="bbs" className="text-xs sm:text-sm">掲示板</TabsTrigger>
-          <TabsTrigger value="settings" className="text-xs sm:text-sm">設定</TabsTrigger>
+          <TabsTrigger value="settings" className="text-xs sm:text-sm">設定・統計</TabsTrigger>
         </TabsList>
 
         <TabsContent value="news">
