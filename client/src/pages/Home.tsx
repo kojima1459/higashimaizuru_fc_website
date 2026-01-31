@@ -8,6 +8,7 @@ import ShareButtons from "@/components/ShareButtons";
 import AccessMap from "@/components/AccessMap";
 import SEOHead from "@/components/SEOHead";
 import { useScrollAnimation, useParallax } from "@/hooks/useScrollAnimation";
+import { useEffect } from "react";
 
 export default function Home() {
   // スクロールトリガーアニメーション用のref
@@ -24,6 +25,16 @@ export default function Home() {
   const basicPolicyParallaxRef = useParallax(0.3);
   const soccerPowerParallaxRef = useParallax(0.4);
   const recruitmentParallaxRef = useParallax(0.3);
+
+  // プレミアムボタンのスタイル適用
+  useEffect(() => {
+    const contactButton = document.querySelector('.premium-button') as HTMLElement | null;
+    if (contactButton) {
+      contactButton.addEventListener('mouseenter', () => {
+        (contactButton as HTMLElement).style.backgroundPosition = '0 0';
+      });
+    }
+  }, []);
 
   return (
     <div className="w-full">
@@ -56,9 +67,9 @@ export default function Home() {
           }),
         }}
       />
-      {/* ヒーローセクション - 改良版 */}
+      {/* ヒーローセクション - プレミアム版 */}
       <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-600/60 via-blue-500/40 to-background/80 z-10" />
+        <div className="hero-overlay absolute inset-0 z-10" />
         <img
           src="/team-photo.jpg"
           alt="東舞鶴F.Cチーム集合写真"
@@ -66,16 +77,17 @@ export default function Home() {
         />
         <div className="relative z-20 container text-center">
           <div className="animate-fade-in-up">
-            <img src="/logo.jpeg" alt="東舞鶴F.C" className="h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-white shadow-2xl glow-effect" />
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg neon-title">
+            <img src="/logo.jpeg" alt="東舞鶴F.C" className="hero-logo h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-white shadow-2xl" />
+            <h1 className="hero-title text-5xl md:text-7xl font-bold text-white mb-4 neon-title">
               東舞鶴F.C
             </h1>
-            <p className="text-2xl md:text-3xl text-white/90 mb-8 drop-shadow-md font-medium">
+            <div className="premium-divider mx-auto w-32 mb-6" />
+            <p className="hero-subtitle text-2xl md:text-3xl text-white/95 mb-8 font-medium">
               スポーツ少年団
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
-                <Button size="lg" className="text-lg px-8 bg-white text-blue-600 hover:bg-blue-50 font-semibold shadow-lg">
+                <Button size="lg" className="premium-button text-lg px-8 font-semibold">
                   入団のお問い合わせ
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -86,9 +98,23 @@ export default function Home() {
                 </Button>
               </Link>
             </div>
-            {/* SNSシェアボタン */}
-            <div className="mt-8 flex justify-center">
-              <ShareButtons />
+            {/* SNSシェアボタン - プレミアム版 */}
+            <div className="mt-8 flex justify-center gap-6">
+              <div className="share-icon">
+                <a href="https://twitter.com/intent/tweet?url=" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full">
+                  <span className="text-lg">X</span>
+                </a>
+              </div>
+              <div className="share-icon">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full">
+                  <span className="text-lg">f</span>
+                </a>
+              </div>
+              <div className="share-icon">
+                <a href="https://line.me/R/msg/text/?" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full">
+                  <span className="text-lg">LINE</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
