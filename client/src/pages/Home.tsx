@@ -125,32 +125,42 @@ export default function Home() {
       <section className="py-0 geometric-pattern" ref={basicPolicyRef}>
         <div className="w-full" ref={basicPolicyParallaxRef}>
           {/* セクション1: クラブ運営の目標 */}
-          <div className="bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-500 py-16 px-4 shadow-lg premium-section">
-            <div className="container max-w-4xl mx-auto text-center">
+          <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 py-16 px-4 shadow-lg premium-section overflow-hidden">
+            {/* 幾何学模様背景 */}
+            <div className="absolute inset-0 opacity-20 geometric-pattern" />
+            
+            <div className="container max-w-4xl mx-auto text-center relative z-10">
               <div className="flex justify-center mb-6">
-                <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
-                  <Target className="h-16 w-16 text-white" />
+                <div className="bg-[#d4af37]/20 backdrop-blur-sm rounded-full p-6 border-2 border-[#d4af37]/50">
+                  <Target className="h-16 w-16 text-[#d4af37]" />
                 </div>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-10 drop-shadow-lg relative pb-4">
                 Jrから大人まで、共に成長する
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full" />
+                {/* ゴールドディバイダー */}
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-[#d4af37] to-[#f0e68c] rounded-full shadow-lg" />
               </h2>
-              <div className="grid md:grid-cols-3 gap-8 text-white/95">
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all">
-                  <Heart className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
-                  <h3 className="text-xl font-bold mb-3">サッカーへの情熱</h3>
-                  <p className="text-sm leading-relaxed">ボールを追いかける喜び、ゴールを決める興奮。サッカーを心から愛する気持ちを育みます。</p>
+              <div className="grid md:grid-cols-3 gap-8 text-white">
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 hover:bg-white/10 transition-all border border-white/10 hover:border-[#d4af37]/30">
+                  <div className="bg-gradient-to-br from-[#d4af37] to-[#f0e68c] rounded-full p-3 w-fit mx-auto mb-4">
+                    <Heart className="h-8 w-8 text-slate-900" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-[#f0e68c]">サッカーへの情熱</h3>
+                  <p className="text-sm leading-relaxed text-white/90">ボールを追いかける喜び、ゴールを決める興奮。サッカーを心から愛する気持ちを育みます。</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all">
-                  <Users className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
-                  <h3 className="text-xl font-bold mb-3">仲間との絆</h3>
-                  <p className="text-sm leading-relaxed">チームメイトとの協力、相手への思いやり。サッカーを通じて人を大切にする心を学びます。</p>
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 hover:bg-white/10 transition-all border border-white/10 hover:border-[#d4af37]/30">
+                  <div className="bg-gradient-to-br from-[#d4af37] to-[#f0e68c] rounded-full p-3 w-fit mx-auto mb-4">
+                    <Users className="h-8 w-8 text-slate-900" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-[#f0e68c]">仲間との絆</h3>
+                  <p className="text-sm leading-relaxed text-white/90">チームメイトとの協力、相手への思いやり。サッカーを通じて人を大切にする心を学びます。</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all">
-                  <Sparkles className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
-                  <h3 className="text-xl font-bold mb-3">感謝の心</h3>
-                  <p className="text-sm leading-relaxed">支えてくれる家族、指導してくれるコーチ。周りへの感謝を忘れない人間性を育てます。</p>
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 hover:bg-white/10 transition-all border border-white/10 hover:border-[#d4af37]/30">
+                  <div className="bg-gradient-to-br from-[#d4af37] to-[#f0e68c] rounded-full p-3 w-fit mx-auto mb-4">
+                    <Sparkles className="h-8 w-8 text-slate-900" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-[#f0e68c]">感謝の心</h3>
+                  <p className="text-sm leading-relaxed text-white/90">支えてくれる家族、指導してくれるコーチ。周りへの感謝を忘れない人間性を育てます。</p>
                 </div>
               </div>
             </div>
