@@ -304,7 +304,11 @@ export async function createSchedule(data: InsertSchedule) {
   if (!db) throw new Error("Database not available");
 
   const result = await db.insert(schedules).values(data);
-  return result;
+  const insertId = Number(result[0].insertId);
+  
+  // 作成したレコードを取得して返す
+  const created = await db.select().from(schedules).where(eq(schedules.id, insertId)).limit(1);
+  return created[0];
 }
 
 export async function updateSchedule(id: number, data: Partial<InsertSchedule>) {
@@ -312,6 +316,10 @@ export async function updateSchedule(id: number, data: Partial<InsertSchedule>) 
   if (!db) throw new Error("Database not available");
 
   await db.update(schedules).set(data).where(eq(schedules.id, id));
+  
+  // 更新後のレコードを取得して返す
+  const updated = await db.select().from(schedules).where(eq(schedules.id, id)).limit(1);
+  return updated[0];
 }
 
 export async function deleteSchedule(id: number) {

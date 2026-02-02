@@ -246,8 +246,8 @@ export const appRouter = router({
     create: publicProcedure
       .input(z.object({
         title: z.string().min(1),
-        eventType: z.enum(["練習", "試合", "大会", "その他"]),
-        grade: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "全体"]),
+        eventType: z.enum(["\u7df4\u7fd2", "\u8a66\u5408", "\u5927\u4f1a", "\u305d\u306e\u4ed6"]),
+        grades: z.array(z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "\u5168\u4f53"])).min(1).max(5),
         opponent: z.string().optional(),
         eventDate: z.string().transform(str => new Date(str)),
         meetingTime: z.string().optional(),
@@ -255,16 +255,17 @@ export const appRouter = router({
         notes: z.string().optional(),
       }))
       .mutation(async ({ input }) => {
-        await db.createSchedule(input as any);
-        return { success: true };
+        const { grades, ...rest } = input;
+        const created = await db.createSchedule({ ...rest, grades: grades.join(",") } as any);
+        return created;
       }),
 
     update: publicProcedure
       .input(z.object({
         id: z.number(),
         title: z.string().min(1).optional(),
-        eventType: z.enum(["練習", "試合", "大会", "その他"]).optional(),
-        grade: z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "全体"]).optional(),
+        eventType: z.enum(["\u7df4\u7fd2", "\u8a66\u5408", "\u5927\u4f1a", "\u305d\u306e\u4ed6"]).optional(),
+        grades: z.array(z.enum(["U7", "U8", "U9", "U10", "U11", "U12", "\u5168\u4f53"])).min(1).max(5).optional(),
         opponent: z.string().optional(),
         eventDate: z.string().transform(str => new Date(str)).optional(),
         meetingTime: z.string().optional(),
@@ -273,10 +274,11 @@ export const appRouter = router({
       }))
       .mutation(async ({ input }) => {
         console.log("[DEBUG] schedules.update - input:", JSON.stringify(input, null, 2));
-        const { id, ...data } = input;
-        console.log("[DEBUG] schedules.update - data to update:", JSON.stringify(data, null, 2));
-        await db.updateSchedule(id, data as any);
-        return { success: true };
+        const { id, grades, ...data } = input;
+        const updateData = grades ? { ...data, grades: grades.join(",") } : data;
+        console.log("[DEBUG] schedules.update - data to update:", JSON.stringify(updateData, null, 2));
+        const updated = await db.updateSchedule(id, updateData as any);
+        return updated;
       }),
 
     delete: publicProcedure

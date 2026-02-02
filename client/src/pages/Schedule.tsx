@@ -213,8 +213,8 @@ export default function Schedule() {
                       <span className={`text-xs px-2 py-1 rounded text-white ${getEventTypeColor(schedule.eventType)}`}>
                         {schedule.eventType}
                       </span>
-                      <span className={`text-xs px-2 py-1 rounded text-white ${getGradeColor(schedule.grade)}`}>
-                        {schedule.grade}
+                      <span className="text-xs px-2 py-1 rounded text-white bg-indigo-500">
+                        {schedule.grades}
                       </span>
                       <span className="text-sm text-muted-foreground">
                         {new Date(schedule.eventDate).toLocaleDateString("ja-JP", {

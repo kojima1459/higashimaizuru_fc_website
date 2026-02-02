@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Loader2, Trash2, Edit, Plus, Upload } from "lucide-react";
@@ -1119,7 +1120,7 @@ function ScheduleManagement() {
   const [formData, setFormData] = useState({
     title: "",
     eventType: "練習" as "練習" | "試合" | "大会" | "その他",
-    grade: "U7" as "U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体",
+    grades: [] as Array<"U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体">,
     opponent: "",
     eventDate: "",
     meetingTime: "",
@@ -1162,7 +1163,7 @@ function ScheduleManagement() {
     setFormData({
       title: "",
       eventType: "練習",
-      grade: "U7",
+      grades: [],
       opponent: "",
       eventDate: "",
       meetingTime: "",
@@ -1175,6 +1176,14 @@ function ScheduleManagement() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.grades.length === 0) {
+      toast.error("学年を1つ以上選択してください");
+      return;
+    }
+    if (formData.grades.length > 5) {
+      toast.error("学年は最大5つまで選択できます");
+      return;
+    }
     console.log("[DEBUG] handleSubmit - formData:", formData);
     console.log("[DEBUG] handleSubmit - meetingTime:", formData.meetingTime);
     if (editingId) {
@@ -1190,7 +1199,7 @@ function ScheduleManagement() {
     setFormData({
       title: schedule.title,
       eventType: schedule.eventType,
-      grade: schedule.grade,
+      grades: schedule.grades.split(",") as Array<"U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体">,
       opponent: schedule.opponent || "",
       eventDate: new Date(schedule.eventDate).toISOString().split("T")[0],
       meetingTime: schedule.meetingTime || "",
@@ -1199,6 +1208,21 @@ function ScheduleManagement() {
     });
     setEditingId(schedule.id);
     setIsCreating(true);
+  };
+
+  const handleGradeToggle = (grade: "U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体") => {
+    setFormData(prev => {
+      const isSelected = prev.grades.includes(grade);
+      if (isSelected) {
+        return { ...prev, grades: prev.grades.filter(g => g !== grade) };
+      } else {
+        if (prev.grades.length >= 5) {
+          toast.error("学年は最大5つまで選択できます");
+          return prev;
+        }
+        return { ...prev, grades: [...prev.grades, grade] };
+      }
+    });
   };
 
   return (
@@ -1246,24 +1270,29 @@ function ScheduleManagement() {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="grade">学年 *</Label>
-                <Select
-                  value={formData.grade}
-                  onValueChange={(value: any) => setFormData({ ...formData, grade: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="U7">U7</SelectItem>
-                    <SelectItem value="U8">U8</SelectItem>
-                    <SelectItem value="U9">U9</SelectItem>
-                    <SelectItem value="U10">U10</SelectItem>
-                    <SelectItem value="U11">U11</SelectItem>
-                    <SelectItem value="U12">U12</SelectItem>
-                    <SelectItem value="全体">全体</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label>学年 * (最大5つまで選択可能)</Label>
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  {(["U7", "U8", "U9", "U10", "U11", "U12", "全体"] as const).map((grade) => (
+                    <div key={grade} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`grade-${grade}`}
+                        checked={formData.grades.includes(grade)}
+                        onCheckedChange={() => handleGradeToggle(grade)}
+                      />
+                      <label
+                        htmlFor={`grade-${grade}`}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                      >
+                        {grade}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+                {formData.grades.length > 0 && (
+                  <p className="text-sm text-muted-foreground mt-2">
+                    選択中: {formData.grades.join(", ")} ({formData.grades.length}/5)
+                  </p>
+                )}
               </div>
               <div>
                 <Label htmlFor="opponent">対戦相手</Label>
@@ -1331,7 +1360,7 @@ function ScheduleManagement() {
                 <div>
                   <CardTitle className="text-lg">{schedule.title}</CardTitle>
                   <CardDescription>
-                    {schedule.eventType} | {schedule.grade} | {new Date(schedule.eventDate).toLocaleDateString("ja-JP")}
+                    {schedule.eventType} | {schedule.grades} | {new Date(schedule.eventDate).toLocaleDateString("ja-JP")}
                     {schedule.opponent && ` | 対戦相手: ${schedule.opponent}`}
                   </CardDescription>
                 </div>
