@@ -290,7 +290,7 @@ export const appRouter = router({
   // 写真ギャラリー
   photos: router({
     list: publicProcedure
-      .input(z.object({ category: z.string().optional() }).optional())
+      .input(z.object({ category: z.string().optional(), year: z.number().optional(), eventType: z.string().optional() }).optional())
       .query(async ({ input }) => {
         return await db.getAllPhotos(input);
       }),
@@ -308,6 +308,8 @@ export const appRouter = router({
         imageUrl: z.string().min(1),
         imageKey: z.string().min(1),
         category: z.enum(["練習風景", "試合", "イベント", "その他"]),
+        year: z.number().optional(),
+        eventType: z.enum(["練習", "試合", "大会", "交流試合", "イベント", "その他"]).optional(),
       }))
       .mutation(async ({ input, ctx }) => {
         await db.createPhoto({

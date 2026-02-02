@@ -129,6 +129,8 @@ export const photos = mysqlTable("photos", {
   imageUrl: varchar("imageUrl", { length: 500 }).notNull(),
   imageKey: varchar("imageKey", { length: 500 }).notNull(),
   category: mysqlEnum("category", ["練習風景", "試合", "イベント", "その他"]).notNull(),
+  year: int("year"), // 年度（例：2024, 2025）
+  eventType: mysqlEnum("eventType", ["練習", "試合", "大会", "交流試合", "イベント", "その他"]), // イベント種別
   uploadedBy: int("uploadedBy"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),

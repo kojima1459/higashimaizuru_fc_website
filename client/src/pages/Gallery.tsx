@@ -8,10 +8,14 @@ import AnimatedTitle from "@/components/AnimatedTitle";
 
 export default function Gallery() {
   const [categoryFilter, setCategoryFilter] = useState<string>("全て");
+  const [yearFilter, setYearFilter] = useState<string>("全て");
+  const [eventTypeFilter, setEventTypeFilter] = useState<string>("全て");
   const [selectedPhoto, setSelectedPhoto] = useState<any | null>(null);
 
   const { data: photos, isLoading } = trpc.photos.list.useQuery({ 
-    category: categoryFilter === "全て" ? undefined : categoryFilter 
+    category: categoryFilter === "全て" ? undefined : categoryFilter,
+    year: yearFilter === "全て" ? undefined : parseInt(yearFilter),
+    eventType: eventTypeFilter === "全て" ? undefined : eventTypeFilter
   });
 
   return (
@@ -30,21 +34,57 @@ export default function Gallery() {
         </p>
       </div>
 
-      {/* カテゴリーフィルター */}
-      <div className="mb-8 flex items-center gap-4">
-        <span className="text-sm font-medium">カテゴリー:</span>
-        <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-          <SelectTrigger className="w-48">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="全て">全て</SelectItem>
-            <SelectItem value="練習風景">練習風景</SelectItem>
-            <SelectItem value="試合">試合</SelectItem>
-            <SelectItem value="イベント">イベント</SelectItem>
-            <SelectItem value="その他">その他</SelectItem>
-          </SelectContent>
-        </Select>
+      {/* フィルター */}
+      <div className="mb-8 flex flex-wrap items-center gap-4">
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium">カテゴリー:</span>
+          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="全て">全て</SelectItem>
+              <SelectItem value="練習風景">練習風景</SelectItem>
+              <SelectItem value="試合">試合</SelectItem>
+              <SelectItem value="イベント">イベント</SelectItem>
+              <SelectItem value="その他">その他</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium">年度:</span>
+          <Select value={yearFilter} onValueChange={setYearFilter}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="全て">全て</SelectItem>
+              <SelectItem value="2025">2025年</SelectItem>
+              <SelectItem value="2024">2024年</SelectItem>
+              <SelectItem value="2023">2023年</SelectItem>
+              <SelectItem value="2022">2022年</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium">イベント:</span>
+          <Select value={eventTypeFilter} onValueChange={setEventTypeFilter}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="全て">全て</SelectItem>
+              <SelectItem value="練習">練習</SelectItem>
+              <SelectItem value="試合">試合</SelectItem>
+              <SelectItem value="大会">大会</SelectItem>
+              <SelectItem value="交流試合">交流試合</SelectItem>
+              <SelectItem value="イベント">イベント</SelectItem>
+              <SelectItem value="その他">その他</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {/* 写真グリッド */}

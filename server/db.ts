@@ -323,12 +323,26 @@ export async function deleteSchedule(id: number) {
 
 // ==================== Photos ====================
 
-export async function getAllPhotos(filters?: { category?: string }): Promise<Photo[]> {
+export async function getAllPhotos(filters?: { category?: string; year?: number; eventType?: string }): Promise<Photo[]> {
   const db = await getDb();
   if (!db) return [];
 
+  const conditions: any[] = [];
+
   if (filters?.category && filters.category !== "全て") {
-    return await db.select().from(photos).where(eq(photos.category, filters.category as any)).orderBy(desc(photos.createdAt));
+    conditions.push(eq(photos.category, filters.category as any));
+  }
+
+  if (filters?.year) {
+    conditions.push(eq(photos.year, filters.year));
+  }
+
+  if (filters?.eventType && filters.eventType !== "全て") {
+    conditions.push(eq(photos.eventType, filters.eventType as any));
+  }
+
+  if (conditions.length > 0) {
+    return await db.select().from(photos).where(and(...conditions)).orderBy(desc(photos.createdAt));
   }
 
   return await db.select().from(photos).orderBy(desc(photos.createdAt));

@@ -19,13 +19,19 @@ export default function AdminPhotos() {
     title: "",
     caption: "",
     category: "練習風景" as "練習風景" | "試合" | "イベント" | "その他",
+    year: new Date().getFullYear(),
+    eventType: "練習" as "練習" | "試合" | "大会" | "交流試合" | "イベント" | "その他",
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [categoryFilter, setCategoryFilter] = useState<string>("全て");
+  const [yearFilter, setYearFilter] = useState<string>("全て");
+  const [eventTypeFilter, setEventTypeFilter] = useState<string>("全て");
 
   const { data: photos, refetch } = trpc.photos.list.useQuery({ 
-    category: categoryFilter === "全て" ? undefined : categoryFilter 
+    category: categoryFilter === "全て" ? undefined : categoryFilter,
+    year: yearFilter === "全て" ? undefined : parseInt(yearFilter),
+    eventType: eventTypeFilter === "全て" ? undefined : eventTypeFilter
   });
   
   const uploadMutation = trpc.photos.upload.useMutation({
@@ -55,6 +61,8 @@ export default function AdminPhotos() {
       title: "",
       caption: "",
       category: "練習風景",
+      year: new Date().getFullYear(),
+      eventType: "練習",
     });
     setSelectedFile(null);
     setPreviewUrl(null);
@@ -112,6 +120,8 @@ export default function AdminPhotos() {
         imageUrl: url,
         imageKey: key,
         category: formData.category,
+        year: formData.year,
+        eventType: formData.eventType,
       });
     } catch (error) {
       console.error("Upload error:", error);
@@ -162,23 +172,65 @@ export default function AdminPhotos() {
               </div>
             )}
 
-            <div>
-              <Label htmlFor="category">カテゴリー *</Label>
-              <Select
-                value={formData.category}
-                onValueChange={(value) => setFormData({ ...formData, category: value as any })}
-                disabled={isUploading}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="練習風景">練習風景</SelectItem>
-                  <SelectItem value="試合">試合</SelectItem>
-                  <SelectItem value="イベント">イベント</SelectItem>
-                  <SelectItem value="その他">その他</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="category">カテゴリー *</Label>
+                <Select
+                  value={formData.category}
+                  onValueChange={(value) => setFormData({ ...formData, category: value as any })}
+                  disabled={isUploading}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="練習風景">練習風景</SelectItem>
+                    <SelectItem value="試合">試合</SelectItem>
+                    <SelectItem value="イベント">イベント</SelectItem>
+                    <SelectItem value="その他">その他</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="year">年度 *</Label>
+                <Select
+                  value={formData.year.toString()}
+                  onValueChange={(value) => setFormData({ ...formData, year: parseInt(value) })}
+                  disabled={isUploading}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="2025">2025年</SelectItem>
+                    <SelectItem value="2024">2024年</SelectItem>
+                    <SelectItem value="2023">2023年</SelectItem>
+                    <SelectItem value="2022">2022年</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="eventType">イベント種別 *</Label>
+                <Select
+                  value={formData.eventType}
+                  onValueChange={(value) => setFormData({ ...formData, eventType: value as any })}
+                  disabled={isUploading}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="練習">練習</SelectItem>
+                    <SelectItem value="試合">試合</SelectItem>
+                    <SelectItem value="大会">大会</SelectItem>
+                    <SelectItem value="交流試合">交流試合</SelectItem>
+                    <SelectItem value="イベント">イベント</SelectItem>
+                    <SelectItem value="その他">その他</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             <div>
@@ -220,20 +272,56 @@ export default function AdminPhotos() {
       </Card>
 
       {/* フィルター */}
-      <div className="mb-4">
-        <Label>カテゴリーで絞り込み</Label>
-        <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-          <SelectTrigger className="w-48">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="全て">全て</SelectItem>
-            <SelectItem value="練習風景">練習風景</SelectItem>
-            <SelectItem value="試合">試合</SelectItem>
-            <SelectItem value="イベント">イベント</SelectItem>
-            <SelectItem value="その他">その他</SelectItem>
-          </SelectContent>
-        </Select>
+      <div className="mb-4 flex flex-wrap gap-4">
+        <div>
+          <Label>カテゴリー</Label>
+          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="全て">全て</SelectItem>
+              <SelectItem value="練習風景">練習風景</SelectItem>
+              <SelectItem value="試合">試合</SelectItem>
+              <SelectItem value="イベント">イベント</SelectItem>
+              <SelectItem value="その他">その他</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div>
+          <Label>年度</Label>
+          <Select value={yearFilter} onValueChange={setYearFilter}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="全て">全て</SelectItem>
+              <SelectItem value="2025">2025年</SelectItem>
+              <SelectItem value="2024">2024年</SelectItem>
+              <SelectItem value="2023">2023年</SelectItem>
+              <SelectItem value="2022">2022年</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div>
+          <Label>イベント種別</Label>
+          <Select value={eventTypeFilter} onValueChange={setEventTypeFilter}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="全て">全て</SelectItem>
+              <SelectItem value="練習">練習</SelectItem>
+              <SelectItem value="試合">試合</SelectItem>
+              <SelectItem value="大会">大会</SelectItem>
+              <SelectItem value="交流試合">交流試合</SelectItem>
+              <SelectItem value="イベント">イベント</SelectItem>
+              <SelectItem value="その他">その他</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {/* 写真一覧 */}
@@ -254,7 +342,10 @@ export default function AdminPhotos() {
                     {photo.title || "無題"}
                   </CardTitle>
                   <CardDescription>
-                    {photo.category} • {new Date(photo.createdAt).toLocaleDateString("ja-JP")}
+                    {photo.category} • {photo.year}年 • {photo.eventType}
+                  </CardDescription>
+                  <CardDescription className="text-xs mt-1">
+                    {new Date(photo.createdAt).toLocaleDateString("ja-JP")}
                   </CardDescription>
                 </div>
                 <Button
