@@ -236,6 +236,7 @@ export const appRouter = router({
       .input(z.object({
         opponent: z.string().optional(),
         eventType: z.string().optional(),
+        grade: z.string().optional(),
         startDate: z.string().optional(),
         endDate: z.string().optional(),
       }).optional())

@@ -268,6 +268,7 @@ export async function deleteBbsComment(id: number) {
 export async function getAllSchedules(filters?: {
   opponent?: string;
   eventType?: string;
+  grade?: string;
   startDate?: string;
   endDate?: string;
 }) {
@@ -282,6 +283,11 @@ export async function getAllSchedules(filters?: {
 
   if (filters?.eventType && filters.eventType !== "全て") {
     conditions.push(eq(schedules.eventType, filters.eventType as any));
+  }
+
+  // 学年フィルター：選択した学年を含むスケジュールを表示（部分一致）
+  if (filters?.grade && filters.grade !== "all") {
+    conditions.push(like(schedules.grades, `%${filters.grade}%`));
   }
 
   if (filters?.startDate) {
