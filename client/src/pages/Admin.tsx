@@ -28,15 +28,17 @@ export default function Admin() {
       </div>
 
       <Tabs defaultValue="news" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-1">
-          <TabsTrigger value="news" className="text-xs sm:text-sm">お知らせ</TabsTrigger>
-          <TabsTrigger value="results" className="text-xs sm:text-sm">試合結果</TabsTrigger>
-          <TabsTrigger value="contacts" className="text-xs sm:text-sm">お問い合わせ</TabsTrigger>
-          <TabsTrigger value="schedule" className="text-xs sm:text-sm">スケジュール</TabsTrigger>
-          <TabsTrigger value="photos" className="text-xs sm:text-sm">写真</TabsTrigger>
-          <TabsTrigger value="bbs" className="text-xs sm:text-sm">掲示板</TabsTrigger>
-          <TabsTrigger value="settings" className="text-xs sm:text-sm">設定・統計</TabsTrigger>
-        </TabsList>
+        <div className="w-full overflow-x-auto pb-2">
+          <TabsList className="inline-flex w-auto min-w-full">
+            <TabsTrigger value="news" className="text-xs sm:text-sm whitespace-nowrap">お知らせ</TabsTrigger>
+            <TabsTrigger value="results" className="text-xs sm:text-sm whitespace-nowrap">試合結果</TabsTrigger>
+            <TabsTrigger value="contacts" className="text-xs sm:text-sm whitespace-nowrap">お問い合わせ</TabsTrigger>
+            <TabsTrigger value="schedule" className="text-xs sm:text-sm whitespace-nowrap">スケジュール</TabsTrigger>
+            <TabsTrigger value="photos" className="text-xs sm:text-sm whitespace-nowrap">写真</TabsTrigger>
+            <TabsTrigger value="bbs" className="text-xs sm:text-sm whitespace-nowrap">掲示板</TabsTrigger>
+            <TabsTrigger value="settings" className="text-xs sm:text-sm whitespace-nowrap">設定・統計</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="news">
           <NewsManagement />
@@ -1085,7 +1087,7 @@ function PhotosManagement() {
           </SelectContent>
         </Select>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {photos?.map((photo) => (
           <Card key={photo.id} className="overflow-hidden">
             <div className="aspect-video bg-muted relative">
@@ -1271,7 +1273,7 @@ function ScheduleManagement() {
               </div>
               <div>
                 <Label>学年 * (最大5つまで選択可能)</Label>
-                <div className="grid grid-cols-2 gap-3 mt-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 mt-2">
                   {(["U7", "U8", "U9", "U10", "U11", "U12", "全体"] as const).map((grade) => (
                     <div key={grade} className="flex items-center space-x-2">
                       <Checkbox
@@ -1281,7 +1283,7 @@ function ScheduleManagement() {
                       />
                       <label
                         htmlFor={`grade-${grade}`}
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                        className="text-xs sm:text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                       >
                         {grade}
                       </label>
@@ -1443,12 +1445,12 @@ function BbsManagement() {
                 <div key={post.id}>
                   <Card>
                     <CardContent className="pt-6">
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <span className="font-semibold text-foreground">
+                      <div className="flex flex-col sm:flex-row items-start justify-between gap-2 mb-2">
+                        <div className="flex-1">
+                          <span className="font-semibold text-foreground text-sm sm:text-base">
                             {post.authorName}
                           </span>
-                          <span className="text-sm text-muted-foreground ml-2">
+                          <span className="text-xs sm:text-sm text-muted-foreground ml-2 block sm:inline mt-1 sm:mt-0">
                             {new Date(post.createdAt).toLocaleString("ja-JP")}
                           </span>
                         </div>
@@ -1457,6 +1459,7 @@ function BbsManagement() {
                           size="sm"
                           onClick={() => handleDelete(post.id)}
                           disabled={deleteMutation.isPending}
+                          className="w-full sm:w-auto"
                         >
                           <Trash2 className="h-4 w-4 mr-2" />
                           削除
