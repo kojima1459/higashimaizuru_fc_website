@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, Search, X, Calendar } from "lucide-react";
+import { Loader2, Search, X, Calendar, Share2 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import AnimatedTitle from "@/components/AnimatedTitle";
 
@@ -209,7 +209,7 @@ export default function Schedule() {
                     <Calendar className="h-8 w-8 text-primary" />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-2 flex-wrap">
                       <span className={`text-xs px-2 py-1 rounded text-white ${getEventTypeColor(schedule.eventType)}`}>
                         {schedule.eventType}
                       </span>
@@ -258,6 +258,41 @@ export default function Schedule() {
                     {schedule.notes && (
                       <p className="text-sm text-muted-foreground mt-2">{schedule.notes}</p>
                     )}
+                    <div className="flex gap-2 mt-4">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          const shareText = `${schedule.title}\n\n日時: ${new Date(schedule.eventDate).toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric", weekday: "short" })}\n場所: ${schedule.venue || "未定"}\n\n詳細はこちら: ${window.location.origin}/schedule`;
+                          window.open(`https://line.me/R/share?text=${encodeURIComponent(shareText)}`, "_blank");
+                        }}
+                      >
+                        <Share2 className="h-4 w-4 mr-1" />
+                        LINEで共有
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          const shareText = `${schedule.title}\n\n日時: ${new Date(schedule.eventDate).toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric", weekday: "short" })}\n場所: ${schedule.venue || "未定"}\n\n詳細はこちら: ${window.location.origin}/schedule`;
+                          window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`, "_blank");
+                        }}
+                      >
+                        <Share2 className="h-4 w-4 mr-1" />
+                        Xで共有
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          const shareText = `${schedule.title}\n\n日時: ${new Date(schedule.eventDate).toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric", weekday: "short" })}\n場所: ${schedule.venue || "未定"}\n\n詳細はこちら: ${window.location.origin}/schedule`;
+                          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin + "/schedule")}&quote=${encodeURIComponent(shareText)}`, "_blank");
+                        }}
+                      >
+                        <Share2 className="h-4 w-4 mr-1" />
+                        Facebookで共有
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
