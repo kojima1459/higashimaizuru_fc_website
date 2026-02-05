@@ -182,7 +182,20 @@ export default function Team() {
                     {coaches.map((coach, index) => (
                       <TableRow key={index} className="hover:bg-amber-50/50 dark:hover:bg-amber-950/20 transition-colors">
                         <TableCell className="font-medium text-amber-600 dark:text-amber-400">{coach.position}</TableCell>
-                        <TableCell className="font-medium">{coach.name}</TableCell>
+                        <TableCell className="font-medium">
+                          {coach.name === "小島 正豪" ? (
+                            <a 
+                              href="https://masahidekojima.com/" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-blue-600 dark:text-blue-400 hover:underline"
+                            >
+                              {coach.name}
+                            </a>
+                          ) : (
+                            coach.name
+                          )}
+                        </TableCell>
                         <TableCell className="text-muted-foreground">
                           {coach.license ? (
                             <span className="inline-block px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 rounded-full text-sm">

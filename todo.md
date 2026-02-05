@@ -542,4 +542,10 @@
 - [x] スケジュールの「LINEで共有」が正しく機能していない問題を修正
 - [x] TOPページにSNSシェアボタン（Instagram、X、LINE、Facebook）を適切な位置に追加
 - [x] ブラウザで修正内容を確認
+- [x] チェックポイント作成
+
+## 小島正豪・Masahide Kojmaへのリンク追加（2026年2月5日）
+- [x] チーム情報ページの「小島正豪」に https://masahidekojima.com/ へのリンクを追加
+- [x] フッターの「Masahide Kojima」に https://masahidekojima.com/ へのリンクを追加
+- [x] ブラウザで修正内容を確認
 - [ ] チェックポイント作成

@@ -65,7 +65,7 @@ export default function Footer() {
             © {new Date().getFullYear()} 東舞鶴フットボールクラブ. All rights reserved.
           </p>
           <p className="text-xs text-slate-500 mt-2">
-            作成者: Masahide Kojima
+            作成者: <a href="https://masahidekojima.com/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 hover:underline transition-colors">Masahide Kojima</a>
           </p>
         </div>
       </div>
