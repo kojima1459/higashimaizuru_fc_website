@@ -267,7 +267,8 @@ export default function Schedule() {
                         className="w-full"
                         onClick={() => {
                           const shareText = `${schedule.title}\n\n日時: ${new Date(schedule.eventDate).toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric", weekday: "short" })}\n場所: ${schedule.venue || "未定"}\n\n詳細はこちら: ${window.location.origin}/schedule`;
-                          window.open(`https://line.me/R/share?text=${encodeURIComponent(shareText)}`, "_blank");
+                          const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.origin + '/schedule')}&text=${encodeURIComponent(shareText)}`;
+                          window.open(lineUrl, "_blank");
                         }}
                       >
                         <Share2 className="h-4 w-4 mr-1" />

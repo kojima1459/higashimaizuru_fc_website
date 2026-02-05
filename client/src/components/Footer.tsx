@@ -65,7 +65,7 @@ export default function Footer() {
             © {new Date().getFullYear()} 東舞鶴フットボールクラブ. All rights reserved.
           </p>
           <p className="text-xs text-slate-500 mt-2">
-            作成者: Manus AI
+            作成者: Masahide Kojima
           </p>
         </div>
       </div>
