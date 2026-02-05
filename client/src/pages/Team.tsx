@@ -40,8 +40,8 @@ export default function Team() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="チーム情報 - 東舞鶴F.C"
-        description="東舞鶴F.Cのチーム紹介、活動内容、入団案内などの情報をご覧いただけます。"
+        title="チーム情報 - 東舞鶴フットボールクラブ"
+        description="東舞鶴フットボールクラブのチーム紹介、活動内容、入団案内などの情報をご覧いただけます。"
         image="/logo.jpeg"
         type="website"
       />
@@ -56,7 +56,7 @@ export default function Team() {
             <AnimatedTitle text="チーム情報" staggerDelay={60} />
           </h1>
           <div className="w-32 h-1 bg-gradient-to-r from-amber-400 to-amber-300 rounded-full" />
-          <p className="text-lg text-amber-300 mt-4">東舞鶴F.Cの詳細情報</p>
+          <p className="text-lg text-amber-300 mt-4">東舞鶴フットボールクラブの詳細情報</p>
         </div>
       </div>
 
@@ -71,7 +71,7 @@ export default function Team() {
             <CardContent className="pt-6">
               <div className="space-y-4 text-muted-foreground">
                 <p className="text-lg leading-relaxed">
-                  東舞鶴F.Cは、サッカーを通じて子どもたちの健全な心身の育成を目指しています。
+                  東舞鶴フットボールクラブは、サッカーを通じて子供達の健全な心身の育成を目指しています。
                 </p>
                 <ul className="space-y-3 ml-4">
                   <li className="flex items-start gap-3">

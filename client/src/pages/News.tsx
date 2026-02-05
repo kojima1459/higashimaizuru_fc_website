@@ -22,8 +22,8 @@ export default function News() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="お知らせ - 東舞鶴F.C"
-        description="東舞鶴F.Cの練習や試合の最新情報、連絡事項をお知らせします。"
+        title="お知らせ - 東舞鶴フットボールクラブ"
+        description="東舞鶴フットボールクラブの練習や試合の最新情報、連絡事項をお知らせします。"
         image="/logo.jpeg"
         type="website"
       />
@@ -35,7 +35,7 @@ export default function News() {
             <AnimatedTitle text="お知らせ" staggerDelay={60} />
           </h1>
           <div className="premium-divider w-32" />
-          <p className="text-lg text-amber-300 mt-4">東舞鶴F.Cの最新情報</p>
+          <p className="text-lg text-amber-300 mt-4">東舞鶴フットボールクラブの最新情報</p>
         </div>
       </div>
 
