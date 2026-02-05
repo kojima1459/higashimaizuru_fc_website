@@ -13,11 +13,11 @@ export default function Footer() {
           {/* チーム情報 */}
           <div className="group">
             <h3 className="text-lg font-bold text-amber-300 mb-4 flex items-center gap-2">
-              東舞鶴F.C
+              東舞鶴フットボールクラブ
               <span className="w-8 h-0.5 bg-gradient-to-r from-amber-400 to-amber-300 group-hover:w-12 transition-all duration-300" />
             </h3>
             <p className="text-sm text-slate-300 leading-relaxed">
-              京都府舞鶴市を拠点とするサッカースポーツ少年団
+              京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブ
             </p>
           </div>
 
@@ -62,7 +62,7 @@ export default function Footer() {
         {/* コピーライト */}
         <div className="text-center">
           <p className="text-sm text-slate-400">
-            © {new Date().getFullYear()} 東舞鶴F.C スポーツ少年団. All rights reserved.
+            © {new Date().getFullYear()} 東舞鶴フットボールクラブ. All rights reserved.
           </p>
           <p className="text-xs text-slate-500 mt-2">
             作成者: Manus AI

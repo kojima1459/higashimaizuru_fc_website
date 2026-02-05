@@ -39,11 +39,11 @@ export default function Home() {
   return (
     <div className="w-full">
       <SEOHead
-        title="東舞鶴F.C ウェブサイト - 京都府舞鶴市のサッカースポーツ少年団"
-        description="京都府舞鶴市を拠点とするサッカースポーツ少年団です。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。"
+        title="東舞鶴フットボールクラブ ウェブサイト - 京都府舞鶴市の小学生フットボールクラブ"
+        description="京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブです。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。"
         image="/logo.jpeg"
         type="website"
-        keywords="東舞鶴F.C,東舞鶴FC,舞鶴,サッカー,スポーツ少年団,京都,少年サッカー,ジュニアサッカー,サッカークラブ,サッカーチーム"
+        keywords="東舞鶴フットボールクラブ,東舞鶴FC,舞鶴,サッカー,京都,少年サッカー,ジュニアサッカー,サッカークラブ,サッカーチーム,フットボールクラブ"
       />
       {/* 構造化データ (JSON-LD) */}
       <script
@@ -52,9 +52,9 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SportsTeam",
-            "name": "東舞鶴F.C",
+            "name": "東舞鶴フットボールクラブ",
             "sport": "サッカー",
-            "description": "京都府舞鶴市を拠点とするサッカースポーツ少年団です。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。",
+            "description": "京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブです。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "舞鶴市",
@@ -72,18 +72,18 @@ export default function Home() {
         <div className="hero-overlay absolute inset-0 z-10" />
         <img
           src="/team-photo.jpg"
-          alt="東舞鶴F.Cチーム集合写真"
+          alt="東舞鶴フットボールクラブチーム集合写真"
           className="absolute inset-0 w-full h-full object-cover parallax scale-105"
         />
         <div className="relative z-20 container text-center">
           <div className="animate-fade-in-up">
-            <img src="/logo.jpeg" alt="東舞鶴F.C" className="hero-logo h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-white shadow-2xl" />
+            <img src="/logo.jpeg" alt="東舞鶴フットボールクラブ" className="hero-logo h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-white shadow-2xl" />
             <h1 className="hero-title text-5xl md:text-7xl font-bold text-white mb-4 neon-title">
-              東舞鶴F.C
+              東舞鶴フットボールクラブ
             </h1>
             <div className="premium-divider mx-auto w-32 mb-6" />
             <p className="hero-subtitle text-2xl md:text-3xl text-white/95 mb-8 font-medium">
-              スポーツ少年団
+              小学生を中心としたフットボールクラブ
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
@@ -242,7 +242,7 @@ export default function Home() {
               <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
             </h2>
             <p className="text-lg text-muted-foreground">
-              京都府舞鶶市を拠点とするサッカースポーツ少年団です。<br />
+              京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブです。<br />
               子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。
             </p>
           </div>
@@ -406,10 +406,10 @@ export default function Home() {
       {/* SEO用テキストコンテンツ */}
       <section className="container py-16">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-foreground mb-6">東舞鶴F.Cについて</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-6">東舞鶴フットボールクラブについて</h2>
           <div className="space-y-4 text-foreground">
             <p>
-              東舞鶴F.C（東舞鶴フットボールクラブ）は、京都府舞鶴市を拠点とするサッカースポーツ少年団です。私たちは、子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。
+              東舞鶴フットボールクラブは、京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブです。私たちは、子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。
             </p>
             <p>
               少年サッカー、ジュニアサッカーを通じて、子どもたちの体力向上、技術向上、そしてチームワークの大切さを学ぶ機会を提供しています。練習や試合を通じて、サッカーの楽しさを体験し、仲間との絆を深めていくことを目指しています。
