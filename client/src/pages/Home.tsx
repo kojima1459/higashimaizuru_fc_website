@@ -82,10 +82,7 @@ export default function Home() {
               東舞鶴フットボールクラブ
             </h1>
             <div className="premium-divider mx-auto w-32 mb-6" />
-            <p className="hero-subtitle text-2xl md:text-3xl text-white/95 mb-8 font-medium">
-              小学生を中心としたフットボールクラブ
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
               <Link href="/contact">
                 <Button size="lg" className="premium-button text-lg px-8 font-semibold">
                   入団のお問い合わせ
