@@ -209,16 +209,18 @@ export default function Schedule() {
                     <Calendar className="h-8 w-8 text-primary" />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2 flex-wrap">
-                      <span className={`text-xs px-2 py-1 rounded text-white ${getEventTypeColor(schedule.eventType)}`}>
+                    <div className="flex items-center gap-1 mb-2">
+                      <span className={`text-xs px-2 py-1 rounded text-white flex-shrink-0 ${getEventTypeColor(schedule.eventType)}`}>
                         {schedule.eventType}
                       </span>
-                      {schedule.grades.split(",").map((grade, index) => (
-                        <span key={index} className={`text-xs px-2 py-1 rounded text-white ${getGradeColor(grade.trim())}`}>
-                          {grade.trim()}
-                        </span>
-                      ))}
-                      <span className="text-sm text-muted-foreground">
+                      <div className="flex flex-wrap gap-1 max-w-[120px]">
+                        {schedule.grades.split(",").map((grade, index) => (
+                          <span key={index} className={`text-xs px-1.5 py-0.5 rounded text-white ${getGradeColor(grade.trim())}`}>
+                            {grade.trim()}
+                          </span>
+                        ))}
+                      </div>
+                      <span className="text-xs text-muted-foreground flex-shrink-0 ml-auto">
                         {new Date(schedule.eventDate).toLocaleDateString("ja-JP", {
                           year: "numeric",
                           month: "long",
@@ -258,10 +260,11 @@ export default function Schedule() {
                     {schedule.notes && (
                       <p className="text-sm text-muted-foreground mt-2">{schedule.notes}</p>
                     )}
-                    <div className="flex gap-2 mt-4">
+                    <div className="mt-4">
                       <Button
                         variant="outline"
                         size="sm"
+                        className="w-full"
                         onClick={() => {
                           const shareText = `${schedule.title}\n\n日時: ${new Date(schedule.eventDate).toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric", weekday: "short" })}\n場所: ${schedule.venue || "未定"}\n\n詳細はこちら: ${window.location.origin}/schedule`;
                           window.open(`https://line.me/R/share?text=${encodeURIComponent(shareText)}`, "_blank");
@@ -269,28 +272,6 @@ export default function Schedule() {
                       >
                         <Share2 className="h-4 w-4 mr-1" />
                         LINEで共有
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                          const shareText = `${schedule.title}\n\n日時: ${new Date(schedule.eventDate).toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric", weekday: "short" })}\n場所: ${schedule.venue || "未定"}\n\n詳細はこちら: ${window.location.origin}/schedule`;
-                          window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`, "_blank");
-                        }}
-                      >
-                        <Share2 className="h-4 w-4 mr-1" />
-                        Xで共有
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                          const shareText = `${schedule.title}\n\n日時: ${new Date(schedule.eventDate).toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric", weekday: "short" })}\n場所: ${schedule.venue || "未定"}\n\n詳細はこちら: ${window.location.origin}/schedule`;
-                          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin + "/schedule")}&quote=${encodeURIComponent(shareText)}`, "_blank");
-                        }}
-                      >
-                        <Share2 className="h-4 w-4 mr-1" />
-                        Facebookで共有
                       </Button>
                     </div>
                   </div>
