@@ -186,11 +186,11 @@ export default function Home() {
                 </h3>
               </div>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight relative pb-6 text-black dark:text-white">
-                子供の创造性を<br />のばせるスポーツ
+                子供の創造性を<br />のばせるスポーツ
                 <span className="absolute bottom-0 left-0 w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-yellow-300 dark:to-yellow-400 rounded-full" />
               </h2>
               <p className="text-lg text-black dark:text-white leading-relaxed">
-                無限の選択聢が秘めているボールにどんな命を吹き込むか、全てが子供の创造性次第です。子供たちは自分自身を表现することの機しさを味わうことができます。
+                無限の選択肢が秘めているボールにどんな命を吹き込むか、全てが子供の創造性次第です。子供たちは自分自身を表現することの楽しさと喜びを味わうことができます。
               </p>
             </div>
             <div className="hidden md:block">
@@ -201,8 +201,8 @@ export default function Home() {
                       <Shield className="h-5 w-5 text-white dark:text-blue-900" />
                     </div>
                     <div>
-                      <p className="text-black dark:text-white font-semibold">初造性の発展</p>
-                      <p className="text-black/70 dark:text-white/80 text-sm">自分らしい表现を学ぶ</p>
+                      <p className="text-black dark:text-white font-semibold">創造性の発展</p>
+                      <p className="text-black/70 dark:text-white/80 text-sm">自分らしい表現を学ぶ</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -211,7 +211,7 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-black dark:text-white font-semibold">チームワーク</p>
-                      <p className="text-black/70 dark:text-white/80 text-sm">仕間との絆を深める</p>
+                      <p className="text-black/70 dark:text-white/80 text-sm">仲間との絆を深める</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -220,7 +220,7 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-black dark:text-white font-semibold">人間形成</p>
-                      <p className="text-black/70 dark:text-white/80 text-sm">紹士的な人格を育成</p>
+                      <p className="text-black/70 dark:text-white/80 text-sm">紳士的な人格を育成</p>
                     </div>
                   </div>
                 </div>
@@ -238,7 +238,7 @@ export default function Home() {
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 relative pb-4">
-              東舞鶶F.Cについて
+              東舞鶴フットボールクラブについて
               <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
             </h2>
             <p className="text-lg text-muted-foreground">

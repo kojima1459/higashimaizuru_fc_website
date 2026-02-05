@@ -34,8 +34,8 @@ export default function Header() {
           {/* ロゴ - プレミアム版 */}
           <Link href="/" onClick={handleNavClick}>
             <div className="flex items-center gap-3 cursor-pointer group">
-              <img src="/logo.jpeg" alt="東舞鶴F.C" className="h-12 w-12 rounded-full object-cover group-hover:shadow-lg group-hover:shadow-amber-500/50 transition-all duration-300" />
-              <span className="text-xl font-bold text-primary-foreground hidden sm:inline group-hover:text-amber-300 transition-colors duration-300">東舞鶴F.C</span>
+              <img src="/logo.jpeg" alt="東舞鶴フットボールクラブ" className="h-12 w-12 rounded-full object-cover group-hover:shadow-lg group-hover:shadow-amber-500/50 transition-all duration-300" />
+              <span className="text-xl font-bold text-primary-foreground hidden sm:inline group-hover:text-amber-300 transition-colors duration-300">東舞鶴フットボールクラブ</span>
             </div>
           </Link>
 
