@@ -188,7 +188,7 @@ export default function Team() {
                               href="https://masahidekojima.com/" 
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="text-white hover:underline"
+                              className="hover:underline"
                             >
                               {coach.name}
                             </a>
