@@ -71,7 +71,7 @@ export default function Home() {
       <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
         <div className="hero-overlay absolute inset-0 z-10" />
         <img
-          src="/team-photo.jpg"
+          src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663030693288/DYdLINerUUzJEMqr.jpg"
           alt="東舞鶴フットボールクラブチーム集合写真"
           className="absolute inset-0 w-full h-full object-cover parallax scale-105"
         />
