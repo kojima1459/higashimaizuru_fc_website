@@ -39,14 +39,13 @@ async function startServer() {
     
     // Redirect from manus.space to custom domain
     if (host.includes('manus.space') || host.includes('manus.computer')) {
-      const newUrl = `https://higashimaizurufc.com${req.originalUrl}`;
+      const newUrl = `https://www.higashimaizurufc.com${req.originalUrl}`;
       return res.redirect(301, newUrl);
     }
     
-    // Redirect www to non-www
-    if (host.startsWith('www.')) {
-      const newHost = host.replace(/^www\./, '');
-      const newUrl = `${protocol}://${newHost}${req.originalUrl}`;
+    // Redirect non-www to www
+    if (!host.startsWith('www.') && host.includes('higashimaizurufc.com')) {
+      const newUrl = `https://www.higashimaizurufc.com${req.originalUrl}`;
       return res.redirect(301, newUrl);
     }
     
