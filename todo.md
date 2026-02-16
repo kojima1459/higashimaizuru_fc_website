@@ -583,4 +583,9 @@
 - [x] OGPメタタグ（og:image, og:title, og:description等）を追加
 - [x] Twitter Cardメタタグを追加
 - [x] 動作確認
-- [ ] チェックポイント作成
+- [x] チェックポイント作成
+
+## Google Analytics設定（2026年2月6日）
+- [x] Google Analyticsトラッキングコード（G-0B6NKSBNVB）をindex.htmlに追加
+- [x] 動作確認
+- [x] チェックポイント作成
