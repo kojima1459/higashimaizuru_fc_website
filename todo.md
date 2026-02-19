@@ -589,3 +589,9 @@
 - [x] Google Analyticsトラッキングコード（G-0B6NKSBNVB）をindex.htmlに追加
 - [x] 動作確認
 - [x] チェックポイント作成
+
+## リダイレクト機能の修正（2026年2月19日）
+- [x] 現在のリダイレクト設定を確認
+- [x] higasimaizuru-footballclub.manus.spaceからhigashimaizurufc.comへのリダイレクトを修正
+- [x] ブラウザで実際にリダイレクトが動作することを確認
+- [x] チェックポイント作成
