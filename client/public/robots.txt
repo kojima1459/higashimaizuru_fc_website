@@ -1,0 +1,11 @@
+# robots.txt for 東舞鶴フットボールクラブ
+
+User-agent: *
+Allow: /
+
+# サイトマップの場所
+Sitemap: https://www.higashimaizurufc.com/sitemap.xml
+
+# クロール対象外のパス
+Disallow: /admin
+Disallow: /api/

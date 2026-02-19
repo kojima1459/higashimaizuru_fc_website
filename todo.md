@@ -595,3 +595,11 @@
 - [x] higasimaizuru-footballclub.manus.spaceからhigashimaizurufc.comへのリダイレクトを修正
 - [x] ブラウザで実際にリダイレクトが動作することを確認
 - [x] チェックポイント作成
+
+## Google Search Console用サイトマップ作成（2026年2月19日）
+- [x] sitemap.xmlファイルを作成
+- [x] robots.txtファイルを作成
+- [x] サイトマップをウェブサイトに配置
+- [x] ブラウザでサイトマップにアクセスして動作確認
+- [x] チェックポイント作成
+- [x] Google Search Console登録手順をユーザーに案内
