@@ -603,3 +603,7 @@
 - [x] ブラウザでサイトマップにアクセスして動作確認
 - [x] チェックポイント作成
 - [x] Google Search Console登録手順をユーザーに案内
+
+## Google Search Console所有権確認（2026年2月19日）
+- [x] Google Search Console確認用メタタグをindex.htmlに追加
+- [x] チェックポイント作成
