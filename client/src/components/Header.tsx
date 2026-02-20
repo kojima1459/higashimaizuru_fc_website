@@ -24,6 +24,7 @@ export default function Header() {
     { label: "写真", href: "/gallery" },
     { label: "チーム情報", href: "/team" },
     { label: "掲示板", href: "/bbs" },
+    { label: "FAQ", href: "/faq" },
     { label: "お問い合わせ", href: "/contact" },
   ];
 

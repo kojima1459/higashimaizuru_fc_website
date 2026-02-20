@@ -22,6 +22,7 @@ import Admin from "./pages/Admin";
 import Gallery from "./pages/Gallery";
 import AdminLogin from "./pages/AdminLogin";
 import Statistics from "./pages/Statistics";
+import FAQ from "./pages/FAQ";
 
 function Router() {
   return (
@@ -36,6 +37,7 @@ function Router() {
           <Route path="/results" component={Results} />
           <Route path="/team" component={Team} />
           <Route path="/contact" component={Contact} />
+          <Route path="/faq" component={FAQ} />
           <Route path="/bbs" component={Bbs} />
           <Route path="/admin/login" component={AdminLogin} />
           <Route path="/admin" component={Admin} />

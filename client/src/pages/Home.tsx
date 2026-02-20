@@ -10,6 +10,7 @@ import SEOHead from "@/components/SEOHead";
 import { useScrollAnimation, useParallax } from "@/hooks/useScrollAnimation";
 import { useEffect } from "react";
 import { OrganizationStructuredData, BreadcrumbStructuredData } from "@/components/StructuredData";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 
 export default function Home() {
   // スクロールトリガーアニメーション用のref
@@ -87,7 +88,13 @@ export default function Home() {
         />
         <div className="relative z-20 container text-center">
           <div className="animate-fade-in-up">
-            <img src="/logo.jpeg" alt="東舞鶴フットボールクラブ" className="hero-logo h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-white shadow-2xl" loading="eager" />
+            <ResponsiveImage
+              webpSrc="https://files.manuscdn.com/user_upload_by_module/session_file/310419663030693288/LMuZubxGQaomZeQH.webp"
+              fallbackSrc="/logo.jpeg"
+              alt="東舞鶴フットボールクラブ"
+              className="hero-logo h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-white shadow-2xl"
+              loading="eager"
+            />
             <h1 className="hero-title text-5xl md:text-7xl font-bold text-white mb-4 neon-title">
               東舞鶴フットボールクラブ
             </h1>
