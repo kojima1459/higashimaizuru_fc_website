@@ -607,3 +607,12 @@
 ## Google Search Console所有権確認（2026年2月19日）
 - [x] Google Search Console確認用メタタグをindex.htmlに追加
 - [x] チェックポイント作成
+
+## 構造化データ（JSON-LD）とパフォーマンス最適化（2026年2月19日）
+- [x] 組織情報の構造化データ（Organization）を追加
+- [x] スポーツイベントの構造化データ（SportsEvent）を追加
+- [x] パンくずリストの構造化データ（BreadcrumbList）を追加
+- [x] 画像の遅延読み込み（lazy loading）を実装
+- [x] キャッシュヘッダーの設定
+- [x] 動作確認とパフォーマンステスト
+- [x] チェックポイント作成

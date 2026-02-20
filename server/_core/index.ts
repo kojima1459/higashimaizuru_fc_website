@@ -32,6 +32,19 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
   
+  // Cache control middleware for static assets
+  app.use((req, res, next) => {
+    // 静的アセット（画像、CSS、JS等）にキャッシュヘッダーを設定
+    if (req.url.match(/\.(jpg|jpeg|png|gif|ico|css|js|woff|woff2|ttf|svg)$/)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+    // HTMLファイルはキャッシュしない
+    if (req.url.match(/\.html$/) || req.url === '/') {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+    next();
+  });
+  
   // Domain redirect middleware: redirect manus.space to custom domain
   app.use((req, res, next) => {
     const host = req.get('host') || '';
