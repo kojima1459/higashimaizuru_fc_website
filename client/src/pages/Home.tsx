@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
-import { Calendar, Trophy, Users, MessageSquare, Target, Sparkles, Award, ArrowRight, Zap, Heart, Shield } from "lucide-react";
+import { Calendar, Trophy, Users, MessageSquare, Target, Sparkles, Award, ArrowRight, Zap, Heart, Shield, Clock, MapPin, CheckCircle, Star, UserPlus, Swords, Newspaper } from "lucide-react";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import ShareButtons from "@/components/ShareButtons";
 import AccessMap from "@/components/AccessMap";
@@ -11,13 +11,14 @@ import { useScrollAnimation, useParallax } from "@/hooks/useScrollAnimation";
 import { useEffect } from "react";
 import { OrganizationStructuredData, BreadcrumbStructuredData } from "@/components/StructuredData";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
+import { trpc } from "@/lib/trpc";
 
 export default function Home() {
   // スクロールトリガーアニメーション用のref
   const basicPolicyRef = useScrollAnimation();
   const soccerPowerRef = useScrollAnimation();
   const teamInfoRef = useScrollAnimation();
-  const functionsRef = useScrollAnimation();
+  const latestInfoRef = useScrollAnimation();
   const recruitmentRef = useScrollAnimation();
   const accessRef = useScrollAnimation();
   const instagramRef = useScrollAnimation();
@@ -28,6 +29,11 @@ export default function Home() {
   const soccerPowerParallaxRef = useParallax(0.4);
   const recruitmentParallaxRef = useParallax(0.3);
 
+  // 最新データの取得
+  const { data: latestNews } = trpc.news.list.useQuery({});
+  const { data: upcomingSchedules } = trpc.schedules.list.useQuery({});
+  const { data: recentResults } = trpc.matchResults.list.useQuery({});
+
   // プレミアムボタンのスタイル適用
   useEffect(() => {
     const contactButton = document.querySelector('.premium-button') as HTMLElement | null;
@@ -37,6 +43,11 @@ export default function Home() {
       });
     }
   }, []);
+
+  // 最新3件を取得
+  const topNews = latestNews?.slice(0, 3) ?? [];
+  const topSchedules = upcomingSchedules?.slice(0, 3) ?? [];
+  const topResults = recentResults?.slice(0, 3) ?? [];
 
   return (
     <div className="w-full">
@@ -78,7 +89,7 @@ export default function Home() {
         }}
       />
       {/* ヒーローセクション - プレミアム版 */}
-      <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[400px] md:h-[600px] flex items-center justify-center overflow-hidden">
         <div className="hero-overlay absolute inset-0 z-10" />
         <img
           src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663030693288/DYdLINerUUzJEMqr.jpg"
@@ -92,34 +103,34 @@ export default function Home() {
               webpSrc="https://files.manuscdn.com/user_upload_by_module/session_file/310419663030693288/LMuZubxGQaomZeQH.webp"
               fallbackSrc="/logo.jpeg"
               alt="東舞鶴フットボールクラブ"
-              className="hero-logo h-32 w-32 mx-auto mb-6 rounded-full object-cover border-4 border-white shadow-2xl"
+              className="hero-logo h-24 w-24 md:h-32 md:w-32 mx-auto mb-4 md:mb-6 rounded-full object-cover border-4 border-white shadow-2xl"
               loading="eager"
             />
-            <h1 className="hero-title text-5xl md:text-7xl font-bold text-white mb-4 neon-title">
+            <h1 className="hero-title text-4xl md:text-7xl font-bold text-white mb-4 neon-title">
               東舞鶴フットボールクラブ
             </h1>
-            <div className="premium-divider mx-auto w-32 mb-6" />
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <div className="premium-divider mx-auto w-32 mb-4 md:mb-6" />
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mt-6 md:mt-8">
               <Link href="/contact">
-                <Button size="lg" className="premium-button text-lg px-8 font-semibold">
-                  入団のお問い合わせ
+                <Button size="lg" className="premium-button text-base md:text-lg px-6 md:px-8 font-semibold">
+                  体験練習に申し込む
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link href="/team">
-                <Button size="lg" className="premium-button text-lg px-8 font-semibold">
+                <Button size="lg" className="premium-button text-base md:text-lg px-6 md:px-8 font-semibold">
                   チーム情報
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </div>
             {/* SNSシェアボタン - プレミアム版 */}
-            <div className="mt-8 flex justify-center gap-6">
+            <div className="mt-6 md:mt-8 flex justify-center gap-6">
               <div className="share-icon">
-                <a 
-                  href="https://www.instagram.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://www.instagram.com/higashimaizuru_fc/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center w-full h-full"
                   title="Instagramでフォロー"
                 >
@@ -129,10 +140,10 @@ export default function Home() {
                 </a>
               </div>
               <div className="share-icon">
-                <a 
-                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('東舞鶴フットボールクラブ - 京都府舞鶴市の小学生フットボールクラブ')}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('東舞鶴フットボールクラブ - 京都府舞鶴市の小学生フットボールクラブ')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center w-full h-full"
                   title="Xでシェア"
                 >
@@ -140,10 +151,10 @@ export default function Home() {
                 </a>
               </div>
               <div className="share-icon">
-                <a 
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center w-full h-full"
                   title="Facebookでシェア"
                 >
@@ -151,10 +162,10 @@ export default function Home() {
                 </a>
               </div>
               <div className="share-icon">
-                <a 
-                  href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center w-full h-full"
                   title="LINEでシェア"
                 >
@@ -173,7 +184,7 @@ export default function Home() {
           <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 py-16 px-4 shadow-lg premium-section overflow-hidden">
             {/* 幾何学模様背景 */}
             <div className="absolute inset-0 opacity-20 geometric-pattern" />
-            
+
             <div className="container max-w-4xl mx-auto text-center relative z-10">
               <div className="flex justify-center mb-6">
                 <div className="bg-[#d4af37]/20 backdrop-blur-sm rounded-full p-6 border-2 border-[#d4af37]/50">
@@ -331,77 +342,154 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 機能紹介 - 改良版 */}
-      <section className="py-20 bg-gradient-to-b from-background to-slate-50/30 geometric-pattern premium-section" ref={functionsRef}>
+      {/* セクション区切り線 */}
+      <div className="section-divider-animated" />
+
+      {/* 最新情報ダッシュボード */}
+      <section className="py-20 bg-gradient-to-b from-background to-slate-50/30 dark:to-slate-900/30 geometric-pattern premium-section" ref={latestInfoRef}>
         <div className="container">
           <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-16 animate-fade-in-up relative pb-6 inline-block w-full">
-            サイト機能
+            最新情報
             <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in-up">
-            <Link href="/news">
-              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full card-hover-gradient feature-card-blue">
-                <CardHeader>
-                  <div className="flex justify-center mb-4">
-                    <div className="bg-blue-200 rounded-full p-3">
-                      <Calendar className="h-6 w-6 text-blue-600" />
-                    </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-in-up">
+            {/* 最新お知らせ */}
+            <Card className="border-0 shadow-lg">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Newspaper className="h-5 w-5 text-blue-600" />
+                  お知らせ
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {topNews.length > 0 ? (
+                  <div className="space-y-3">
+                    {topNews.map((news) => (
+                      <Link key={news.id} href={`/news/${news.id}`}>
+                        <div className="p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer border border-transparent hover:border-border">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-xs px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                              {news.mainCategory}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              {new Date(news.createdAt).toLocaleDateString("ja-JP")}
+                            </span>
+                          </div>
+                          <p className="text-sm font-medium text-foreground line-clamp-1">{news.title}</p>
+                        </div>
+                      </Link>
+                    ))}
                   </div>
-                  <CardTitle className="text-center">お知らせ</CardTitle>
-                  <CardDescription className="text-center">
-                    練習や試合の最新情報
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
+                ) : (
+                  <p className="text-sm text-muted-foreground py-4 text-center">お知らせはまだありません</p>
+                )}
+                <Link href="/news">
+                  <Button variant="ghost" className="w-full mt-3 text-sm">
+                    すべてのお知らせを見る <ArrowRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
 
-            <Link href="/schedule">
-              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full card-hover-gradient feature-card-green">
-                <CardHeader>
-                  <div className="flex justify-center mb-4">
-                    <div className="bg-green-200 rounded-full p-3">
-                      <Calendar className="h-6 w-6 text-green-600" />
-                    </div>
+            {/* 直近スケジュール */}
+            <Card className="border-0 shadow-lg">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Calendar className="h-5 w-5 text-green-600" />
+                  直近のスケジュール
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {topSchedules.length > 0 ? (
+                  <div className="space-y-3">
+                    {topSchedules.map((schedule) => (
+                      <div key={schedule.id} className="p-3 rounded-lg bg-muted/30 border border-border/50">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className={`text-xs px-1.5 py-0.5 rounded text-white ${
+                            schedule.eventType === "練習" ? "bg-blue-500" :
+                            schedule.eventType === "試合" ? "bg-green-500" :
+                            schedule.eventType === "大会" ? "bg-purple-500" : "bg-gray-500"
+                          }`}>
+                            {schedule.eventType}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {new Date(schedule.eventDate).toLocaleDateString("ja-JP", {
+                              month: "short",
+                              day: "numeric",
+                              weekday: "short",
+                            })}
+                          </span>
+                        </div>
+                        <p className="text-sm font-medium text-foreground line-clamp-1">{schedule.title}</p>
+                        {schedule.venue && (
+                          <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                            <MapPin className="h-3 w-3" />{schedule.venue}
+                          </p>
+                        )}
+                      </div>
+                    ))}
                   </div>
-                  <CardTitle className="text-center">スケジュール</CardTitle>
-                  <CardDescription className="text-center">
-                    練習・試合予定の確認
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
+                ) : (
+                  <p className="text-sm text-muted-foreground py-4 text-center">予定はまだありません</p>
+                )}
+                <Link href="/schedule">
+                  <Button variant="ghost" className="w-full mt-3 text-sm">
+                    すべてのスケジュールを見る <ArrowRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
 
-            <Link href="/results">
-              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full card-hover-gradient feature-card-orange">
-                <CardHeader>
-                  <div className="flex justify-center mb-4">
-                    <div className="bg-orange-200 rounded-full p-3">
-                      <Trophy className="h-6 w-6 text-orange-600" />
-                    </div>
+            {/* 最近の試合結果 */}
+            <Card className="border-0 shadow-lg">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Trophy className="h-5 w-5 text-orange-600" />
+                  最近の試合結果
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {topResults.length > 0 ? (
+                  <div className="space-y-3">
+                    {topResults.map((result) => {
+                      const isWin = result.ourScore > result.opponentScore;
+                      const isDraw = result.ourScore === result.opponentScore;
+                      return (
+                        <div key={result.id} className="p-3 rounded-lg bg-muted/30 border border-border/50">
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-xs text-muted-foreground">
+                              {new Date(result.matchDate).toLocaleDateString("ja-JP", { month: "short", day: "numeric" })}
+                            </span>
+                            <span className={`text-xs font-bold px-2 py-0.5 rounded ${
+                              isWin ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300" :
+                              isDraw ? "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300" :
+                              "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300"
+                            }`}>
+                              {isWin ? "勝利" : isDraw ? "引分" : "敗北"}
+                            </span>
+                          </div>
+                          <p className="text-sm font-medium text-foreground">
+                            vs {result.opponent}
+                          </p>
+                          <p className={`text-lg font-bold ${
+                            isWin ? "text-green-600" : isDraw ? "text-yellow-600" : "text-red-600"
+                          }`}>
+                            {result.ourScore} - {result.opponentScore}
+                          </p>
+                        </div>
+                      );
+                    })}
                   </div>
-                  <CardTitle className="text-center">試合結果</CardTitle>
-                  <CardDescription className="text-center">
-                    過去の試合結果一覧
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/bbs">
-              <Card className="cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full card-hover-gradient feature-card-purple">
-                <CardHeader>
-                  <div className="flex justify-center mb-4">
-                    <div className="bg-purple-200 rounded-full p-3">
-                      <MessageSquare className="h-6 w-6 text-purple-600" />
-                    </div>
-                  </div>
-                  <CardTitle className="text-center">掲示板</CardTitle>
-                  <CardDescription className="text-center">
-                    保護者・選手の交流
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
+                ) : (
+                  <p className="text-sm text-muted-foreground py-4 text-center">試合結果はまだありません</p>
+                )}
+                <Link href="/results">
+                  <Button variant="ghost" className="w-full mt-3 text-sm">
+                    すべての試合結果を見る <ArrowRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -409,24 +497,108 @@ export default function Home() {
       {/* セクション区切り線 */}
       <div className="section-divider-animated" />
 
-      {/* 団元募集 - 改良版 */}
+      {/* 団員募集 - 改良版 */}
       <section className="py-20 bg-gradient-to-r from-amber-400 via-orange-400 to-red-400" ref={recruitmentRef}>
         <div className="container" ref={recruitmentParallaxRef}>
-          <div className="max-w-3xl mx-auto text-center animate-fade-in-up">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg relative pb-6">
-              🎯 新規団員募集中
-              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-1 bg-white/40 rounded-full" />
+          <div className="max-w-4xl mx-auto animate-fade-in-up">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg relative pb-6">
+                新規団員募集中
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-1 bg-white/40 rounded-full" />
+              </h2>
+              <p className="text-xl text-white/95 leading-relaxed drop-shadow-md">
+                サッカーが好きな子どもたち、一緒にサッカーを楽しみませんか？
+              </p>
+            </div>
+
+            {/* 特徴カード */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+              <div className="bg-white/20 backdrop-blur-sm rounded-xl p-5 text-center text-white border border-white/30">
+                <UserPlus className="h-8 w-8 mx-auto mb-3" />
+                <h3 className="font-bold mb-1">初心者大歓迎</h3>
+                <p className="text-sm text-white/90">サッカー未経験でもOK。基礎から丁寧に指導します</p>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-xl p-5 text-center text-white border border-white/30">
+                <Star className="h-8 w-8 mx-auto mb-3" />
+                <h3 className="font-bold mb-1">体験練習無料</h3>
+                <p className="text-sm text-white/90">まずは気軽に体験から。見学だけでもOKです</p>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-xl p-5 text-center text-white border border-white/30">
+                <Clock className="h-8 w-8 mx-auto mb-3" />
+                <h3 className="font-bold mb-1">年中いつでも入団OK</h3>
+                <p className="text-sm text-white/90">学年の途中からでもいつでも入団できます</p>
+              </div>
+            </div>
+
+            {/* 入団ステップ */}
+            <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-10 border border-white/20">
+              <h3 className="text-xl font-bold text-white mb-6 text-center">入団までの3ステップ</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="flex items-start gap-3">
+                  <div className="bg-white text-orange-600 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm flex-shrink-0">1</div>
+                  <div className="text-white">
+                    <p className="font-semibold">体験練習に参加</p>
+                    <p className="text-sm text-white/80">土日の練習にお越しください</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="bg-white text-orange-600 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm flex-shrink-0">2</div>
+                  <div className="text-white">
+                    <p className="font-semibold">入団申し込み</p>
+                    <p className="text-sm text-white/80">申込書を提出</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="bg-white text-orange-600 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm flex-shrink-0">3</div>
+                  <div className="text-white">
+                    <p className="font-semibold">活動開始</p>
+                    <p className="text-sm text-white/80">仲間と一緒にサッカーを楽しもう</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact">
+                <Button size="lg" className="text-lg px-10 bg-white text-orange-600 hover:bg-orange-50 font-bold shadow-xl">
+                  体験練習に申し込む
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href="/team">
+                <Button size="lg" variant="outline" className="text-lg px-10 border-2 border-white text-white hover:bg-white/10 font-bold">
+                  チーム情報を見る
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* セクション区切り線 */}
+      <div className="section-divider" />
+
+      {/* 練習試合募集セクション */}
+      <section className="py-16 bg-gradient-to-br from-green-600 to-emerald-700 dark:from-green-800 dark:to-emerald-900 premium-section">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <Swords className="h-12 w-12 text-white mx-auto mb-4" />
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              練習試合の相手を募集しています
             </h2>
-            <p className="text-xl text-white/95 mb-10 leading-relaxed drop-shadow-md">
-              サッカーが好きな子どもたち、一緒にサッカーを楽しみませんか？<br />
-              初心者も大歓迎です。まずはお気軽にお問い合わせください。
+            <p className="text-lg text-white/90 mb-8 leading-relaxed">
+              対戦していただけるチームを随時募集しています。<br />
+              U7〜U12の各カテゴリーで対応可能です。お気軽にご連絡ください。
             </p>
-            <Link href="/contact">
-              <Button size="lg" className="text-lg px-10 bg-white text-orange-600 hover:bg-orange-50 font-bold shadow-xl">
-                お問い合わせはこちら
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/contact">
+                <Button size="lg" className="text-lg px-8 bg-white text-green-700 hover:bg-green-50 font-bold shadow-xl">
+                  練習試合を申し込む
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

@@ -1,8 +1,7 @@
 import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { Button } from "./ui/button";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, X, Home, Newspaper, Calendar, Trophy, Image, Users, MessageSquare, HelpCircle, Mail, Settings } from "lucide-react";
+import { useState, useEffect } from "react";
 import ThemeToggle from "./ThemeToggle";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 
@@ -16,16 +15,28 @@ export default function Header() {
     setMobileMenuOpen(false);
   };
 
+  // メニューが開いているときにスクロールを無効化
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const navItems = [
-    { label: "ホーム", href: "/" },
-    { label: "お知らせ", href: "/news" },
-    { label: "スケジュール", href: "/schedule" },
-    { label: "試合結果", href: "/results" },
-    { label: "写真", href: "/gallery" },
-    { label: "チーム情報", href: "/team" },
-    { label: "掲示板", href: "/bbs" },
-    { label: "FAQ", href: "/faq" },
-    { label: "お問い合わせ", href: "/contact" },
+    { label: "ホーム", href: "/", icon: Home },
+    { label: "お知らせ", href: "/news", icon: Newspaper },
+    { label: "スケジュール", href: "/schedule", icon: Calendar },
+    { label: "試合結果", href: "/results", icon: Trophy },
+    { label: "写真", href: "/gallery", icon: Image },
+    { label: "チーム情報", href: "/team", icon: Users },
+    { label: "掲示板", href: "/bbs", icon: MessageSquare },
+    { label: "FAQ", href: "/faq", icon: HelpCircle },
+    { label: "お問い合わせ", href: "/contact", icon: Mail },
   ];
 
   return (
@@ -73,6 +84,7 @@ export default function Header() {
             </div>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "メニューを閉じる" : "メニューを開く"}
             >
               {mobileMenuOpen ? (
                 <X className="h-6 w-6 text-primary-foreground" />
@@ -83,30 +95,44 @@ export default function Header() {
           </div>
         </div>
 
-        {/* モバイルメニュー */}
+        {/* モバイルメニュー - 改善版 */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-border py-4">
-            <nav className="flex flex-col gap-4">
-              {navItems.map((item) => (
-                <Link key={item.href} href={item.href} onClick={handleNavClick}>
-                  <span
-                    className="text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground transition-colors cursor-pointer"
-                  >
-                    {item.label}
-                  </span>
-                </Link>
-              ))}
-              {isAuthenticated && user?.role === "admin" && (
-                <Link href="/admin" onClick={handleNavClick}>
-                  <span
-                    className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors cursor-pointer font-semibold"
-                  >
-                    管理画面
-                  </span>
-                </Link>
-              )}
-            </nav>
-          </div>
+          <>
+            {/* オーバーレイ */}
+            <div
+              className="fixed inset-0 bg-black/50 z-40 md:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+              style={{ top: '64px' }}
+            />
+            {/* メニューパネル */}
+            <div className="fixed left-0 right-0 z-50 md:hidden bg-slate-900/98 backdrop-blur-md border-t border-amber-400/20 shadow-2xl overflow-y-auto" style={{ top: '64px', maxHeight: 'calc(100vh - 64px)' }}>
+              <nav className="py-2">
+                {navItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link key={item.href} href={item.href} onClick={handleNavClick}>
+                      <div className="flex items-center gap-4 px-6 py-3.5 hover:bg-amber-400/10 transition-colors cursor-pointer border-b border-white/5">
+                        <Icon className="h-5 w-5 text-amber-400/70 flex-shrink-0" />
+                        <span className="text-base font-medium text-primary-foreground/90">
+                          {item.label}
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
+                {isAuthenticated && user?.role === "admin" && (
+                  <Link href="/admin" onClick={handleNavClick}>
+                    <div className="flex items-center gap-4 px-6 py-3.5 hover:bg-amber-400/10 transition-colors cursor-pointer border-b border-white/5">
+                      <Settings className="h-5 w-5 text-amber-400/70 flex-shrink-0" />
+                      <span className="text-base font-semibold text-amber-300">
+                        管理画面
+                      </span>
+                    </div>
+                  </Link>
+                )}
+              </nav>
+            </div>
+          </>
         )}
       </div>
     </header>
