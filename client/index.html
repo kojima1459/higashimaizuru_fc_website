@@ -3,6 +3,17 @@
 
   <head>
     <meta charset="UTF-8" />
+    <!-- Domain redirect: manus.space → www.higashimaizurufc.com -->
+    <script>
+      (function() {
+        var host = window.location.hostname;
+        if (host.indexOf('manus.space') !== -1 || host.indexOf('manus.computer') !== -1) {
+          window.location.replace('https://www.higashimaizurufc.com' + window.location.pathname + window.location.search + window.location.hash);
+        } else if (host === 'higashimaizurufc.com') {
+          window.location.replace('https://www.higashimaizurufc.com' + window.location.pathname + window.location.search + window.location.hash);
+        }
+      })();
+    </script>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
