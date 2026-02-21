@@ -632,3 +632,9 @@
 - [x] リダイレクトコードの問題を特定（CDNが静的ファイルを直接配信しておりサーバー側リダイレクトが無効）
 - [x] クライアントサイドリダイレクトをindex.htmlに追加
 - [x] チェックポイント作成
+
+## 本番環境JSエラーとリダイレクト修正（2026年2月21日）
+- [x] TypeError: Cannot read properties of undefined (reading 'add') の原因特定（HelmetProviderが未設定）
+- [x] main.tsxにHelmetProviderを追加して修正
+- [x] クライアントサイドリダイレクトをindex.htmlに追加済み
+- [x] チェックポイント作成
