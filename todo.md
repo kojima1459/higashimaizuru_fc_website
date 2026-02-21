@@ -648,5 +648,11 @@
 - [x] チェックポイント作成
 
 ## GitHub同期（ユーザー追加修正）（2026年2月21日）
-- [ ] GitHubリポジトリから最新のコードを取得（git pull）
-- [ ] チェックポイント作成
+- [x] GitHubリポジトリから最新のコードを取得（git pull）
+- [x] チェックポイント作成
+
+## FAQページエラー修正（2026年2月21日）
+- [x] FAQページのTypeError（Cannot read properties of undefined reading 'length'）の原因特定（本番環境で古いビルドが動作中）
+- [x] 最新のチェックポイント（fda4af50）をPublishすれば解決することを確認
+- [x] TypeScript/LSPチェックでエラーがないことを確認
+- [x] ユーザーのリクエストにより最新のチェックポイントを作成
