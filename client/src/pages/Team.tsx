@@ -1,5 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
+import { ArrowRight, Swords, MapPin, Users, Calendar } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import AnimatedTitle from "@/components/AnimatedTitle";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -36,6 +39,7 @@ export default function Team() {
   const basicPolicyRef = useScrollAnimation();
   const clubFeesRef = useScrollAnimation();
   const coachesRef = useScrollAnimation();
+  const matchRequestRef = useScrollAnimation();
 
   return (
     <div className="min-h-screen bg-background">
@@ -209,6 +213,67 @@ export default function Team() {
                     ))}
                   </TableBody>
                 </Table>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* 対外チーム・指導者の方へ */}
+        <div ref={matchRequestRef} className="mt-12">
+          <div className="flex items-center gap-3 mb-6">
+            <h2 className="text-3xl font-bold text-foreground">対外チーム・指導者の方へ</h2>
+            <div className="h-1 w-16 bg-gradient-to-r from-green-400 to-green-300 rounded-full" />
+          </div>
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 border-green-200 dark:border-green-800">
+            <CardContent className="pt-6">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="bg-green-100 dark:bg-green-900/30 rounded-full p-3 flex-shrink-0">
+                  <Swords className="h-8 w-8 text-green-600 dark:text-green-400" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-foreground mb-2">練習試合の相手を募集しています</h3>
+                  <p className="text-muted-foreground">
+                    対戦していただけるチームを随時募集しています。お気軽にご連絡ください。
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div className="bg-white/70 dark:bg-slate-800/50 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Users className="h-4 w-4 text-green-600" />
+                    <span className="text-sm font-semibold text-foreground">対応カテゴリー</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">U7 / U8 / U9 / U10 / U11 / U12</p>
+                </div>
+                <div className="bg-white/70 dark:bg-slate-800/50 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <MapPin className="h-4 w-4 text-green-600" />
+                    <span className="text-sm font-semibold text-foreground">ホームグラウンド</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">舞鶴市立朝来小学校（土グラウンド）</p>
+                </div>
+                <div className="bg-white/70 dark:bg-slate-800/50 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Calendar className="h-4 w-4 text-green-600" />
+                    <span className="text-sm font-semibold text-foreground">活動日</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">毎週土曜・日曜 9:00〜12:00</p>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="/contact">
+                  <Button className="bg-green-600 hover:bg-green-700 text-white">
+                    練習試合を申し込む
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href="/results">
+                  <Button variant="outline" className="border-green-300 text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-950/20">
+                    過去の試合結果を見る
+                  </Button>
+                </Link>
               </div>
             </CardContent>
           </Card>
