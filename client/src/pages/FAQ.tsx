@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, UserPlus, Swords, HelpCircle, DollarSign, CalendarDays } from "lucide-react";
+import { ArrowRight, UserPlus, Swords, HelpCircle, Award, Calendar } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import AnimatedTitle from "@/components/AnimatedTitle";
 import { FAQStructuredData } from "@/components/StructuredData";
@@ -59,7 +59,7 @@ const faqCategories: FAQCategory[] = [
   },
   {
     title: "練習・活動について",
-    icon: <CalendarDays className="h-5 w-5" />,
+    icon: <Calendar className="h-5 w-5" />,
     color: "green",
     items: [
       {
@@ -91,7 +91,7 @@ const faqCategories: FAQCategory[] = [
   },
   {
     title: "費用について",
-    icon: <DollarSign className="h-5 w-5" />,
+    icon: <Award className="h-5 w-5" />,
     color: "amber",
     items: [
       {
