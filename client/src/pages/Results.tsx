@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2, Search, X, ChevronDown, ChevronUp } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import AnimatedTitle from "@/components/AnimatedTitle";
+import { SportsEventStructuredData } from "@/components/StructuredData";
 import {
   Table,
   TableBody,
@@ -62,6 +63,19 @@ export default function Results() {
         image="/logo.jpeg"
         type="website"
       />
+      {/* 構造化データ: 各試合結果にSportsEventスキーマを追加 */}
+      {results && results.length > 0 && results.map((result) => (
+        <SportsEventStructuredData
+          key={result.id}
+          name={result.matchTitle || `${result.category} vs ${result.opponent}`}
+          startDate={new Date(result.matchDate).toISOString()}
+          location="舞鶴市"
+          description={result.notes || undefined}
+          homeTeam="東舞鶴F.C"
+          awayTeam={result.opponent}
+          score={{ home: result.ourScore, away: result.opponentScore }}
+        />
+      ))}
       <div className="container py-12">
       <h1 className="text-4xl font-bold text-foreground mb-8">
         <AnimatedTitle text="試合結果" staggerDelay={60} />
