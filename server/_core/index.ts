@@ -46,26 +46,6 @@ async function startServer() {
     next();
   });
   
-  // Domain redirect middleware: redirect manus.space to custom domain
-  app.use((req, res, next) => {
-    const host = req.get('host') || '';
-    const protocol = req.get('x-forwarded-proto') || req.protocol;
-    
-    // Redirect from manus.space to custom domain
-    if (host.includes('manus.space') || host.includes('manus.computer')) {
-      const newUrl = `https://www.higashimaizurufc.com${req.originalUrl}`;
-      return res.redirect(301, newUrl);
-    }
-    
-    // Redirect non-www to www
-    if (!host.startsWith('www.') && host.includes('higashimaizurufc.com')) {
-      const newUrl = `https://www.higashimaizurufc.com${req.originalUrl}`;
-      return res.redirect(301, newUrl);
-    }
-    
-    next();
-  });
-  
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
