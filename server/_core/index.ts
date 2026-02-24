@@ -8,6 +8,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { handleUpload } from "../uploadHandler";
+import { generateRSSFeed, generateAtomFeed } from "../rss";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -72,6 +73,28 @@ async function startServer() {
   registerOAuthRoutes(app);
   // Upload API
   app.post("/api/upload", handleUpload);
+  // RSS Feed
+  app.get("/api/rss", async (req, res) => {
+    try {
+      const rss = await generateRSSFeed();
+      res.setHeader("Content-Type", "application/rss+xml; charset=utf-8");
+      res.send(rss);
+    } catch (error) {
+      console.error("RSS feed generation error:", error);
+      res.status(500).send("Error generating RSS feed");
+    }
+  });
+  // Atom Feed
+  app.get("/api/atom", async (req, res) => {
+    try {
+      const atom = await generateAtomFeed();
+      res.setHeader("Content-Type", "application/atom+xml; charset=utf-8");
+      res.send(atom);
+    } catch (error) {
+      console.error("Atom feed generation error:", error);
+      res.status(500).send("Error generating Atom feed");
+    }
+  });
   // tRPC API
   app.use(
     "/api/trpc",
