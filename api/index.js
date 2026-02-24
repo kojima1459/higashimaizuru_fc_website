@@ -1,4 +1,4 @@
-// api/index.ts
+// server/_core/vercel.ts
 import "dotenv/config";
 import express from "express";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
@@ -1298,7 +1298,7 @@ async function generateAtomFeed() {
   return atom;
 }
 
-// api/index.ts
+// server/_core/vercel.ts
 var app = express();
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -1331,7 +1331,7 @@ app.use(
     createContext
   })
 );
-var index_default = app;
+var vercel_default = app;
 export {
-  index_default as default
+  vercel_default as default
 };
