@@ -1,4 +1,13 @@
+import { ArrowUp } from "lucide-react";
+
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
   return (
     <footer className="w-full mt-auto relative overflow-hidden">
       {/* プレミアム背景 */}
@@ -142,6 +151,18 @@ export default function Footer() {
 
         {/* 区切り線 */}
         <div className="h-px bg-gradient-to-r from-transparent via-amber-400/30 to-transparent mb-8" />
+
+        {/* トップに戻るボタン */}
+        <div className="flex justify-center mb-8">
+          <button
+            onClick={scrollToTop}
+            className="group flex items-center gap-2 px-6 py-3 bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 hover:border-amber-400/50 rounded-full text-amber-300 hover:text-amber-200 transition-all duration-300 hover:shadow-lg hover:shadow-amber-400/20"
+            aria-label="トップに戻る"
+          >
+            <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
+            <span className="text-sm font-medium">トップに戻る</span>
+          </button>
+        </div>
 
         {/* コピーライト */}
         <div className="text-center">
