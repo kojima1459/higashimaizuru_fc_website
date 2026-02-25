@@ -14,5 +14,15 @@
       "source": "/api/:path*",
       "destination": "/api/index"
     }
+  ],
+  "routes": [
+    {
+      "src": "^/api(/.*)?$",
+      "dest": "/api/index"
+    },
+    {
+      "src": "^(?!.*\\.(?:js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$).*$",
+      "dest": "/index.html"
+    }
   ]
 }
