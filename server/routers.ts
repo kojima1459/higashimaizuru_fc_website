@@ -5,6 +5,7 @@ import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import * as db from "./db";
 import { TRPCError } from "@trpc/server";
+import { generateOGPImage } from "./ogp";
 
 // 管理者専用プロシージャは削除（認証不要のため）
 
@@ -371,6 +372,27 @@ export const appRouter = router({
     matchResults: publicProcedure.query(async () => {
       return await db.getMatchResultsStatistics();
     }),
+  }),
+
+  // OGP画像生成
+  ogp: router({
+    generate: publicProcedure
+      .input(z.object({
+        title: z.string(),
+        description: z.string(),
+        pageType: z.enum(["about", "contact", "news", "gallery", "schedule", "results"]),
+      }))
+      .query(async ({ input }) => {
+        try {
+          const svgContent = await generateOGPImage(input);
+          return { svg: svgContent, success: true };
+        } catch (error) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Failed to generate OGP image",
+          });
+        }
+      }),
   }),
 });
 
