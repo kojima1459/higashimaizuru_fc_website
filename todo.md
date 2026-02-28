@@ -745,3 +745,14 @@
 - [ ] Google Rich Results Testで構造化データを検証
 - [ ] キーワードプランナーで検索ボリュームを確認
 - [ ] チェックポイント作成
+
+## ビルドスクリプト修正・ハンバーガーメニュー修正・SEO対策再適用（2026年2月28日）
+- [x] package.jsonのビルドスクリプトをESM形式に修正（server/_core/index.ts → dist/index.js）
+- [x] スマホのハンバーガーメニューを修正（z-indexの競合解消、touch-manipulation追加）
+- [x] Header.tsxのメニューボタンにref、aria-expanded属性を追加
+- [x] モバイルメニューのオーバーレイとパネルのz-indexを整理（header:100, button:110, overlay:95, panel:99）
+- [x] SEOHeadコンポーネントのデフォルトキーワードに地域キーワードを追加
+- [x] LocalBusinessSchemaにareaServed（舞鶴市、高浜町、小浜市、南舞鶴、東舞鶴、西舞鶴）を追加
+- [x] OrganizationStructuredDataにareaServedと地域情報を追加
+- [x] Home.tsxのSEOHeadを地域キーワード強化版に更新
+- [x] sitemap.xmlにFAQページを追加し更新日を修正

@@ -25,10 +25,10 @@ export function OrganizationStructuredData() {
     "@context": "https://schema.org",
     "@type": "SportsOrganization",
     "name": "東舞鶴フットボールクラブ",
-    "alternateName": "東舞鶴F.C",
+    "alternateName": ["東舞鶴F.C", "東舞鶴FC", "Higashi Maizuru FC"],
     "url": "https://www.higashimaizurufc.com",
     "logo": "https://www.higashimaizurufc.com/logo.jpeg",
-    "description": "京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブです。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。",
+    "description": "舞鶴市、高浜、南舞鶴、小浜市対応のサッカー少年団。U7からU12までの子どもたちがサッカーを通じて成長できる環境を提供。体験練習・入団説明会開催中。",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "朝来中545-1",
@@ -42,6 +42,14 @@ export function OrganizationStructuredData() {
       "latitude": "35.4756",
       "longitude": "135.3868"
     },
+    "areaServed": [
+      { "@type": "City", "name": "舞鶴市" },
+      { "@type": "City", "name": "高浜町" },
+      { "@type": "City", "name": "小浜市" },
+      { "@type": "AdministrativeArea", "name": "南舞鶴" },
+      { "@type": "AdministrativeArea", "name": "東舞鶴" },
+      { "@type": "AdministrativeArea", "name": "西舞鶴" }
+    ],
     "sameAs": [
       "https://www.instagram.com/higashimaizurufc"
     ],
