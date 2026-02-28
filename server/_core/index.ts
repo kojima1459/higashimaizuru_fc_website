@@ -8,6 +8,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { handleUpload } from "../uploadHandler";
+import { generateRSSFeed, generateAtomFeed } from "../rss";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -45,26 +46,6 @@ async function startServer() {
     next();
   });
   
-  // Domain redirect middleware: redirect manus.space to custom domain
-  app.use((req, res, next) => {
-    const host = req.get('host') || '';
-    const protocol = req.get('x-forwarded-proto') || req.protocol;
-    
-    // Redirect from manus.space to custom domain
-    if (host.includes('manus.space') || host.includes('manus.computer')) {
-      const newUrl = `https://www.higashimaizurufc.com${req.originalUrl}`;
-      return res.redirect(301, newUrl);
-    }
-    
-    // Redirect non-www to www
-    if (!host.startsWith('www.') && host.includes('higashimaizurufc.com')) {
-      const newUrl = `https://www.higashimaizurufc.com${req.originalUrl}`;
-      return res.redirect(301, newUrl);
-    }
-    
-    next();
-  });
-  
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -72,6 +53,28 @@ async function startServer() {
   registerOAuthRoutes(app);
   // Upload API
   app.post("/api/upload", handleUpload);
+  // RSS Feed
+  app.get("/api/rss", async (req, res) => {
+    try {
+      const rss = await generateRSSFeed();
+      res.setHeader("Content-Type", "application/rss+xml; charset=utf-8");
+      res.send(rss);
+    } catch (error) {
+      console.error("RSS feed generation error:", error);
+      res.status(500).send("Error generating RSS feed");
+    }
+  });
+  // Atom Feed
+  app.get("/api/atom", async (req, res) => {
+    try {
+      const atom = await generateAtomFeed();
+      res.setHeader("Content-Type", "application/atom+xml; charset=utf-8");
+      res.send(atom);
+    } catch (error) {
+      console.error("Atom feed generation error:", error);
+      res.status(500).send("Error generating Atom feed");
+    }
+  });
   // tRPC API
   app.use(
     "/api/trpc",

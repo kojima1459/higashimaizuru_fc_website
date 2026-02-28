@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "wouter";
-import { Loader2, Search, X, ChevronDown, ChevronUp, Calendar, SortAsc, SortDesc } from "lucide-react";
+import { Loader2, Search, X, ChevronDown, ChevronUp, Calendar, SortAsc, SortDesc, Rss } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import AnimatedTitle from "@/components/AnimatedTitle";
 import { useState } from "react";
@@ -84,7 +84,29 @@ export default function News() {
             <AnimatedTitle text="お知らせ" staggerDelay={60} />
           </h1>
           <div className="premium-divider w-32" />
-          <p className="text-lg text-amber-300 mt-4">東舞鶴フットボールクラブの最新情報</p>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-4">
+            <p className="text-lg text-amber-300">東舞鶴フットボールクラブの最新情報</p>
+            <div className="flex gap-2">
+              <a
+                href="/api/rss"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 hover:border-amber-400/50 rounded-full text-amber-300 hover:text-amber-200 transition-all duration-300 text-sm font-medium"
+              >
+                <Rss className="w-4 h-4" />
+                RSS
+              </a>
+              <a
+                href="/api/atom"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 hover:border-amber-400/50 rounded-full text-amber-300 hover:text-amber-200 transition-all duration-300 text-sm font-medium"
+              >
+                <Rss className="w-4 h-4" />
+                Atom
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
