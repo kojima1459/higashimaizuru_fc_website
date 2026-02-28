@@ -3,6 +3,17 @@
 
   <head>
     <meta charset="UTF-8" />
+    <!-- Domain redirect: manus.space → www.higashimaizurufc.com -->
+    <script>
+      (function() {
+        var host = window.location.hostname;
+        if (host.indexOf('manus.space') !== -1 || host.indexOf('manus.computer') !== -1) {
+          window.location.replace('https://www.higashimaizurufc.com' + window.location.pathname + window.location.search + window.location.hash);
+        } else if (host === 'higashimaizurufc.com') {
+          window.location.replace('https://www.higashimaizurufc.com' + window.location.pathname + window.location.search + window.location.hash);
+        }
+      })();
+    </script>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
@@ -23,9 +34,6 @@
     <meta name="twitter:image" content="/logo.jpeg" />
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="tx05HspKgzsVcOFQZ-tMjc1wIyIjbQfaCStMtXZXAPE" />
-    <!-- RSS/Atom Feeds -->
-    <link rel="alternate" type="application/rss+xml" title="東舞鶴F.C お知らせ (RSS)" href="/api/rss" />
-    <link rel="alternate" type="application/atom+xml" title="東舞鶴F.C お知らせ (Atom)" href="/api/atom" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -42,6 +50,10 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script
+      defer
+      src="%VITE_ANALYTICS_ENDPOINT%/umami"
+      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
   </body>
 
 </html>

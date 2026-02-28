@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Share2, Facebook, MessageCircle, Linkedin } from 'lucide-react';
+import { Share2, Facebook, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface ShareButtonsProps {
@@ -35,9 +35,6 @@ export default function ShareButtons({
 
   // LINE シェアリンク
   const lineShareUrl = `https://line.me/R/msg/text/?${encodedTitle}%0A${encodedDescription}%0A${encodedUrl}`;
-
-  // LinkedIn シェアリンク
-  const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
 
   return (
     <div className={`flex gap-3 items-center ${className}`}>
@@ -99,25 +96,6 @@ export default function ShareButtons({
         >
           <MessageCircle className="w-4 h-4" />
           <span>LINE</span>
-        </a>
-      </Button>
-
-      {/* LinkedIn シェアボタン */}
-      <Button
-        variant="outline"
-        size="sm"
-        asChild
-        className="hover:bg-blue-700 hover:text-white transition-colors"
-      >
-        <a
-          href={linkedinShareUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="LinkedInでシェア"
-          className="flex items-center gap-2"
-        >
-          <Linkedin className="w-4 h-4" />
-          <span>LinkedIn</span>
         </a>
       </Button>
     </div>

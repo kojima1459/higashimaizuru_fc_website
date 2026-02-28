@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { X, Image as ImageIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, Image as ImageIcon } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import AnimatedTitle from "@/components/AnimatedTitle";
 
@@ -10,46 +10,13 @@ export default function Gallery() {
   const [categoryFilter, setCategoryFilter] = useState<string>("全て");
   const [yearFilter, setYearFilter] = useState<string>("全て");
   const [eventTypeFilter, setEventTypeFilter] = useState<string>("全て");
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<any | null>(null);
 
   const { data: photos, isLoading } = trpc.photos.list.useQuery({ 
     category: categoryFilter === "全て" ? undefined : categoryFilter,
     year: yearFilter === "全て" ? undefined : parseInt(yearFilter),
     eventType: eventTypeFilter === "全て" ? undefined : eventTypeFilter
   });
-
-  const selectedPhoto = selectedPhotoIndex !== null && photos ? photos[selectedPhotoIndex] : null;
-
-  // キーボード操作
-  useEffect(() => {
-    if (selectedPhotoIndex === null || !photos) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        goToPrevious();
-      } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        goToNext();
-      } else if (e.key === "Escape") {
-        e.preventDefault();
-        setSelectedPhotoIndex(null);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedPhotoIndex, photos]);
-
-  const goToPrevious = () => {
-    if (selectedPhotoIndex === null || !photos) return;
-    setSelectedPhotoIndex((selectedPhotoIndex - 1 + photos.length) % photos.length);
-  };
-
-  const goToNext = () => {
-    if (selectedPhotoIndex === null || !photos) return;
-    setSelectedPhotoIndex((selectedPhotoIndex + 1) % photos.length);
-  };
 
   return (
     <div className="container py-12">
@@ -153,11 +120,11 @@ export default function Gallery() {
         </div>
       ) : photos && photos.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {photos.map((photo, index) => (
+          {photos.map((photo) => (
             <div
               key={photo.id}
               className="group relative aspect-square overflow-hidden rounded-lg cursor-pointer bg-muted"
-              onClick={() => setSelectedPhotoIndex(index)}
+              onClick={() => setSelectedPhoto(photo)}
             >
               <img
                 src={photo.imageUrl}
@@ -180,58 +147,22 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* スライドショーモーダル */}
-      {selectedPhoto && photos && (
+      {/* 写真拡大表示モーダル */}
+      {selectedPhoto && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
-          onClick={() => setSelectedPhotoIndex(null)}
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setSelectedPhoto(null)}
         >
-          {/* 閉じるボタン */}
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-4 right-4 text-white hover:bg-white/20 z-10"
-            onClick={(e) => {
-              e.stopPropagation();
-              setSelectedPhotoIndex(null);
-            }}
+            className="absolute top-4 right-4 text-white hover:bg-white/20"
+            onClick={() => setSelectedPhoto(null)}
           >
             <X className="h-6 w-6" />
           </Button>
-
-          {/* 前へボタン */}
-          {photos.length > 1 && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20 z-10 h-12 w-12"
-              onClick={(e) => {
-                e.stopPropagation();
-                goToPrevious();
-              }}
-            >
-              <ChevronLeft className="h-8 w-8" />
-            </Button>
-          )}
-
-          {/* 次へボタン */}
-          {photos.length > 1 && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20 z-10 h-12 w-12"
-              onClick={(e) => {
-                e.stopPropagation();
-                goToNext();
-              }}
-            >
-              <ChevronRight className="h-8 w-8" />
-            </Button>
-          )}
-
-          {/* 画像とキャプション */}
           <div
-            className="max-w-6xl max-h-[90vh] w-full px-16"
+            className="max-w-6xl max-h-[90vh] w-full"
             onClick={(e) => e.stopPropagation()}
           >
             <img
@@ -247,16 +178,9 @@ export default function Gallery() {
                 {selectedPhoto.caption && (
                   <p className="text-sm text-white/80">{selectedPhoto.caption}</p>
                 )}
-                <div className="flex items-center justify-between mt-2">
-                  <p className="text-xs text-white/60">
-                    {selectedPhoto.category} • {new Date(selectedPhoto.createdAt).toLocaleDateString("ja-JP")}
-                  </p>
-                  {photos.length > 1 && (
-                    <p className="text-xs text-white/60">
-                      {selectedPhotoIndex! + 1} / {photos.length}
-                    </p>
-                  )}
-                </div>
+                <p className="text-xs text-white/60 mt-2">
+                  {selectedPhoto.category} • {new Date(selectedPhoto.createdAt).toLocaleDateString("ja-JP")}
+                </p>
               </div>
             )}
           </div>
