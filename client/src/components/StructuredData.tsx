@@ -28,7 +28,7 @@ export function OrganizationStructuredData() {
     "alternateName": "東舞鶴F.C",
     "url": "https://www.higashimaizurufc.com",
     "logo": "https://www.higashimaizurufc.com/logo.jpeg",
-    "description": "京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブです。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。",
+    "description": "京都府舞鶴市を拠点とする小学生サッカークラブ。舞鶴市・南舞鶴・高浜・小浜エリアの小学生が在籍。初心者歓迎・体験無料。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "朝来中545-1",
@@ -42,10 +42,44 @@ export function OrganizationStructuredData() {
       "latitude": "35.4756",
       "longitude": "135.3868"
     },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "舞鶴市",
+        "containedInPlace": { "@type": "State", "name": "京都府" }
+      },
+      {
+        "@type": "Place",
+        "name": "東舞鶴"
+      },
+      {
+        "@type": "Place",
+        "name": "南舞鶴"
+      },
+      {
+        "@type": "Place",
+        "name": "舞鶴南"
+      },
+      {
+        "@type": "Town",
+        "name": "高浜町",
+        "containedInPlace": { "@type": "State", "name": "福井県" }
+      },
+      {
+        "@type": "City",
+        "name": "小浜市",
+        "containedInPlace": { "@type": "State", "name": "福井県" }
+      }
+    ],
     "sameAs": [
       "https://www.instagram.com/higashimaizurufc"
     ],
-    "sport": "サッカー"
+    "sport": "サッカー",
+    "memberOf": {
+      "@type": "SportsOrganization",
+      "name": "舞鶴サッカー協会"
+    },
+    "keywords": "舞鶴市 サッカー, 舞鶴 サッカー 小学生, 高浜 サッカー, 小浜 サッカー, 南舞鶴 サッカー, 舞鶴南 サッカー, 少年サッカー, ジュニアサッカー"
   };
 
   return <StructuredData data={data} />;

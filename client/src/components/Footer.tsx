@@ -17,7 +17,7 @@ export default function Footer() {
               <span className="w-8 h-0.5 bg-gradient-to-r from-amber-400 to-amber-300 group-hover:w-12 transition-all duration-300" />
             </h3>
             <p className="text-sm text-slate-300 leading-relaxed">
-              京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブ
+              京都府舞鶴市を拠点とする小学生サッカークラブ。舞鶴市・南舞鶴・高浜・小浜エリアから通えます。
             </p>
             {/* SNSリンク */}
             <div className="flex items-center gap-3 mt-4">
@@ -138,6 +138,13 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+        </div>
+
+        {/* 対応エリア */}
+        <div className="mb-8">
+          <p className="text-xs text-slate-500 text-center leading-relaxed">
+            対応エリア：舞鶴市（東舞鶴・西舞鶴・南舞鶴・中舞鶴）/ 高浜町 / 小浜市 / 綾部市 | 舞鶴市 サッカー・少年サッカー・小学生サッカークラブ
+          </p>
         </div>
 
         {/* 区切り線 */}

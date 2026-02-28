@@ -22,10 +22,11 @@ export default function News() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="お知らせ - 東舞鶴フットボールクラブ"
-        description="東舞鶴フットボールクラブの練習や試合の最新情報、連絡事項をお知らせします。"
+        title="お知らせ - 東舞鶴FC | 舞鶴市の小学生サッカークラブ"
+        description="舞鶴市の小学生サッカークラブ「東舞鶴FC」の最新お知らせ。練習・試合・大会の情報をお届けします。"
         image="/logo.jpeg"
         type="website"
+        keywords="舞鶴市 サッカー お知らせ,東舞鶴FC ニュース,舞鶴 少年サッカー 最新情報"
       />
       {/* プレミアムページヘッダー */}
       <div className="relative w-full bg-gradient-to-b from-slate-900 via-slate-950 to-black py-16 overflow-hidden premium-section">

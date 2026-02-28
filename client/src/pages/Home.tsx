@@ -52,11 +52,11 @@ export default function Home() {
   return (
     <div className="w-full">
       <SEOHead
-        title="東舞鶴フットボールクラブ ウェブサイト - 京都府舞鶴市の小学生フットボールクラブ"
-        description="京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブです。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。"
+        title="東舞鶴FC | 舞鶴市の小学生サッカークラブ - 高浜・小浜・南舞鶴からも通える少年サッカーチーム"
+        description="京都府舞鶴市の小学生サッカークラブ「東舞鶴フットボールクラブ」公式サイト。舞鶴市・南舞鶴・舞鶴南・高浜・小浜エリアから通える少年サッカーチームです。初心者歓迎・体験練習無料・年中入団OK。"
         image="/logo.jpeg"
         type="website"
-        keywords="東舞鶴フットボールクラブ,東舞鶴FC,舞鶴,サッカー,京都,少年サッカー,ジュニアサッカー,サッカークラブ,サッカーチーム,フットボールクラブ"
+        keywords="舞鶴市 サッカー,舞鶴 サッカー 小学生,東舞鶴FC,東舞鶴フットボールクラブ,高浜 サッカー,小浜 サッカー,南舞鶴 サッカー,舞鶴南 サッカー,少年サッカー 舞鶴,ジュニアサッカー 舞鶴,サッカー 小学生 京都,舞鶴 サッカークラブ,スポーツ少年団 舞鶴,サッカーチーム 小学生 舞鶴"
       />
       {/* 組織情報の構造化データ */}
       <OrganizationStructuredData />
@@ -74,13 +74,26 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "SportsTeam",
             "name": "東舞鶴フットボールクラブ",
+            "alternateName": ["東舞鶴FC", "東舞鶴F.C", "ひがしまいづるFC"],
             "sport": "サッカー",
-            "description": "京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブです。子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。",
+            "description": "京都府舞鶴市の小学生サッカークラブ。舞鶴市・南舞鶴・高浜・小浜エリアの小学生が在籍する少年サッカーチームです。初心者歓迎・体験無料。",
             "address": {
               "@type": "PostalAddress",
+              "streetAddress": "朝来中545-1",
               "addressLocality": "舞鶴市",
               "addressRegion": "京都府",
+              "postalCode": "625-0005",
               "addressCountry": "JP"
+            },
+            "location": {
+              "@type": "Place",
+              "name": "舞鶴市立朝来小学校",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "舞鶴市",
+                "addressRegion": "京都府",
+                "addressCountry": "JP"
+              }
             },
             "logo": `${window.location.origin}/logo.jpeg`,
             "image": `${window.location.origin}/logo.jpeg`,
@@ -298,8 +311,8 @@ export default function Home() {
               <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
             </h2>
             <p className="text-lg text-muted-foreground">
-              京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブです。<br />
-              子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。
+              京都府舞鶴市を拠点とする小学生サッカークラブです。<br />
+              舞鶴市・南舞鶴・高浜・小浜エリアの子どもたちが在籍し、サッカーを通じた仲間づくりを大切にしています。
             </p>
           </div>
 
@@ -623,16 +636,27 @@ export default function Home() {
       {/* SEO用テキストコンテンツ */}
       <section className="container py-16">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-foreground mb-6">東舞鶴フットボールクラブについて</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-6">舞鶴市の小学生サッカークラブ「東舞鶴フットボールクラブ」</h2>
           <div className="space-y-4 text-foreground">
             <p>
-              東舞鶴フットボールクラブは、京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブです。私たちは、子どもたちの健全な育成とサッカーを通じた仲間づくりを大切にしています。
+              東舞鶴フットボールクラブ（東舞鶴FC）は、<strong>京都府舞鶴市</strong>を拠点とする<strong>小学生向けのサッカークラブ</strong>です。毎週土曜・日曜に舞鶴市立朝来小学校で練習を行っており、年長（U6）から小学6年生（U12）までのお子様が楽しくサッカーに取り組んでいます。
             </p>
             <p>
-              少年サッカー、ジュニアサッカーを通じて、子どもたちの体力向上、技術向上、そしてチームワークの大切さを学ぶ機会を提供しています。練習や試合を通じて、サッカーの楽しさを体験し、仲間との絆を深めていくことを目指しています。
+              当クラブには、<strong>舞鶴市</strong>内の東舞鶴・<strong>南舞鶴</strong>（<strong>舞鶴南</strong>）エリアはもちろん、福井県<strong>高浜</strong>町や<strong>小浜</strong>市など近隣地域からも多くの小学生が通っています。地域を越えた仲間づくりができるのも、当クラブの魅力のひとつです。
             </p>
             <p>
-              舞鶴地域のサッカークラブとして、地域社会とのつながりを大切にし、地域の子どもたちの成長をサポートしています。初心者から経験者まで、どなたでも歓迎します。一緒にサッカーを楽しみましょう！
+              <strong>サッカー初心者も大歓迎</strong>です。「<strong>舞鶴でサッカーを始めたい</strong>」「<strong>小学生の子どもにサッカーを習わせたい</strong>」とお考えの保護者の方は、ぜひ一度体験練習にお越しください。<strong>体験練習は無料</strong>で、見学だけでもOKです。年中いつでも入団を受け付けています。
+            </p>
+            <h3 className="text-2xl font-bold text-foreground mt-8 mb-4">活動エリア・通える地域</h3>
+            <p>
+              東舞鶴フットボールクラブには、以下のエリアからお子様が通っています。<strong>舞鶴市</strong>全域（東舞鶴・西舞鶴・<strong>南舞鶴</strong>・中舞鶴）、福井県<strong>高浜</strong>町、福井県<strong>小浜</strong>市、綾部市など。お車で20〜30分圏内であれば十分通える範囲です。「<strong>高浜でサッカークラブを探している</strong>」「<strong>小浜から通えるサッカーチームはないか</strong>」という方もお気軽にお問い合わせください。
+            </p>
+            <h3 className="text-2xl font-bold text-foreground mt-8 mb-4">少年サッカー・ジュニアサッカーの魅力</h3>
+            <p>
+              <strong>少年サッカー</strong>・<strong>ジュニアサッカー</strong>を通じて、子どもたちの体力向上、技術向上、そしてチームワークの大切さを学ぶ機会を提供しています。<strong>舞鶴市のサッカー</strong>チームとして地域の大会やリーグ戦にも参加し、試合を通じてサッカーの楽しさを体験し、仲間との絆を深めていくことを目指しています。
+            </p>
+            <p>
+              <strong>舞鶴</strong>地域の<strong>サッカークラブ</strong>として、地域社会とのつながりを大切にし、地域の子どもたちの成長をサポートしています。練習試合の相手チームも随時募集中です。初心者から経験者まで、どなたでも歓迎します。一緒に<strong>サッカー</strong>を楽しみましょう！
             </p>
           </div>
         </div>

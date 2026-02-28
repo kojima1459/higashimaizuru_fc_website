@@ -44,10 +44,11 @@ export default function Team() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="チーム情報 - 東舞鶴フットボールクラブ"
-        description="東舞鶴フットボールクラブのチーム紹介、活動内容、入団案内などの情報をご覧いただけます。"
+        title="チーム情報 - 東舞鶴FC | 舞鶴市・高浜・小浜の小学生サッカークラブ"
+        description="東舞鶴フットボールクラブのチーム紹介・費用・指導者情報。舞鶴市・南舞鶴・高浜・小浜から通える小学生サッカークラブです。U6〜U12の各カテゴリーで活動中。"
         image="/logo.jpeg"
         type="website"
+        keywords="舞鶴市 サッカー チーム情報,東舞鶴FC 費用,舞鶴 サッカー 小学生 入団,高浜 サッカークラブ,小浜 サッカー 小学生,南舞鶴 サッカー,少年サッカー 月謝"
       />
       
       {/* プレミアムページヘッダー */}
@@ -75,7 +76,7 @@ export default function Team() {
             <CardContent className="pt-6">
               <div className="space-y-4 text-muted-foreground">
                 <p className="text-lg leading-relaxed">
-                  東舞鶴フットボールクラブは、サッカーを通じて子供達の健全な心身の育成を目指しています。
+                  東舞鶴フットボールクラブは、京都府舞鶴市を拠点に、サッカーを通じて子供達の健全な心身の育成を目指しています。舞鶴市内はもちろん、南舞鶴・高浜・小浜エリアからも多くの小学生が在籍しています。
                 </p>
                 <ul className="space-y-3 ml-4">
                   <li className="flex items-start gap-3">

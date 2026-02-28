@@ -150,10 +150,11 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="お問い合わせ - 東舞鶴F.C"
-        description="東舞鶴F.Cへのお問い合わせはこちらから。入団・体験練習、練習試合の申し込みもお気軽にどうぞ。"
+        title="お問い合わせ・体験申込 - 東舞鶴FC | 舞鶴市の小学生サッカークラブ"
+        description="舞鶴市の小学生サッカークラブ「東舞鶴FC」へのお問い合わせ。入団・体験練習（無料）・練習試合の申し込みはこちら。舞鶴市・南舞鶴・高浜・小浜エリアからも歓迎。"
         image="/logo.jpeg"
         type="website"
+        keywords="舞鶴市 サッカー 体験,舞鶴 サッカー 小学生 申し込み,高浜 サッカー 体験練習,小浜 サッカー 入団,南舞鶴 サッカークラブ,少年サッカー 体験 無料 舞鶴"
       />
       <div className="container py-12">
       <div className="max-w-2xl mx-auto">

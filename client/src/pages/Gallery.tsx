@@ -21,8 +21,9 @@ export default function Gallery() {
   return (
     <div className="container py-12">
       <SEOHead
-        title="写真ギャラリー - 東舞鶴F.C"
-        description="東舞鶴F.Cの練習風景や試合の写真ギャラリー"
+        title="写真ギャラリー - 東舞鶴FC | 舞鶴市の小学生サッカークラブ"
+        description="舞鶴市の小学生サッカークラブ「東舞鶴FC」の練習風景や試合の写真ギャラリー。子どもたちの活躍をご覧ください。"
+        keywords="舞鶴市 サッカー 写真,東舞鶴FC ギャラリー,舞鶴 少年サッカー 写真"
       />
       
       <div className="mb-8">

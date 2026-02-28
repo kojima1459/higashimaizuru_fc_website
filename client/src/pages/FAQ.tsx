@@ -207,10 +207,11 @@ export default function FAQ() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="よくある質問 - 東舞鶴F.C"
-        description="東舞鶴フットボールクラブに関するよくある質問をまとめました。入団・体験、練習、費用、練習試合の申し込み方法など、気になる疑問にお答えします。"
+        title="よくある質問 - 東舞鶴FC | 舞鶴市の小学生サッカークラブ"
+        description="舞鶴市の小学生サッカークラブ「東舞鶴FC」のよくある質問。入団・体験、練習、費用、練習試合の申し込み方法など。舞鶴・高浜・小浜から通える少年サッカーチームです。"
         image="/logo.jpeg"
         type="website"
+        keywords="舞鶴市 サッカー よくある質問,舞鶴 サッカー 小学生 入団,高浜 サッカー 体験,小浜 サッカークラブ 費用,南舞鶴 サッカー 小学生,少年サッカー 体験 無料"
       />
 
       {/* FAQ構造化データ */}

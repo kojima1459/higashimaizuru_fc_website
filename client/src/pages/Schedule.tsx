@@ -70,10 +70,11 @@ export default function Schedule() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="スケジュール - 東舞鶴F.C"
-        description="東舞鶴F.Cの練習・試合予定をご確認いただけます。"
+        title="スケジュール - 東舞鶴FC | 舞鶴市の小学生サッカークラブ"
+        description="舞鶴市の小学生サッカークラブ「東舞鶴FC」の練習・試合・大会スケジュール。毎週土日に朝来小学校で活動中。"
         image="/logo.jpeg"
         type="website"
+        keywords="舞鶴市 サッカー スケジュール,東舞鶴FC 練習日程,舞鶴 少年サッカー 予定"
       />
       {/* プレミアムページヘッダー */}
       <div className="relative w-full bg-gradient-to-b from-slate-900 via-slate-950 to-black py-16 overflow-hidden premium-section">

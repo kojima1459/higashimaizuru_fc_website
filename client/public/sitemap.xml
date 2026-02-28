@@ -59,7 +59,15 @@
   <!-- お問い合わせページ -->
   <url>
     <loc>https://www.higashimaizurufc.com/contact</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- よくある質問ページ -->
+  <url>
+    <loc>https://www.higashimaizurufc.com/faq</loc>
+    <lastmod>2026-02-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

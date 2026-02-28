@@ -57,10 +57,11 @@ export default function Results() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="試合結果 - 東舞鶴F.C"
-        description="東舞鶴F.Cの過去の試合結果一覧です。"
+        title="試合結果 - 東舞鶴FC | 舞鶴市の小学生サッカークラブ"
+        description="舞鶴市の小学生サッカークラブ「東舞鶴FC」の試合結果一覧。リーグ戦・大会・練習試合の結果を掲載。"
         image="/logo.jpeg"
         type="website"
+        keywords="舞鶴市 サッカー 試合結果,東舞鶴FC 戦績,舞鶴 少年サッカー 大会結果"
       />
       <div className="container py-12">
       <h1 className="text-4xl font-bold text-foreground mb-8">
