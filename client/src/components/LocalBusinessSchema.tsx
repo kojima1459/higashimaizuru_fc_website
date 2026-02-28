@@ -4,9 +4,8 @@ export default function LocalBusinessSchema() {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://www.higashimaizurufc.com",
     name: "東舞鶴F.C",
-    description: "舞鶴市、高浜、南舞鶴、小浜市対応のサッカー少年団。U7からU12までの子どもたちがサッカーを通じて成長できる環境を提供しています。",
+    description: "京都府舞鶴市のスポーツ少年団。U7からU12までの子どもたちがサッカーを通じて成長できる環境を提供しています。",
     url: "https://www.higashimaizurufc.com",
     image: "https://www.higashimaizurufc.com/logo.png",
     address: {
@@ -15,11 +14,6 @@ export default function LocalBusinessSchema() {
       addressRegion: "京都府",
       addressLocality: "舞鶴市",
     },
-    areaServed: [
-      { "@type": "City", name: "舞鶴市" },
-      { "@type": "City", name: "高浜市" },
-      { "@type": "City", name: "小浜市" },
-    ],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Customer Service",

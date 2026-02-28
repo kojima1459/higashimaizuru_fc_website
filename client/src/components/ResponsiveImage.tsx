@@ -1,13 +1,13 @@
 import { ImgHTMLAttributes } from 'react';
 
-interface ResponsiveImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'srcSet' | 'sizes'> {
+interface ResponsiveImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'srcSet'> {
   /**
    * WebP画像のURL
    */
   webpSrc: string;
   
   /**
-   * フォールバック用の元画像。（JPEG/PNG）
+   * フォールバック用の元画像URL（JPEG/PNG）
    */
   fallbackSrc: string;
   
@@ -20,7 +20,7 @@ interface ResponsiveImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>,
    * レスポンシブ画像のサイズ設定（オプション）
    * 例: { mobile: 320, tablet: 768, desktop: 1200 }
    */
-  responsiveSizes?: {
+  sizes?: {
     mobile?: number;
     tablet?: number;
     desktop?: number;
@@ -44,28 +44,28 @@ export function ResponsiveImage({
   webpSrc,
   fallbackSrc,
   alt,
-  responsiveSizes,
+  sizes,
   loading = 'lazy',
   className,
   ...props
 }: ResponsiveImageProps) {
   // srcset文字列を生成
   const generateSrcSet = (baseSrc: string) => {
-    if (!responsiveSizes) return undefined;
+    if (!sizes) return undefined;
     
     const srcSetParts: string[] = [];
-    if (responsiveSizes.mobile) srcSetParts.push(`${baseSrc} ${responsiveSizes.mobile}w`);
-    if (responsiveSizes.tablet) srcSetParts.push(`${baseSrc} ${responsiveSizes.tablet}w`);
-    if (responsiveSizes.desktop) srcSetParts.push(`${baseSrc} ${responsiveSizes.desktop}w`);
+    if (sizes.mobile) srcSetParts.push(`${baseSrc} ${sizes.mobile}w`);
+    if (sizes.tablet) srcSetParts.push(`${baseSrc} ${sizes.tablet}w`);
+    if (sizes.desktop) srcSetParts.push(`${baseSrc} ${sizes.desktop}w`);
     
     return srcSetParts.length > 0 ? srcSetParts.join(', ') : undefined;
   };
 
   // sizes属性を生成
-  const sizesAttr = responsiveSizes
-    ? `(max-width: ${responsiveSizes.mobile || 320}px) ${responsiveSizes.mobile || 320}px, ` +
-      `(max-width: ${responsiveSizes.tablet || 768}px) ${responsiveSizes.tablet || 768}px, ` +
-      `${responsiveSizes.desktop || 1200}px`
+  const sizesAttr = sizes
+    ? `(max-width: ${sizes.mobile || 320}px) ${sizes.mobile || 320}px, ` +
+      `(max-width: ${sizes.tablet || 768}px) ${sizes.tablet || 768}px, ` +
+      `${sizes.desktop || 1200}px`
     : undefined;
 
   return (
