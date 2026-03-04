@@ -7,6 +7,7 @@ import { InstagramFeed } from "@/components/InstagramFeed";
 import ShareButtons from "@/components/ShareButtons";
 import AccessMap from "@/components/AccessMap";
 import SEOHead from "@/components/SEOHead";
+import { SoccerBallParticles } from "@/components/SoccerBallParticles";
 import { useScrollAnimation, useParallax } from "@/hooks/useScrollAnimation";
 import { useEffect } from "react";
 import { OrganizationStructuredData, BreadcrumbStructuredData } from "@/components/StructuredData";
@@ -90,6 +91,10 @@ export default function Home() {
       />
       {/* ヒーローセクション - プレミアム版 */}
       <section className="relative h-[400px] md:h-[600px] flex items-center justify-center overflow-hidden">
+        {/* サッカーボール粒子アニメーション */}
+        <div className="absolute inset-0 z-5">
+          <SoccerBallParticles />
+        </div>
         <div className="hero-overlay absolute inset-0 z-10" />
         <img
           src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663030693288/DYdLINerUUzJEMqr.jpg"
