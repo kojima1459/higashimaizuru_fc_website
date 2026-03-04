@@ -9,6 +9,7 @@ import AccessMap from "@/components/AccessMap";
 import SEOHead from "@/components/SEOHead";
 import { SoccerBallParticles } from "@/components/SoccerBallParticles";
 import { useScrollAnimation, useParallax } from "@/hooks/useScrollAnimation";
+import { useTilt } from "@/hooks/useTilt";
 import { useEffect } from "react";
 import { OrganizationStructuredData, BreadcrumbStructuredData } from "@/components/StructuredData";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
@@ -24,11 +25,16 @@ export default function Home() {
   const accessRef = useScrollAnimation();
   const instagramRef = useScrollAnimation();
 
-  // パララックス効果用のref
+  // パララック効果用のref
   const heroParallaxRef = useParallax(0.5);
   const basicPolicyParallaxRef = useParallax(0.3);
   const soccerPowerParallaxRef = useParallax(0.4);
   const recruitmentParallaxRef = useParallax(0.3);
+
+  // 3D Tilt効果用のref
+  const newsCardRef = useTilt({ scale: 1.02, speed: 400, max: 15 });
+  const scheduleCardRef = useTilt({ scale: 1.02, speed: 400, max: 15 });
+  const resultsCardRef = useTilt({ scale: 1.02, speed: 400, max: 15 });;
 
   // 最新データの取得
   const { data: latestNews } = trpc.news.list.useQuery({});
@@ -359,7 +365,7 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-in-up">
             {/* 最新お知らせ */}
-            <Card className="border-0 shadow-lg">
+            <Card ref={newsCardRef} className="border-0 shadow-lg" style={{ transformStyle: 'preserve-3d' }}>
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Newspaper className="h-5 w-5 text-blue-600" />
@@ -397,7 +403,7 @@ export default function Home() {
             </Card>
 
             {/* 直近スケジュール */}
-            <Card className="border-0 shadow-lg">
+            <Card ref={scheduleCardRef} className="border-0 shadow-lg" style={{ transformStyle: 'preserve-3d' }}>
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Calendar className="h-5 w-5 text-green-600" />
@@ -446,7 +452,7 @@ export default function Home() {
             </Card>
 
             {/* 最近の試合結果 */}
-            <Card className="border-0 shadow-lg">
+            <Card ref={resultsCardRef} className="border-0 shadow-lg" style={{ transformStyle: 'preserve-3d' }}>
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Trophy className="h-5 w-5 text-orange-600" />
