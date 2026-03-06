@@ -101,13 +101,13 @@ export default function Header() {
                   onClick={toggleMenu}
                   aria-label={mobileMenuOpen ? "メニューを閉じる" : "メニューを開く"}
                   aria-expanded={mobileMenuOpen}
-                  className="relative flex items-center justify-center w-10 h-10 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-manipulation"
-                  style={{ zIndex: 110 }}
+                  className="relative flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors duration-200 touch-manipulation text-white"
+                  style={{ zIndex: 110, width: '40px', height: '40px' }}
                 >
                   {mobileMenuOpen ? (
-                    <X className="h-6 w-6 text-white" />
+                    <X className="h-5 w-5" />
                   ) : (
-                    <Menu className="h-6 w-6 text-white" />
+                    <Menu className="h-5 w-5" />
                   )}
                 </button>
               </div>
