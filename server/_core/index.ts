@@ -33,6 +33,25 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
   
+  // ドメインリダイレクトミドルウェア
+  // 古いドメインから本番ドメイン（www.higashimaizurufc.com）にリダイレクト
+  const REDIRECT_DOMAINS = [
+    "higasimaizuru-footballclub.manus.space",
+    "higashimaizurufc.manus.space",
+  ];
+  const TARGET_DOMAIN = "https://www.higashimaizurufc.com";
+
+  app.use((req, res, next) => {
+    const host = req.headers.host || "";
+    // ポート番号を除いたホスト名を取得
+    const hostname = host.split(":")[0];
+    if (REDIRECT_DOMAINS.includes(hostname)) {
+      const redirectUrl = `${TARGET_DOMAIN}${req.originalUrl}`;
+      return res.redirect(301, redirectUrl);
+    }
+    next();
+  });
+
   // Cache control middleware for static assets
   app.use((req, res, next) => {
     // 静的アセット（画像、CSS、JS等）にキャッシュヘッダーを設定

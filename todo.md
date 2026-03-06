@@ -788,3 +788,10 @@
 - [x] useTiltカスタムフックを再実装
 - [x] Home.tsxへの統合
 - [x] 動作確認
+
+
+## ドメインリダイレクト設定（2026年3月6日）
+- [x] 古いドメイン（higasimaizuru-footballclub.manus.space、higashimaizurufc.manus.space）からwww.higashimaizurufc.comへのリダイレクト実装
+- [x] サーバーミドルウェアにHostヘッダーチェックを追加
+- [x] 動作確認
+- [x] Googleサーチコンソール用サイトマップURLを提供
