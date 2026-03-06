@@ -12,6 +12,7 @@ import { useTilt } from "@/hooks/useTilt";
 import { useEffect } from "react";
 import { OrganizationStructuredData, BreadcrumbStructuredData } from "@/components/StructuredData";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
+import { TypewriterEffect } from "@/components/TypewriterEffect";
 import { trpc } from "@/lib/trpc";
 
 export default function Home() {
@@ -117,6 +118,15 @@ export default function Home() {
               東舞鶴フットボールクラブ
             </h1>
             <div className="premium-divider mx-auto w-32 mb-4 md:mb-6" />
+            <div className="mb-6 md:mb-8 h-8 md:h-10">
+              <TypewriterEffect
+                text="共に成長し、サッカーで未来を変える場所"
+                speed={60}
+                delay={300}
+                className="text-lg md:text-2xl text-white/90 font-medium"
+                showCursor={true}
+              />
+            </div>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mt-6 md:mt-8">
               <Link href="/contact">
                 <Button size="lg" className="premium-button text-base md:text-lg px-6 md:px-8 font-semibold">
