@@ -8,8 +8,11 @@ import { usePageTransition } from "@/contexts/PageTransitionContext";
 export default function Header() {
   const { user, isAuthenticated } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { triggerTransition } = usePageTransition();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   const handleNavClick = async () => {
     await triggerTransition();
@@ -20,6 +23,35 @@ export default function Header() {
     e.stopPropagation();
     setMobileMenuOpen(prev => !prev);
   };
+
+  // スクロール検知でヘッダーの表示/非表示を制御
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          // スクロール方向を判定（下スクロール時は非表示、上スクロール時は表示）
+          if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // 下にスクロール
+            setHeaderVisible(false);
+          } else {
+            // 上にスクロール
+            setHeaderVisible(true);
+          }
+          
+          setLastScrollY(currentScrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   // メニューが開いているときにスクロールを無効化
   useEffect(() => {
@@ -47,7 +79,73 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 w-full" style={{ zIndex: 100 }}>
+      <style>{`
+        @keyframes slideDown {
+          from {
+            transform: translateY(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slideUp {
+          from {
+            transform: translateY(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateY(-100%);
+            opacity: 0;
+          }
+        }
+        
+        @keyframes slideInFromLeft {
+          from {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slideOutToLeft {
+          from {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+        }
+        
+        .header-visible {
+          animation: slideDown 0.3s ease-out forwards;
+        }
+        
+        .header-hidden {
+          animation: slideUp 0.3s ease-in forwards;
+        }
+        
+        .mobile-menu-enter {
+          animation: slideInFromLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        .mobile-menu-exit {
+          animation: slideOutToLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+      `}</style>
+
+      <header 
+        ref={headerRef}
+        className={`sticky top-0 w-full transition-all duration-300 ${headerVisible ? 'header-visible' : 'header-hidden'}`}
+        style={{ zIndex: 100 }}
+      >
         <div
           className="w-full"
           style={{
@@ -121,13 +219,13 @@ export default function Header() {
         <>
           {/* オーバーレイ */}
           <div
-            className="fixed inset-0 bg-black/60 md:hidden"
+            className="fixed inset-0 bg-black/60 md:hidden mobile-menu-enter"
             onClick={() => setMobileMenuOpen(false)}
             style={{ zIndex: 95, top: 0 }}
           />
           {/* メニューパネル */}
           <div
-            className="fixed left-0 right-0 md:hidden overflow-y-auto"
+            className="fixed left-0 right-0 md:hidden overflow-y-auto mobile-menu-enter"
             style={{
               top: '64px',
               maxHeight: 'calc(100dvh - 64px)',
