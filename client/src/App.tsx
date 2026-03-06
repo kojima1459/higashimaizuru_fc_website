@@ -23,6 +23,8 @@ import Gallery from "./pages/Gallery";
 import AdminLogin from "./pages/AdminLogin";
 import Statistics from "./pages/Statistics";
 import FAQ from "./pages/FAQ";
+import { ScrollProgressBar } from "./components/ScrollProgressBar";
+import { CustomCursor } from "./components/CustomCursor";
 
 function Router() {
   return (
@@ -60,6 +62,8 @@ function App() {
       <ThemeProvider defaultTheme="light" switchable={true}>
         <PageTransitionProvider>
           <TooltipProvider>
+            <ScrollProgressBar />
+            <CustomCursor />
             <Toaster />
             <PageTransitionOverlay />
             <Router />
