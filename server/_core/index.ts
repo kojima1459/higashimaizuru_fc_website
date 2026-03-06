@@ -41,10 +41,14 @@ async function startServer() {
   ];
   const TARGET_DOMAIN = "https://www.higashimaizurufc.com";
 
+  // サーバー側リダイレクト（Manusのリバースプロキシがホストヘッダーを内部アドレスに書き换えるため、実際には機能しない。
+  // フロントエンド側（index.htmlのインラインスクリプト）で対処している。
+  // 以下は参考用に残す（将来的にプラットフォームが対応した場合に備える）
   app.use((req, res, next) => {
     const host = req.headers.host || "";
-    // ポート番号を除いたホスト名を取得
-    const hostname = host.split(":")[0];
+    const xForwardedHost = req.headers["x-forwarded-host"] || "";
+    const rawHost = (Array.isArray(xForwardedHost) ? xForwardedHost[0] : xForwardedHost) || host;
+    const hostname = rawHost.split(":")[0];
     if (REDIRECT_DOMAINS.includes(hostname)) {
       const redirectUrl = `${TARGET_DOMAIN}${req.originalUrl}`;
       return res.redirect(301, redirectUrl);

@@ -3,6 +3,19 @@
 
   <head>
     <meta charset="UTF-8" />
+    <!-- 古いドメインから本番ドメインへのリダイレクト -->
+    <script>
+      (function() {
+        var redirectDomains = [
+          'higasimaizuru-footballclub.manus.space',
+          'higashimaizurufc.manus.space'
+        ];
+        var targetDomain = 'https://www.higashimaizurufc.com';
+        if (redirectDomains.indexOf(window.location.hostname) !== -1) {
+          window.location.replace(targetDomain + window.location.pathname + window.location.search);
+        }
+      })();
+    </script>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
