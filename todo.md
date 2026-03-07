@@ -819,3 +819,7 @@
 - [x] モバイルメニューのスライドイン/アウトアニメーションを実装（400ms cubic-bezier）
 - [x] CSS キーフレームアニメーションを追加
 - [x] 動作確認
+
+
+## Instagram リンク修正（2026年3月6日）
+- [x] 写真ギャラリーのInstagramリンクを https://www.instagram.com/higashimaizurufc/ に修正
