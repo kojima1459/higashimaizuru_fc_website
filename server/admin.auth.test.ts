@@ -5,7 +5,7 @@ describe("管理画面パスワード認証テスト", () => {
   it("正しいパスワードで認証できる", async () => {
     const caller = appRouter.createCaller({ user: null });
     
-    const result = await caller.admin.verifyPassword({ password: "kyoto123" });
+    const result = await caller.admin.verifyPassword({ password: "Kyoto1234" });
     
     expect(result.valid).toBe(true);
   });
@@ -34,7 +34,7 @@ describe("管理画面パスワード変更テスト", () => {
     
     // 現在のパスワードで変更
     const result = await caller.admin.changePassword({ 
-      currentPassword: "kyoto123",
+      currentPassword: "Kyoto1234",
       newPassword: "newpass456"
     });
     
@@ -60,8 +60,8 @@ describe("管理画面パスワード変更テスト", () => {
     
     try {
       await caller.admin.changePassword({ 
-        currentPassword: "kyoto123",
-        newPassword: "kyoto123"
+        currentPassword: "Kyoto1234",
+        newPassword: "Kyoto1234"
       });
       expect(true).toBe(false); // ここに到達してはいけない
     } catch (error: any) {

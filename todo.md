@@ -823,3 +823,10 @@
 
 ## Instagram リンク修正（2026年3月6日）
 - [x] 写真ギャラリーのInstagramリンクを https://www.instagram.com/higashimaizurufc/ に修正
+
+
+## 管理画面ログイン問題（2026年3月7日）
+- [x] ADMIN_PASSWORD環境変数を"Kyoto1234"に設定
+- [x] 認証ロジックを確認（verifyPasswordエンドポイントで正しく動作）
+- [x] vitestで認証テストを実行し成功を確認
+- [x] 動作確認完了
