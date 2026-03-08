@@ -24,6 +24,29 @@ export default function Header() {
     setMobileMenuOpen(prev => !prev);
   };
 
+  // スワイプジェスチャー検知
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].screenX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    touchEndX.current = e.changedTouches[0].screenX;
+    handleSwipe();
+  };
+
+  const handleSwipe = () => {
+    const swipeThreshold = 50;
+    const diff = touchStartX.current - touchEndX.current;
+
+    // 左スワイプ（メニューを閉じる）
+    if (diff > swipeThreshold && mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+  };
+
   // スクロール検知でヘッダーの表示/非表示を制御
   useEffect(() => {
     let ticking = false;
@@ -226,6 +249,8 @@ export default function Header() {
           {/* メニューパネル */}
           <div
             className="fixed left-0 right-0 md:hidden overflow-y-auto mobile-menu-enter"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
             style={{
               top: '64px',
               maxHeight: 'calc(100dvh - 64px)',

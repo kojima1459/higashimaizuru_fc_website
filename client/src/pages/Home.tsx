@@ -194,8 +194,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 基本方針 */}
-      <section className="py-0 geometric-pattern" ref={basicPolicyRef}>
+      {/* 基本方銈 */}
+      <section className="py-0 geometric-pattern" data-scroll-color="from-slate-900 to-indigo-900" ref={basicPolicyRef}>
         <div className="w-full" ref={basicPolicyParallaxRef}>
           {/* セクション1: クラブ運営の目標 */}
           <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 py-16 px-4 shadow-lg premium-section overflow-hidden">
@@ -246,7 +246,7 @@ export default function Home() {
       <div className="section-divider-animated" />
 
       {/* サッカーの価値 - 強調セクション */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 dark:from-yellow-300 dark:via-yellow-200 dark:to-yellow-100 relative overflow-hidden geometric-pattern premium-section" ref={soccerPowerRef}>
+      <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 dark:from-yellow-300 dark:via-yellow-200 dark:to-yellow-100 relative overflow-hidden geometric-pattern premium-section" data-scroll-color="from-blue-600 to-indigo-700" ref={soccerPowerRef}>
         {/* 背景グラデーションオーバーレイ */}
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent pointer-events-none" />
         <div className="container relative z-10" ref={soccerPowerParallaxRef}>
@@ -307,7 +307,7 @@ export default function Home() {
       <div className="section-divider" />
 
       {/* チーム紹介 */}
-      <section className="py-20 bg-background geometric-pattern premium-section" ref={teamInfoRef}>
+      <section className="py-20 bg-background geometric-pattern premium-section" data-scroll-color="bg-background" ref={teamInfoRef}>
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 relative pb-4">
