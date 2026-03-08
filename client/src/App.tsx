@@ -25,6 +25,7 @@ import Statistics from "./pages/Statistics";
 import FAQ from "./pages/FAQ";
 import { ScrollProgressBar } from "./components/ScrollProgressBar";
 import { CustomCursor } from "./components/CustomCursor";
+import { ScrollToTopButton } from "./components/ScrollToTopButton";
 
 function Router() {
   return (
@@ -52,6 +53,7 @@ function Router() {
       </main>
       <Footer />
       <FloatingActionButton />
+      <ScrollToTopButton />
     </div>
   );
 }

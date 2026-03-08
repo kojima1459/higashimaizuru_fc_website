@@ -16,6 +16,8 @@ export default function AdminLogin() {
     
     // パスワードをlocalStorageに保存
     localStorage.setItem("adminPassword", password);
+    // セッション開始時刻を記録
+    localStorage.setItem("adminSessionStart", Date.now().toString());
     
     // 管理画面にリダイレクト
     const returnUrl = new URLSearchParams(window.location.search).get("returnUrl") || "/admin";
