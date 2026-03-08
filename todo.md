@@ -837,3 +837,7 @@
 - [x] スクロール時のセクション背景色動的変更（useScrollColorChangeフック）
 - [x] スムーズスクロール機能（scroll-behavior: smooth）
 - [x] ページトップへ戻るボタンの動的表示（ScrollToTopButtonコンポーネント）
+
+
+## ボタン位置調整（2026年3月8日）
+- [x] トップへ戻るボタンを左下に移動（right-8 → left-8）
