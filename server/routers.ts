@@ -7,6 +7,7 @@ import * as db from "./db";
 import { TRPCError } from "@trpc/server";
 import { generateOGPImage } from "./ogp";
 
+
 // 管理者専用プロシージャは削除（認証不要のため）
 
 export const appRouter = router({
@@ -394,6 +395,7 @@ export const appRouter = router({
         }
       }),
   }),
+
 });
 
 export type AppRouter = typeof appRouter;

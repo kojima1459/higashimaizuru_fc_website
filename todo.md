@@ -851,3 +851,13 @@
 ## Instagram統合実装（2026年3月8日）
 - [x] Gallery.tsxにInstagram埋め込みiFrameを追加（自動表示）
 - [x] 動作確認完了
+
+
+## Instagram Graph API 統合（2026年3月9日）
+- [x] Instagram ビジネスアカウントへの変更
+- [x] Meta for Developers でアクセストークンを取得
+- [x] 環境変数を設定（INSTAGRAM_ACCESS_TOKEN）
+- [x] サーバー側に Instagram Graph API 統合を実装
+- [x] フロントエンドで投稿一覧を表示
+- [x] 最終的に Instagram 埋め込みiFrame に戻した（API 設定が複雑なため）
+- [x] 動作確認完了

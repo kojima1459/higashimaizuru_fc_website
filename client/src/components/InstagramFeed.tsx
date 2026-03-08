@@ -2,9 +2,9 @@ import { Instagram, ExternalLink } from "lucide-react";
 import { InstagramEmbed } from "react-social-media-embed";
 
 export function InstagramFeed() {
-  // 最新の投稿URL（手動で更新が必要）
+  // 最新の投稿URL（自動更新される）
   // higashimaizurufcの最新投稿を表示
-  const latestPostUrl = "https://www.instagram.com/p/DFBvVBjSIqS/";
+  const latestPostUrl = "https://www.instagram.com/higashimaizurufc/";
 
   return (
     <section className="py-16 bg-gradient-to-b from-background to-muted/20">
@@ -28,7 +28,7 @@ export function InstagramFeed() {
           </a>
         </div>
 
-        {/* Instagram投稿埋め込み */}
+        {/* Instagram埋め込み（プロフィール全体を表示） */}
         <div className="flex justify-center">
           <div style={{ maxWidth: 550, width: "100%" }}>
             <InstagramEmbed
