@@ -1115,7 +1115,7 @@ var appRouter = router({
     create: publicProcedure.input(z2.object({
       title: z2.string().min(1),
       eventType: z2.enum(["\u7DF4\u7FD2", "\u8A66\u5408", "\u5927\u4F1A", "\u305D\u306E\u4ED6"]),
-      grades: z2.array(z2.enum(["U7", "U8", "U9", "U10", "U11", "U12", "\u5168\u4F53"])).min(1).max(5),
+      grades: z2.array(z2.enum(["U7", "U8", "U9", "U10", "U11", "U12", "\u5168\u4F53"])).min(1).max(7),
       opponent: z2.string().optional(),
       eventDate: z2.string().transform((str) => new Date(str)),
       meetingTime: z2.string().optional(),
@@ -1130,7 +1130,7 @@ var appRouter = router({
       id: z2.number(),
       title: z2.string().min(1).optional(),
       eventType: z2.enum(["\u7DF4\u7FD2", "\u8A66\u5408", "\u5927\u4F1A", "\u305D\u306E\u4ED6"]).optional(),
-      grades: z2.array(z2.enum(["U7", "U8", "U9", "U10", "U11", "U12", "\u5168\u4F53"])).min(1).max(5).optional(),
+      grades: z2.array(z2.enum(["U7", "U8", "U9", "U10", "U11", "U12", "\u5168\u4F53"])).min(1).max(7).optional(),
       opponent: z2.string().optional(),
       eventDate: z2.string().transform((str) => new Date(str)).optional(),
       meetingTime: z2.string().optional(),

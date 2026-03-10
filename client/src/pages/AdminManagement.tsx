@@ -172,8 +172,8 @@ function ScheduleManagement() {
       toast.error("学年を1つ以上選択してください");
       return;
     }
-    if (formData.grades.length > 5) {
-      toast.error("学年は最大5つまで選択できます");
+    if (formData.grades.length > 7) {
+      toast.error("学年は最大７つまで選択できます");
       return;
     }
     if (editingId) {
@@ -187,7 +187,7 @@ function ScheduleManagement() {
     setFormData({
       title: schedule.title,
       eventType: schedule.eventType,
-      grades: schedule.grades.split(",").map((g: string) => g.trim()) as Array<"U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体">,
+      grades: schedule.grades.split(",").map((g: string) => g.trim()).filter((g: string) => ["U7", "U8", "U9", "U10", "U11", "U12", "全体"].includes(g)) as Array<"U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体">,
       opponent: schedule.opponent || "",
       eventDate: new Date(schedule.eventDate).toISOString().split("T")[0],
       meetingTime: schedule.meetingTime || "",
@@ -204,8 +204,8 @@ function ScheduleManagement() {
       if (isSelected) {
         return { ...prev, grades: prev.grades.filter(g => g !== grade) };
       } else {
-        if (prev.grades.length >= 5) {
-          toast.error("学年は最大5つまで選択できます");
+        if (prev.grades.length >= 7) {
+          toast.error("学年は最大７つまで選択できます");
           return prev;
         }
         return { ...prev, grades: [...prev.grades, grade] };
@@ -257,7 +257,7 @@ function ScheduleManagement() {
                 </Select>
               </div>
               <div>
-                <Label>学年 * (最大5つまで選択可能)</Label>
+                <Label>学年 * (最大７つまで選択可能)</Label>
                 <div className="grid grid-cols-2 gap-3 mt-2">
                   {(["U7", "U8", "U9", "U10", "U11", "U12", "全体"] as const).map((grade) => (
                     <div key={grade} className="flex items-center space-x-2">
@@ -277,7 +277,7 @@ function ScheduleManagement() {
                 </div>
                 {formData.grades.length > 0 && (
                   <p className="text-sm text-muted-foreground mt-2">
-                    選択中: {formData.grades.join(", ")} ({formData.grades.length}/5)
+                    選択中: {formData.grades.join(", ")} ({formData.grades.length}/7)
                   </p>
                 )}
               </div>
