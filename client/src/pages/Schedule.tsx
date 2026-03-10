@@ -294,12 +294,12 @@ export default function Schedule() {
       {/* Googleカレンダー埋め込み */}
       <Card className="mt-8">
         <CardHeader>
-          <CardTitle>Googleカレンダー</CardTitle>
+          <CardTitle>Googleカレンダー（全件一覧）</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="relative w-full" style={{ paddingBottom: '75%' }}>
+          <div className="relative w-full" style={{ paddingBottom: '100%', minHeight: '500px' }}>
             <iframe
-              src="https://calendar.google.com/calendar/embed?src=higashimaidurufc%40gmail.com&ctz=Asia%2FTokyo"
+              src="https://calendar.google.com/calendar/embed?src=higashimaidurufc%40gmail.com&ctz=Asia%2FTokyo&mode=AGENDA&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0"
               style={{
                 position: 'absolute',
                 top: 0,
@@ -309,8 +309,8 @@ export default function Schedule() {
                 border: 0
               }}
               frameBorder="0"
-              scrolling="no"
-              title="東舞鶴F.C スケジュール"
+              scrolling="yes"
+              title="東舞鶴F.C スケジュール一覧"
             />
           </div>
         </CardContent>

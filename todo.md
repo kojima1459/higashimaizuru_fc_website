@@ -896,3 +896,7 @@
 - [x] AdminManagement.tsx handleSubmit で送信前に grades をフィルタリングする防衛的コードを追加
 - [x] スケジュール編集テスト（schedules.edit.test.ts）を新規作成（6テスト）
 - [x] 全43テスト通過確認
+
+## GoogleカレンダーAGENDA表示対応（2026年3月10日）
+- [x] Schedule.tsxのGoogleカレンダーURLをview=AGENDAに変更（スマホで全件リスト表示）
+- [x] 動作確認
