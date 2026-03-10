@@ -1,0 +1,40 @@
+{
+  "query": "SELECT id, title, grades FROM schedules;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user FgFwwtUbtDZZFFR.5af862aaa5de --database K5xmaj9LJC8i33MwfxMs8E --execute SELECT id, title, grades FROM schedules;",
+  "rows": [
+    {
+      "id": "90005",
+      "title": "U9 TRM",
+      "grades": ""
+    },
+    {
+      "id": "90006",
+      "title": "U9翔鶴杯",
+      "grades": ""
+    },
+    {
+      "id": "270001",
+      "title": "U12大正カップ",
+      "grades": "U12"
+    },
+    {
+      "id": "270002",
+      "title": "新U12修斉カップ",
+      "grades": "U12"
+    },
+    {
+      "id": "270003",
+      "title": "新U11修斉カップ",
+      "grades": "U11"
+    },
+    {
+      "id": "270004",
+      "title": "新U10東舞鶴スプリングカップ",
+      "grades": "U10"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tgrades\n90005\tU9 TRM\t\n90006\tU9翔鶴杯\t\n270001\tU12大正カップ\tU12\n270002\t新U12修斉カップ\tU12\n270003\t新U11修斉カップ\tU11\n270004\t新U10東舞鶴スプリングカップ\tU10\n",
+  "stderr": "",
+  "execution_time_ms": 1660
+}

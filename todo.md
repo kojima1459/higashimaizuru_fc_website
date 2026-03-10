@@ -885,3 +885,14 @@
 - [x] スケジュール編集コンポーネントのバグ原因を特定（grades.splitのスペース啊除漏れ）
 - [x] Admin.tsxとAdminManagement.tsxの両方を修正（.map(g => g.trim())を追加）
 - [x] 動作確認（新規作成・編集・削除すべて）
+
+
+## スケジュール編集バグ根本修正（2026年3月10日）
+- [x] データベース内の空gradesレコードを修正（ID 90005, 90006 を U9 に設定）
+- [x] GitHubからのマージコンフリクトを解決（grades最大数5→7の変更を取り込み）
+- [x] Admin.tsx handleEdit の grades 処理を完全修正（空文字列・無効値を除去）
+- [x] AdminManagement.tsx handleEdit の grades 処理を完全修正
+- [x] Admin.tsx handleSubmit で送信前に grades をフィルタリングする防衛的コードを追加
+- [x] AdminManagement.tsx handleSubmit で送信前に grades をフィルタリングする防衛的コードを追加
+- [x] スケジュール編集テスト（schedules.edit.test.ts）を新規作成（6テスト）
+- [x] 全43テスト通過確認

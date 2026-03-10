@@ -1342,22 +1342,23 @@ function ScheduleManagement() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.grades.length === 0) {
+    // 空文字列や無効な値を除去した grades を作成
+    const validGrades = formData.grades
+      .map(g => g.trim())
+      .filter(g => g.length > 0 && ["U7","U8","U9","U10","U11","U12","全体"].includes(g)) as Array<"U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体">;
+    if (validGrades.length === 0) {
       toast.error("学年を1つ以上選択してください");
       return;
     }
-    if (formData.grades.length > 7) {
-      toast.error("学年は最大７つまで選択できます");
+    if (validGrades.length > 5) {
+      toast.error("学年は最大5つまで選択できます");
       return;
     }
-    console.log("[DEBUG] handleSubmit - formData:", formData);
-    console.log("[DEBUG] handleSubmit - meetingTime:", formData.meetingTime);
+    const submitData = { ...formData, grades: validGrades };
     if (editingId) {
-      console.log("[DEBUG] Updating schedule with ID:", editingId);
-      updateMutation.mutate({ id: editingId, ...formData });
+      updateMutation.mutate({ id: editingId, ...submitData });
     } else {
-      console.log("[DEBUG] Creating new schedule");
-      createMutation.mutate(formData);
+      createMutation.mutate(submitData);
     }
   };
 
@@ -1365,7 +1366,7 @@ function ScheduleManagement() {
     setFormData({
       title: schedule.title,
       eventType: schedule.eventType,
-      grades: schedule.grades.split(",").map((g: string) => g.trim()).filter((g: string) => ["U7", "U8", "U9", "U10", "U11", "U12", "全体"].includes(g)) as Array<"U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体">,
+      grades: (schedule.grades || "").split(",").map((g: string) => g.trim()).filter((g: string) => ["U7", "U8", "U9", "U10", "U11", "U12", "全体"].includes(g)) as Array<"U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体">,
       opponent: schedule.opponent || "",
       eventDate: new Date(schedule.eventDate).toISOString().split("T")[0],
       meetingTime: schedule.meetingTime || "",
