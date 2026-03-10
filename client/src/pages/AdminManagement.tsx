@@ -187,7 +187,7 @@ function ScheduleManagement() {
     setFormData({
       title: schedule.title,
       eventType: schedule.eventType,
-      grades: schedule.grades.split(",") as Array<"U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体">,
+      grades: schedule.grades.split(",").map((g: string) => g.trim()) as Array<"U7" | "U8" | "U9" | "U10" | "U11" | "U12" | "全体">,
       opponent: schedule.opponent || "",
       eventDate: new Date(schedule.eventDate).toISOString().split("T")[0],
       meetingTime: schedule.meetingTime || "",
