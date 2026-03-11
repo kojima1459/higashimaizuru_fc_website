@@ -241,6 +241,7 @@ export const appRouter = router({
         grade: z.string().optional(),
         startDate: z.string().optional(),
         endDate: z.string().optional(),
+        excludePastSchedules: z.boolean().optional(),
       }).optional())
       .query(async ({ input }) => {
         return await db.getAllSchedules(input);

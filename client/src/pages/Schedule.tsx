@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,12 +16,14 @@ export default function Schedule() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+  const [excludePastSchedules, setExcludePastSchedules] = useState(true);
   const [appliedFilters, setAppliedFilters] = useState<{
     opponent?: string;
     eventType?: string;
     grade?: string;
     startDate?: string;
     endDate?: string;
+    excludePastSchedules?: boolean;
   }>({});
 
   const { data: schedules, isLoading } = trpc.schedules.list.useQuery(appliedFilters);
@@ -42,6 +45,7 @@ export default function Schedule() {
       grade: grade === "all" ? undefined : grade || undefined,
       startDate: startDate || undefined,
       endDate: endDate || undefined,
+      excludePastSchedules: excludePastSchedules || undefined,
     });
   };
 
@@ -51,10 +55,11 @@ export default function Schedule() {
     setGrade("all");
     setStartDate("");
     setEndDate("");
+    setExcludePastSchedules(true);
     setAppliedFilters({});
   };
 
-  const hasActiveFilters = appliedFilters.opponent || (appliedFilters.eventType && appliedFilters.eventType !== "全て") || appliedFilters.grade || appliedFilters.startDate || appliedFilters.endDate;
+  const hasActiveFilters = appliedFilters.opponent || (appliedFilters.eventType && appliedFilters.eventType !== "全て") || appliedFilters.grade || appliedFilters.startDate || appliedFilters.endDate || (appliedFilters.excludePastSchedules !== undefined);
 
   const getEventTypeColor = (type: string) => {
     switch (type) {
@@ -178,6 +183,16 @@ export default function Schedule() {
               />
             </div>
           </div>
+          <div className="mb-4 flex items-center gap-2">
+            <Checkbox
+              id="excludePast"
+              checked={excludePastSchedules}
+              onCheckedChange={(checked) => setExcludePastSchedules(checked as boolean)}
+            />
+            <label htmlFor="excludePast" className="text-sm font-medium text-foreground cursor-pointer">
+              過去の予定を除外
+            </label>
+          </div>
           <div className="flex flex-col sm:flex-row gap-2 w-full">
             <Button onClick={handleSearch} className="flex items-center justify-center gap-2 min-h-10 md:min-h-12 text-sm md:text-base w-full sm:w-auto">
               <Search className="h-4 w-4" />
@@ -196,7 +211,8 @@ export default function Schedule() {
               {appliedFilters.grade && <span className="mr-4">学年: {appliedFilters.grade}</span>}
               {appliedFilters.opponent && <span className="mr-4">対戦相手: {appliedFilters.opponent}</span>}
               {appliedFilters.startDate && <span className="mr-4">開始日: {new Date(appliedFilters.startDate).toLocaleDateString("ja-JP")}</span>}
-              {appliedFilters.endDate && <span>終了日: {new Date(appliedFilters.endDate).toLocaleDateString("ja-JP")}</span>}
+              {appliedFilters.endDate && <span className="mr-4">終了日: {new Date(appliedFilters.endDate).toLocaleDateString("ja-JP")}</span>}
+              {appliedFilters.excludePastSchedules && <span>過去の予定を除外</span>}
             </div>
           )}
         </CardContent>

@@ -125,3 +125,86 @@ describe("Schedules - Grade Filter", () => {
     expect(filteredSchedules.every((s) => s.eventType === "練習")).toBe(true);
   });
 });
+
+
+describe("Schedules - Exclude Past Schedules Filter", () => {
+  let testScheduleIds: number[] = [];
+
+  beforeAll(async () => {
+    // Past schedule
+    const pastSchedule = await caller.schedules.create({
+      title: "過去の試合",
+      eventType: "試合",
+      grades: ["U10"],
+      eventDate: "2020-01-01",
+      meetingTime: "10:00",
+      venue: "過去の会場",
+    });
+    testScheduleIds.push(pastSchedule.id);
+
+    // Near future schedule (tomorrow)
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowStr = tomorrow.toISOString().split("T")[0];
+    const tomorrowSchedule = await caller.schedules.create({
+      title: "明日の練習",
+      eventType: "練習",
+      grades: ["U9"],
+      eventDate: tomorrowStr,
+      meetingTime: "15:00",
+      venue: "明日の会場",
+    });
+    testScheduleIds.push(tomorrowSchedule.id);
+
+    // Future schedule
+    const futureDate = new Date();
+    futureDate.setDate(futureDate.getDate() + 30);
+    const futureDateStr = futureDate.toISOString().split("T")[0];
+    const futureSchedule = await caller.schedules.create({
+      title: "将来の大会",
+      eventType: "大会",
+      grades: ["U12"],
+      eventDate: futureDateStr,
+      meetingTime: "08:00",
+      venue: "将来の会場",
+    });
+    testScheduleIds.push(futureSchedule.id);
+  });
+
+  afterAll(async () => {
+    for (const id of testScheduleIds) {
+      await dbModule.deleteSchedule(id);
+    }
+  });
+
+  it("should return all schedules including past when excludePastSchedules is false or not specified", async () => {
+    const result = await caller.schedules.list({ excludePastSchedules: false });
+    const testSchedules = result.filter((s) => testScheduleIds.includes(s.id));
+    expect(testSchedules.length).toBe(3);
+    expect(testSchedules.some((s) => s.title === "過去の試合")).toBe(true);
+  });
+
+  it("should exclude past schedules when excludePastSchedules is true", async () => {
+    const result = await caller.schedules.list({ excludePastSchedules: true });
+    const testSchedules = result.filter((s) => testScheduleIds.includes(s.id));
+    
+    // Should return future schedules only (2 schedules: tomorrow and 30 days from now)
+    expect(testSchedules.length).toBe(2);
+    expect(testSchedules.some((s) => s.title === "過去の試合")).toBe(false);
+    expect(testSchedules.some((s) => s.title === "明日の練習")).toBe(true);
+    expect(testSchedules.some((s) => s.title === "将来の大会")).toBe(true);
+  });
+
+  it("should combine excludePastSchedules with other filters", async () => {
+    const result = await caller.schedules.list({
+      excludePastSchedules: true,
+      eventType: "練習",
+    });
+    const testSchedules = result.filter((s) => testScheduleIds.includes(s.id));
+    
+    // Should return only future 練習 schedules (1 schedule: tomorrow)
+    expect(testSchedules.length).toBe(1);
+    expect(testSchedules[0].title).toBe("明日の練習");
+    expect(testSchedules[0].eventType).toBe("練習");
+  });
+});

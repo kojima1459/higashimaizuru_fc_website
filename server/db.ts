@@ -271,6 +271,7 @@ export async function getAllSchedules(filters?: {
   grade?: string;
   startDate?: string;
   endDate?: string;
+  excludePastSchedules?: boolean;
 }) {
   const db = await getDb();
   if (!db) return [];
@@ -296,6 +297,13 @@ export async function getAllSchedules(filters?: {
 
   if (filters?.endDate) {
     conditions.push(lte(schedules.eventDate, new Date(filters.endDate)));
+  }
+
+  // 過去の予定を除外する場合、今日以降の予定のみを表示
+  if (filters?.excludePastSchedules) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    conditions.push(gte(schedules.eventDate, today));
   }
 
   if (conditions.length > 0) {
