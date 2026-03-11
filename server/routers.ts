@@ -6,6 +6,7 @@ import { z } from "zod";
 import * as db from "./db";
 import { TRPCError } from "@trpc/server";
 import { generateOGPImage } from "./ogp";
+import { generateICalContent } from "./ical";
 
 
 // 管理者専用プロシージャは削除（認証不要のため）
@@ -290,6 +291,22 @@ export const appRouter = router({
       .mutation(async ({ input }) => {
         await db.deleteSchedule(input.id);
         return { success: true };
+      }),
+
+    // iCalエクスポート：フィルター済みスケジュールをiCal形式で返す
+    exportICal: publicProcedure
+      .input(z.object({
+        opponent: z.string().optional(),
+        eventType: z.string().optional(),
+        grade: z.string().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
+        excludePastSchedules: z.boolean().optional(),
+      }).optional())
+      .query(async ({ input }) => {
+        const scheduleList = await db.getAllSchedules(input);
+        const icalContent = generateICalContent(scheduleList as any[]);
+        return { icalContent };
       }),
   }),
 

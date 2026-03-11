@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, Search, X, Calendar, Share2 } from "lucide-react";
+import { Loader2, Search, X, Calendar, Share2, Download } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import AnimatedTitle from "@/components/AnimatedTitle";
 
@@ -25,8 +25,10 @@ export default function Schedule() {
     endDate?: string;
     excludePastSchedules?: boolean;
   }>({});
+  const [isExporting, setIsExporting] = useState(false);
 
   const { data: schedules, isLoading } = trpc.schedules.list.useQuery(appliedFilters);
+  const exportICalQuery = trpc.schedules.exportICal.useQuery(appliedFilters, { enabled: false });
 
   // レスポンシブ判定
   useEffect(() => {
@@ -57,6 +59,28 @@ export default function Schedule() {
     setEndDate("");
     setExcludePastSchedules(true);
     setAppliedFilters({});
+  };
+
+  const handleExportICal = async () => {
+    setIsExporting(true);
+    try {
+      const result = await exportICalQuery.refetch();
+      if (result.data?.icalContent) {
+        const blob = new Blob([result.data.icalContent], { type: "text/calendar;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "higashimaizuru-fc-schedule.ics";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+    } catch (e) {
+      console.error("iCalエクスポートエラー:", e);
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   const hasActiveFilters = appliedFilters.opponent || (appliedFilters.eventType && appliedFilters.eventType !== "全て") || appliedFilters.grade || appliedFilters.startDate || appliedFilters.endDate || (appliedFilters.excludePastSchedules !== undefined);
@@ -204,6 +228,20 @@ export default function Schedule() {
                 リセット
               </Button>
             )}
+            <Button
+              onClick={handleExportICal}
+              variant="outline"
+              disabled={isExporting}
+              className="flex items-center justify-center gap-2 min-h-10 md:min-h-12 text-sm md:text-base w-full sm:w-auto"
+              title="表示中のスケジュールをiCal形式でダウンロード（Googleカレンダー・Appleカレンダー等に登録可能）"
+            >
+              {isExporting ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Download className="h-4 w-4" />
+              )}
+              カレンダーに追加（.ics）
+            </Button>
           </div>
           {hasActiveFilters && (
             <div className="mt-4 text-sm text-muted-foreground">
