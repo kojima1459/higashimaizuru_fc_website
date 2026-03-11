@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,7 @@ export default function Schedule() {
   const [grade, setGrade] = useState("all");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState<{
     opponent?: string;
     eventType?: string;
@@ -23,6 +24,16 @@ export default function Schedule() {
   }>({});
 
   const { data: schedules, isLoading } = trpc.schedules.list.useQuery(appliedFilters);
+
+  // レスポンシブ判定
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // md breakpoint
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleSearch = () => {
     setAppliedFilters({
@@ -294,12 +305,15 @@ export default function Schedule() {
       {/* Googleカレンダー埋め込み */}
       <Card className="mt-8">
         <CardHeader>
-          <CardTitle>Googleカレンダー（全件一覧）</CardTitle>
+          <CardTitle>Googleカレンダー{isMobile && "（全件一覧）"}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="relative w-full" style={{ paddingBottom: '100%', minHeight: '500px' }}>
+          <div className="relative w-full" style={{ paddingBottom: isMobile ? '100%' : '75%', minHeight: isMobile ? '600px' : '500px' }}>
             <iframe
-              src="https://calendar.google.com/calendar/embed?src=higashimaidurufc%40gmail.com&ctz=Asia%2FTokyo&mode=AGENDA&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0"
+              src={isMobile 
+                ? "https://calendar.google.com/calendar/embed?src=higashimaidurufc%40gmail.com&ctz=Asia%2FTokyo&mode=AGENDA&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0"
+                : "https://calendar.google.com/calendar/embed?src=higashimaidurufc%40gmail.com&ctz=Asia%2FTokyo"
+              }
               style={{
                 position: 'absolute',
                 top: 0,
@@ -309,8 +323,8 @@ export default function Schedule() {
                 border: 0
               }}
               frameBorder="0"
-              scrolling="yes"
-              title="東舞鶴F.C スケジュール一覧"
+              scrolling={isMobile ? "yes" : "no"}
+              title="東舞鶴F.C スケジュール"
             />
           </div>
         </CardContent>

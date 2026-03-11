@@ -900,3 +900,8 @@
 ## GoogleカレンダーAGENDA表示対応（2026年3月10日）
 - [x] Schedule.tsxのGoogleカレンダーURLをview=AGENDAに変更（スマホで全件リスト表示）
 - [x] 動作確認
+
+
+## Googleカレンダーレスポンシブ対応（2026年3月11日）
+- [x] Schedule.tsxを修正：useEffectでウィンドウ幅を監視し、スマホではAGENDA表示、PCではカレンダー表示に自動分け
+- [x] 動作確認（スマホとPC両方）—完璧に機能
