@@ -49,7 +49,7 @@ export function TypewriterEffect({
 
   return (
     <div className={className}>
-      <span>{displayedText}</span>
+      <span style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{displayedText}</span>
       {showCursor && !isComplete && (
         <span
           className={`inline-block w-1 h-6 md:h-8 ml-1 bg-white animate-pulse ${cursorClassName}`}

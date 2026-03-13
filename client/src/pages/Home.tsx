@@ -120,7 +120,9 @@ export default function Home() {
             <div className="premium-divider mx-auto w-32 mb-4 md:mb-6" />
             <div className="mb-6 md:mb-8 min-h-24 md:min-h-32">
               <TypewriterEffect
-                text="負けて泣いて、また明日も来る。それでいい。\n　泥だらけのユニフォームを洗う時間が、好きになる。\n　ゲーム機を置いて外に出よう。一生モノの「夢中」がここにある。"
+                text={`負けて泣いて、また明日も来る。それでいい。
+　泥だらけのユニフォームを洗う時間が、好きになる。
+　ゲーム機を置いて外に出よう。一生モノの「夢中」がここにある。`}
                 speed={50}
                 delay={300}
                 className="text-base md:text-xl text-white/90 font-medium leading-relaxed whitespace-pre-wrap"
