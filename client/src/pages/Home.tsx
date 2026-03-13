@@ -118,16 +118,14 @@ export default function Home() {
               東舞鶴フットボールクラブ
             </h1>
             <div className="premium-divider mx-auto w-32 mb-4 md:mb-6" />
-            <div className="mb-6 md:mb-8 flex flex-col gap-1 md:gap-2">
-              <p className="text-base md:text-xl text-white/90 font-medium leading-relaxed">
-                負けて泣いて、また明日も来る。それでいい。
-              </p>
-              <p className="text-base md:text-xl text-white/90 font-medium leading-relaxed">
-                　泥だらけのユニフォームを洗う時間が、好きになる。
-              </p>
-              <p className="text-base md:text-xl text-amber-300 font-semibold leading-relaxed">
-                　ゲーム機を置いて外に出よう。一生モノの「夢中」がここにある。
-              </p>
+            <div className="mb-6 md:mb-8 min-h-24 md:min-h-32">
+              <TypewriterEffect
+                text="負けて泣いて、また明日も来る。それでいい。\n　泥だらけのユニフォームを洗う時間が、好きになる。\n　ゲーム機を置いて外に出よう。一生モノの「夢中」がここにある。"
+                speed={50}
+                delay={300}
+                className="text-base md:text-xl text-white/90 font-medium leading-relaxed whitespace-pre-wrap"
+                showCursor={true}
+              />
             </div>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mt-6 md:mt-8">
               <Link href="/contact">
