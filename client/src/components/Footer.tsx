@@ -28,6 +28,9 @@ export default function Footer() {
             <p className="text-sm text-slate-300 leading-relaxed">
               京都府舞鶴市を拠点とする小学生を中心としたフットボールクラブ
             </p>
+            <p className="text-xs text-amber-300/80 mt-1 italic">
+              ～勝敗よりも大切なものを、生涯の仲間と一緒に。～
+            </p>
             {/* SNSリンク */}
             <div className="flex items-center gap-3 mt-4">
               <a
