@@ -10,6 +10,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
   const { triggerTransition } = usePageTransition();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -66,6 +67,7 @@ export default function Header() {
           }
           
           setLastScrollY(currentScrollY);
+          setScrolled(currentScrollY > 50);
           ticking = false;
         });
         ticking = true;
@@ -172,8 +174,14 @@ export default function Header() {
         <div
           className="w-full"
           style={{
-            background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
-            borderBottom: '1px solid rgba(251, 191, 36, 0.2)',
+            background: scrolled
+              ? 'linear-gradient(135deg, rgba(15,23,42,0.97) 0%, rgba(30,41,59,0.97) 50%, rgba(15,23,42,0.97) 100%)'
+              : 'linear-gradient(135deg, rgba(15,23,42,0.75) 0%, rgba(30,41,59,0.75) 50%, rgba(15,23,42,0.75) 100%)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            borderBottom: scrolled ? '1px solid rgba(212,175,55,0.35)' : '1px solid rgba(251,191,36,0.1)',
+            boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.4)' : 'none',
+            transition: 'background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease',
           }}
         >
           <div className="container">

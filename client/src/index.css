@@ -998,3 +998,76 @@ html {
     outline: 2px solid #60a5fa;
     outline-offset: 2px;
   }
+
+/* ============================================================
+   動的グラデーションアニメーション
+   ============================================================ */
+
+@keyframes heroGradientShift {
+  0% {
+    background: linear-gradient(135deg, rgba(15,23,42,0.35) 0%, rgba(212,175,55,0.08) 50%, rgba(30,58,138,0.35) 100%);
+    opacity: 0.8;
+  }
+  33% {
+    background: linear-gradient(135deg, rgba(30,58,138,0.3) 0%, rgba(212,175,55,0.15) 50%, rgba(15,23,42,0.3) 100%);
+    opacity: 1;
+  }
+  66% {
+    background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(15,23,42,0.35) 50%, rgba(30,58,138,0.25) 100%);
+    opacity: 0.9;
+  }
+  100% {
+    background: linear-gradient(135deg, rgba(15,23,42,0.25) 0%, rgba(30,58,138,0.2) 50%, rgba(212,175,55,0.12) 100%);
+    opacity: 1;
+  }
+}
+
+@keyframes sectionGradientPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* スクロールアニメーション用 */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-on-scroll-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.animate-on-scroll-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-on-scroll-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.animate-on-scroll-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-on-scroll-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.animate-on-scroll-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}

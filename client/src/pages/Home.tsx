@@ -10,6 +10,8 @@ import SEOHead from "@/components/SEOHead";
 import { useScrollAnimation, useParallax } from "@/hooks/useScrollAnimation";
 import { useTilt } from "@/hooks/useTilt";
 import { useEffect } from "react";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { TiltCard } from "@/components/TiltCard";
 import { OrganizationStructuredData, BreadcrumbStructuredData } from "@/components/StructuredData";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { TypewriterEffect } from "@/components/TypewriterEffect";
@@ -99,6 +101,8 @@ export default function Home() {
       <section className="relative h-[400px] md:h-[600px] flex items-center justify-center overflow-hidden">
 
         <div className="hero-overlay absolute inset-0 z-10" />
+        {/* アニメーショングラデーションオーバーレイ */}
+        <div className="absolute inset-0 z-[11] pointer-events-none" style={{ animation: 'heroGradientShift 8s ease-in-out infinite alternate', background: 'linear-gradient(135deg, rgba(15,23,42,0.3) 0%, rgba(212,175,55,0.1) 50%, rgba(30,58,138,0.3) 100%)' }} />
         <img
           src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663030693288/DYdLINerUUzJEMqr.jpg"
           alt="東舞鶴フットボールクラブチーム集合写真"
@@ -196,8 +200,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 基本方銈 */}
-      <section className="py-0 geometric-pattern" data-scroll-color="from-slate-900 to-indigo-900" ref={basicPolicyRef}>
+      {/* 基本方針 */}
+      <AnimatedSection animation="fadeUp" duration={800} as="section" className="py-0 geometric-pattern">
         <div className="w-full" ref={basicPolicyParallaxRef}>
           {/* セクション1: クラブ運営の目標 */}
           <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 py-16 px-4 shadow-lg premium-section overflow-hidden">
@@ -242,13 +246,13 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* セクション区切り線 */}
       <div className="section-divider-animated" />
 
       {/* サッカーの価値 - 強調セクション */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 dark:from-yellow-300 dark:via-yellow-200 dark:to-yellow-100 relative overflow-hidden geometric-pattern premium-section" data-scroll-color="from-blue-600 to-indigo-700" ref={soccerPowerRef}>
+      <AnimatedSection animation="fadeLeft" duration={900} as="section" className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 dark:from-yellow-300 dark:via-yellow-200 dark:to-yellow-100 relative overflow-hidden geometric-pattern premium-section">
         {/* 背景グラデーションオーバーレイ */}
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent pointer-events-none" />
         <div className="container relative z-10" ref={soccerPowerParallaxRef}>
@@ -303,13 +307,13 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* セクション区切り線 */}
       <div className="section-divider" />
 
       {/* チーム紹介 */}
-      <section className="py-20 bg-background geometric-pattern premium-section" data-scroll-color="bg-background" ref={teamInfoRef}>
+      <AnimatedSection animation="fadeUp" duration={800} delay={100} as="section" className="py-20 bg-background geometric-pattern premium-section">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 relative pb-4">
@@ -359,13 +363,13 @@ export default function Home() {
             </Card>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* セクション区切り線 */}
       <div className="section-divider-animated" />
 
       {/* 最新情報ダッシュボード */}
-      <section className="py-20 bg-gradient-to-b from-background to-slate-50/30 dark:to-slate-900/30 geometric-pattern premium-section" ref={latestInfoRef}>
+      <AnimatedSection animation="fadeUp" duration={800} as="section" className="py-20 bg-gradient-to-b from-background to-slate-50/30 dark:to-slate-900/30 geometric-pattern premium-section">
         <div className="container">
           <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-16 animate-fade-in-up relative pb-6 inline-block w-full">
             最新情報
@@ -373,7 +377,8 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-in-up">
             {/* 最新お知らせ */}
-            <Card ref={newsCardRef} className="border-0 shadow-lg" style={{ transformStyle: 'preserve-3d' }}>
+            <TiltCard maxTilt={6} scale={1.02}>
+            <Card className="border-0 shadow-lg h-full">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Newspaper className="h-5 w-5 text-blue-600" />
@@ -409,9 +414,11 @@ export default function Home() {
                 </Link>
               </CardContent>
             </Card>
+            </TiltCard>
 
             {/* 直近スケジュール */}
-            <Card ref={scheduleCardRef} className="border-0 shadow-lg" style={{ transformStyle: 'preserve-3d' }}>
+            <TiltCard maxTilt={6} scale={1.02}>
+            <Card className="border-0 shadow-lg h-full">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Calendar className="h-5 w-5 text-green-600" />
@@ -458,9 +465,11 @@ export default function Home() {
                 </Link>
               </CardContent>
             </Card>
+            </TiltCard>
 
             {/* 最近の試合結果 */}
-            <Card ref={resultsCardRef} className="border-0 shadow-lg" style={{ transformStyle: 'preserve-3d' }}>
+            <TiltCard maxTilt={6} scale={1.02}>
+            <Card className="border-0 shadow-lg h-full">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Trophy className="h-5 w-5 text-orange-600" />
@@ -509,15 +518,16 @@ export default function Home() {
                 </Link>
               </CardContent>
             </Card>
+            </TiltCard>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* セクション区切り線 */}
       <div className="section-divider-animated" />
 
       {/* 団員募集 - 改良版 */}
-      <section className="py-20 bg-gradient-to-r from-amber-400 via-orange-400 to-red-400" ref={recruitmentRef}>
+      <AnimatedSection animation="scaleUp" duration={800} as="section" className="py-20 bg-gradient-to-r from-amber-400 via-orange-400 to-red-400">
         <div className="container" ref={recruitmentParallaxRef}>
           <div className="max-w-4xl mx-auto animate-fade-in-up">
             <div className="text-center mb-12">
@@ -593,13 +603,13 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* セクション区切り線 */}
       <div className="section-divider" />
 
       {/* 練習試合募集セクション */}
-      <section className="py-16 bg-gradient-to-br from-green-600 to-emerald-700 dark:from-green-800 dark:to-emerald-900 premium-section">
+      <AnimatedSection animation="fadeRight" duration={800} as="section" className="py-16 bg-gradient-to-br from-green-600 to-emerald-700 dark:from-green-800 dark:to-emerald-900 premium-section">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
             <Swords className="h-12 w-12 text-white mx-auto mb-4" />
@@ -620,24 +630,24 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* セクション区切り線 */}
       <div className="section-divider" />
 
       {/* アクセス・地図 */}
-      <section className="py-16 bg-muted/30 animate-fade-in-up" ref={accessRef}>
+      <AnimatedSection animation="fadeUp" duration={700} as="section" className="py-16 bg-muted/30">
         <div className="container">
           <AccessMap />
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Instagramフィード */}
-      <section className="py-16 bg-background animate-fade-in-up" ref={instagramRef}>
+      <AnimatedSection animation="fadeUp" duration={700} delay={100} as="section" className="py-16 bg-background">
         <div className="container">
           <InstagramFeed />
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* SEO用テキストコンテンツ */}
       <section className="container py-16">
